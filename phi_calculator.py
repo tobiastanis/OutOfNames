@@ -14,7 +14,7 @@ spice_interface.load_standard_kernels()
 def phi_higherfidelity_eml2(t, dt, X):
     simulation_start_epoch = t
     fixed_time_step = dt
-    simulation_end_epoch = t + fixed_time_step
+    simulation_end_epoch = t + 6*fixed_time_step
     #simulation_end_epoch = t + fixed_time_step
     initial_states = np.transpose(X[0:6])[0]
 
@@ -88,8 +88,7 @@ def phi_higherfidelity_eml2(t, dt, X):
 
     variational_equations_solver = numerical_simulation.SingleArcVariationalSimulator(
         body_system, integrator_settings, propagation_settings,
-        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1,
-        set_integrated_result=False
+        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1
     )
 
     state_transition_matrices_eml2 = variational_equations_solver.state_transition_matrix_history[t+fixed_time_step]
