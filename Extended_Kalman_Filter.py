@@ -31,7 +31,7 @@ Y_nominal = Measurement_Model.observations_array
 P0 = 10*np.diag((estimated_initial_errors))
 
 # State Compensation Matrix
-Qc = np.eye(6)*[0.01, 1, 0.001 , 1, 1, 2]*5e-13
+Qc = np.eye(6)*[0.01, 0.0005, 0.0001 , 1, 1, 2]*5e-13
 RR1 = np.concatenate((dt**2/2*np.eye(3), np.zeros((3,3))), axis=1)
 RR2 = np.concatenate((dt*np.eye(3), np.zeros((3,3))), axis=1)
 RR3 = np.concatenate((np.zeros((3,3)), dt**2/2*np.eye(3)), axis=1)

@@ -12,7 +12,7 @@ for i in range(len(states)):
     intersatellite_distance.append(Y)
 intersatellite_distance = np.array(intersatellite_distance)
 
-sigma = 50
+sigma = 25
 sigma_noise = np.random.normal(0, sigma, len(intersatellite_distance))
 #Defining the observation array
 observations_array = np.add(intersatellite_distance, sigma_noise)
