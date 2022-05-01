@@ -16,7 +16,7 @@ import csv
 print('Running Extended Kalman Filter')
 # Initializing time
 dt = Nominal_Simulation.fixed_time_step
-estimated_initial_errors = np.array([500, 500, 500, 3e-3, 3e-3, 3e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
+estimated_initial_errors = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
 ephemeris_time = Nominal_Simulation.simulation_span_ephemeris
 
 # States of the satellites
@@ -31,7 +31,7 @@ Y_nominal = Measurement_Model.observations_array
 P0 = 10*np.diag((estimated_initial_errors))
 
 # State Compensation Matrix
-Qc = np.eye(6)*[0.0001, 0.0005, 0.001 , 0.5, 0.5, 3]*5e-13
+Qc = np.eye(6)*[0.01, 0.05, 0.001 , 0.5, 0.5, 3]*5e-13
 RR1 = np.concatenate((dt**2/2*np.eye(3), np.zeros((3,3))), axis=1)
 RR2 = np.concatenate((dt*np.eye(3), np.zeros((3,3))), axis=1)
 RR3 = np.concatenate((np.zeros((3,3)), dt**2/2*np.eye(3)), axis=1)
@@ -137,7 +137,7 @@ plt.legend()
 plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated velocity error [m]')
+plt.ylabel('Estimated velocity error [m/s]')
 plt.title('EML2 velocity error')
 
 plt.figure()
@@ -171,7 +171,7 @@ plt.legend()
 plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated velocity error [m]')
+plt.ylabel('Estimated velocity error [m/s]')
 plt.title('ELO velocity error')
 print('Extended Kalman Filter Finished')
 
