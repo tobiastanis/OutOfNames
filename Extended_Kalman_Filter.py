@@ -16,7 +16,7 @@ import csv
 print('Running Extended Kalman Filter')
 # Initializing time
 dt = Nominal_Simulation.fixed_time_step
-estimated_initial_errors = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
+estimated_initial_errors = np.array([500, 500, 500, 3e-3, 3e-3, 3e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
 ephemeris_time = Nominal_Simulation.simulation_span_ephemeris
 
 # States of the satellites
@@ -31,7 +31,7 @@ Y_nominal = Measurement_Model.observations_array
 P0 = 10*np.diag((estimated_initial_errors))
 
 # State Compensation Matrix
-Qc = np.eye(6)*[0.01, 0.0000005, 0.0001 , 0.5, 0.5, 3]*5e-13
+Qc = np.eye(6)*[0.0001, 0.0005, 0.001 , 0.5, 0.5, 3]*5e-13
 RR1 = np.concatenate((dt**2/2*np.eye(3), np.zeros((3,3))), axis=1)
 RR2 = np.concatenate((dt*np.eye(3), np.zeros((3,3))), axis=1)
 RR3 = np.concatenate((np.zeros((3,3)), dt**2/2*np.eye(3)), axis=1)
@@ -50,9 +50,9 @@ Xhat_k = X0
 I = np.eye(12, dtype=int)
 
 # Creating the savings
-X_ekf = []; y_ekf = []; P_ekf = []; std_Pk_ekf = []
+X_ekf = []; y_ekf = []; std_Pk_ekf = []
 # Adding the initial values
-X_ekf.append(np.transpose(Xhat_k)[0]); P_ekf.append(Pk); std_Pk_ekf.append(std_Pk)
+X_ekf.append(np.transpose(Xhat_k)[0]); std_Pk_ekf.append(std_Pk)
 for i in range(len(ephemeris_time)-1):
     count = i
     print(count)
@@ -86,7 +86,6 @@ for i in range(len(ephemeris_time)-1):
     # Savings
     X_ekf.append(np.transpose(Xhat_k)[0])
     y_ekf.append(y)
-    P_ekf.append(Pk)
     std_Pk = np.sqrt(np.diag(Pk))
     std_Pk_ekf.append(std_Pk)
 
@@ -118,6 +117,7 @@ plt.plot(t, std_Pk_down[:, 1], color='cyan', linestyle='--')
 plt.plot(t, std_Pk_up[:, 2], color='yellow', linestyle='--', label='3$\sigma_{z}$')
 plt.plot(t, std_Pk_down[:, 2], color='yellow', linestyle='--')
 plt.legend()
+plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated position error [m]')
@@ -134,6 +134,7 @@ plt.plot(t, std_Pk_down[:, 4], color='cyan', linestyle='--')
 plt.plot(t, std_Pk_up[:, 5], color='yellow', linestyle='--', label='3$\sigma_{\dot{z}}$')
 plt.plot(t, std_Pk_down[:, 5], color='yellow', linestyle='--')
 plt.legend()
+plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m]')
@@ -150,6 +151,7 @@ plt.plot(t, std_Pk_down[:, 7], color='cyan', linestyle='--')
 plt.plot(t, std_Pk_up[:, 8], color='yellow', linestyle='--', label='3$\sigma_{z}$')
 plt.plot(t, std_Pk_down[:, 8], color='yellow', linestyle='--')
 plt.legend()
+plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated position error [m]')
@@ -166,11 +168,18 @@ plt.plot(t, std_Pk_down[:, 10], color='cyan', linestyle='--')
 plt.plot(t, std_Pk_up[:, 11], color='yellow', linestyle='--', label='3$\sigma_{\dot{z}}$')
 plt.plot(t, std_Pk_down[:, 11], color='yellow', linestyle='--')
 plt.legend()
+plt.xlim(0, 6)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m]')
 plt.title('ELO velocity error')
 print('Extended Kalman Filter Finished')
+
+print(np.transpose([x_error[6000:6010, 1]]))
+print(std_Pk_up[6000:6010, 1])
 plt.show()
+
+
+
 
 #array_to_save = np.concatenate((np.concatenate((np.concatenate((np.transpose([ephemeris_time]), true_states), axis=1), X_ekf), axis=1), std_Pk_ekf), axis=1)
