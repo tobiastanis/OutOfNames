@@ -69,7 +69,7 @@ def phi_higherfidelity_eml2(t, dt, X):
     acceleration_models = propagation_setup.create_acceleration_models(
         body_system, acceleration_settings, bodies_to_propagate, central_bodies)
 
-    termination_condition = propagation_setup.propagator.time_termination(simulation_end_epoch)
+    termination_condition = propagation_setup.propagator.time_termination(t+fixed_time_step)
     propagation_settings = propagation_setup.propagator.translational(
         central_bodies,
         acceleration_models,
@@ -88,7 +88,7 @@ def phi_higherfidelity_eml2(t, dt, X):
 
     variational_equations_solver = numerical_simulation.SingleArcVariationalSimulator(
         body_system, integrator_settings, propagation_settings,
-        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1
+        estimation_setup.create_parameter_set(parameter_settings, body_system), integrate_on_creation=1
     )
 
     state_transition_matrices_eml2 = variational_equations_solver.state_transition_matrix_history[t+fixed_time_step]
@@ -172,7 +172,7 @@ def phi_higherfidelity_elo(t, dt, X):
 
     variational_equations_solver = numerical_simulation.SingleArcVariationalSimulator(
         body_system, integrator_settings, propagation_settings,
-        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1
+        estimation_setup.create_parameter_set(parameter_settings, body_system), integrate_on_creation=1
     )
 
     state_transition_matrices_elo = variational_equations_solver.state_transition_matrix_history[t+fixed_time_step]
@@ -253,7 +253,7 @@ def phi_highfidelity_eml2(t, dt, X):
 
     variational_equations_solver = numerical_simulation.SingleArcVariationalSimulator(
         body_system, integrator_settings, propagation_settings,
-        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1
+        estimation_setup.create_parameter_set(parameter_settings, body_system), integrate_on_creation=1
     )
 
     state_transition_matrices_eml2 = variational_equations_solver.state_transition_matrix_history[t+fixed_time_step]
@@ -330,7 +330,7 @@ def phi_highfidelity_elo(t, dt, X):
 
     variational_equations_solver = numerical_simulation.SingleArcVariationalSimulator(
         body_system, integrator_settings, propagation_settings,
-        estimation_setup.create_parameters_to_estimate(parameter_settings, body_system), integrate_on_creation=1
+        estimation_setup.create_parameter_set(parameter_settings, body_system), integrate_on_creation=1
     )
 
     state_transition_matrices_elo = variational_equations_solver.state_transition_matrix_history[t+fixed_time_step]

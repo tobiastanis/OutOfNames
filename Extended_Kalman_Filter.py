@@ -68,7 +68,6 @@ for i in range(len(ephemeris_time)-1):
     Y_ref = functions_ekf.Y(Xstar_k)
     # Integrating Phi
     Phi_EML2 = phi_calculator.phi_higherfidelity_eml2(ET_k_1, dt, Xstar_k_1)
-
     Phi_ELO = phi_calculator.phi_higherfidelity_elo(ET_k_1, dt, Xstar_k_1)
     Phi = functions_ekf.Phi(Phi_EML2, Phi_ELO)
     # Updating P_k1_k1 to P_flat_k
