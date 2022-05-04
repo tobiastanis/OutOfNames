@@ -8,6 +8,7 @@ stationkeeping is performed from then to a certain amount of days
 See below for function description (from line 46)
 """
 import numpy as np
+from pathlib import Path
 import pandas as pd
 import csv
 #tudatpy
@@ -16,8 +17,8 @@ from tudatpy.kernel.interface import spice_interface
 spice_interface.load_standard_kernels()
 print("Running [states_obtainer.py]")
 # Opening csv datasets
-LUMIO_datacsv = open('LUMIO_states.csv')
-Moon_datacsv = open('Moon_states.csv')
+LUMIO_datacsv = open(Path.joinpath(Path(__file__).parent, 'Milano_Data\\LUMIO_states.csv'))
+Moon_datacsv = open(Path.joinpath(Path(__file__).parent, 'Milano_Data\\Moon_states.csv'))
 # Reading
 csvreader_LUMIO = csv.reader(LUMIO_datacsv)
 csvreader_Moon = csv.reader(Moon_datacsv)
