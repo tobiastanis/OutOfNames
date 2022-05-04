@@ -1,0 +1,27 @@
+basemap @ file:///D:/bld/basemap_1637007602558/work
+certifi==2021.10.8
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+fonttools @ file:///D:/bld/fonttools_1651018206941/work
+kiwisolver @ file:///D:/bld/kiwisolver_1648854553193/work
+matplotlib @ file:///C:/ci/matplotlib-suite_1647423638658/work
+munkres==1.1.4
+numpy @ file:///D:/bld/numpy_1651020773031/work
+packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+pandas @ file:///D:/bld/pandas_1649588095250/work
+Pillow @ file:///D:/bld/pillow_1649818211002/work
+pybind11 @ file:///D:/bld/pybind11-split_1648909175557/work
+pybind11-global @ file:///D:/bld/pybind11-split_1648909175557/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1649603503565/work
+pyproj @ file:///D:/bld/pyproj_1650803294603/work
+PyQt5==5.12.3
+PyQt5_sip==4.19.18
+PyQtChart==5.12
+PyQtWebEngine==5.12.1
+pyshp @ file:///home/conda/feedstock_root/build_artifacts/pyshp_1651509119669/work
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1647961439546/work
+scipy @ file:///C:/bld/scipy_1644357595180/work
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+tabulate==0.8.9
+tornado @ file:///D:/bld/tornado_1648827405403/work
+unicodedata2 @ file:///D:/bld/unicodedata2_1649112114189/work

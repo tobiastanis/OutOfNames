@@ -19,6 +19,7 @@ print("Running [states_obtainer.py]")
 # Opening csv datasets
 LUMIO_datacsv = open(Path.joinpath(Path(__file__).parent, 'Milano_Data\\LUMIO_states.csv'))
 Moon_datacsv = open(Path.joinpath(Path(__file__).parent, 'Milano_Data\\Moon_states.csv'))
+
 # Reading
 csvreader_LUMIO = csv.reader(LUMIO_datacsv)
 csvreader_Moon = csv.reader(Moon_datacsv)
