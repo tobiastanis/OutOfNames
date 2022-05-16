@@ -5,11 +5,18 @@ the position of the Moon at an epoch plus the initial Moon centered
 #Importing
 # General
 import numpy as np
+# Own libraries
+from Milano_Data.Milano_Data_Reader import Moon_dataframe
+from Milano_Data.Milano_Data_Reader import LUMIO_dataframe
 #tudatpy
 from tudatpy.kernel.astro import element_conversion
 from tudatpy.kernel.interface import spice_interface
 spice_interface.load_standard_kernels()
+
 # ELO Moon centered
+"""
+The Moon-centered initial states of ELO can be adjusted to propagate different kinds of orbits, e.g., polar orbits
+"""
 # ESA's pathfinder like
 initial_states_ELO_Moon = element_conversion.keplerian_to_cartesian_elementwise(
     gravitational_parameter=spice_interface.get_body_gravitational_parameter("Moon"),
@@ -20,3 +27,40 @@ initial_states_ELO_Moon = element_conversion.keplerian_to_cartesian_elementwise(
     longitude_of_ascending_node=np.rad2deg(61.552),
     true_anomaly=np.deg2rad(0)
 )
+
+#Simulation time in Ephemeris Time for real time propagation
+def simulation_start_epoch(t0):
+    data = np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] == t0)])[0]
+    return np.asscalar(data[1])
+
+#Initial states for the Earth-Moon L2 Orbiter
+def initial_states_eml2(t0):
+    data = np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] == t0)])[0]
+    return data[2: 8]*10**3
+
+#Initial states for the Elliptic Lunar Orbiter
+def initial_states_elo(t0):
+    ephemeris_start_epoch = (np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] == t0)])[0])[1]
+    moon_initial_states = spice_interface.get_body_cartesian_state_at_epoch("Moon", "Earth", "J2000", "NONE", ephemeris_start_epoch)
+    data = np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] == t0)])[0]
+    moon_milano_data_initial = data[2: 8]*10**3
+    test = np.testing.assert_array_almost_equal(moon_initial_states, moon_milano_data_initial, decimal=1)
+    print(test)
+    return np.add(initial_states_ELO_Moon, moon_initial_states)
+
+test = initial_states_elo(60390)
+#Initial states for the Earth-Moon L2 Orbiter
+def initial_states_moon(t0):
+    data = np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] == t0)])[0]
+    return data[2: 8]*10**3
+
+
+"""
+Some extra functions which might be handy
+"""
+def states_moon(t0, tend):
+    return np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] >= t0) & (Moon_dataframe['MJD'] <= tend)])[:, 2: 8]*10**3
+
+def states_eml2(t0,tend):
+    return np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] >= t0) & (LUMIO_dataframe['MJD'] <= tend)])[:, 2: 8]*10**3
+
