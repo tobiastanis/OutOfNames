@@ -44,16 +44,8 @@ def initial_states_elo(t0):
     moon_initial_states = spice_interface.get_body_cartesian_state_at_epoch("Moon", "Earth", "J2000", "NONE", ephemeris_start_epoch)
     data = np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] == t0)])[0]
     moon_milano_data_initial = data[2: 8]*10**3
-    test = np.testing.assert_array_almost_equal(moon_initial_states, moon_milano_data_initial, decimal=1)
-    print(test)
+    test = np.testing.assert_array_almost_equal(moon_initial_states, moon_milano_data_initial, decimal=0)
     return np.add(initial_states_ELO_Moon, moon_initial_states)
-
-test = initial_states_elo(60390)
-#Initial states for the Earth-Moon L2 Orbiter
-def initial_states_moon(t0):
-    data = np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] == t0)])[0]
-    return data[2: 8]*10**3
-
 
 """
 Some extra functions which might be handy
