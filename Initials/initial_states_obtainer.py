@@ -42,9 +42,6 @@ def initial_states_eml2(t0):
 def initial_states_elo(t0):
     ephemeris_start_epoch = (np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] == t0)])[0])[1]
     moon_initial_states = spice_interface.get_body_cartesian_state_at_epoch("Moon", "Earth", "J2000", "NONE", ephemeris_start_epoch)
-    data = np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] == t0)])[0]
-    moon_milano_data_initial = data[2: 8]*10**3
-    test = np.testing.assert_array_almost_equal(moon_initial_states, moon_milano_data_initial, decimal=0)
     return np.add(initial_states_ELO_Moon, moon_initial_states)
 
 """
