@@ -9,6 +9,7 @@ from Satellites_list.ELO import ELO
 from Nominal_Dynamic_Model import NOMINAL_dynamic_model_function
 #general libraries
 import numpy as np
+from pathlib import Path
 import csv
 #tudatpy libraries
 
@@ -23,5 +24,8 @@ initial_states = np.vstack([EML2O_initial.reshape(-1,1), ELO_initial.reshape(-1,
     X=initial_states
 )
 
-#print(states)
+w = open('Saved_Data\\test.csv', 'w')
+for key, val in states.items():
+    w.writelines([key, val])
+
 #print(output)

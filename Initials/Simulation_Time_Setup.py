@@ -14,7 +14,7 @@ from tudatpy.kernel import constants
 #########################################ADJUSTABLES####################################################################
 t0_mjd = 60390.00                                           #Modified Julian Date
 simulation_duration = 10                                    #Days
-fixed_time_step = 1                                         #Fixed Time Step [s]
+fixed_time_step = 10*constants.JULIAN_DAY                                         #Fixed Time Step [s]
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided
