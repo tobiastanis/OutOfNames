@@ -3,7 +3,6 @@ This script contains the initialinzing of the full model. Thi sis based on MJD t
 """
 #Own libraries
 from Initials import initial_states_obtainer
-#import initial_states_obtainer
 #General libraries
 import numpy as np
 import math
@@ -13,7 +12,7 @@ from tudatpy.kernel import constants
 # Simulation Settings
 #########################################ADJUSTABLES####################################################################
 t0_mjd = 60390.00                                           #Modified Julian Date
-simulation_duration = 1                                    #Days
+simulation_duration = 10                                    #Days
 fixed_time_step = 1                                         #Fixed Time Step [s]
 ########################################################################################################################
 """

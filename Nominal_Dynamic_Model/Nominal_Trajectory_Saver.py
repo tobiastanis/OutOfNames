@@ -11,7 +11,7 @@ import pandas as pd
 #Own
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import states_dict
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import output_dict
-
+print("start json writing")
 #nparray items to list item
 states_dict = {key: value.tolist() for key,value in states_dict.items()}
 output_dict = {key: value.tolist() for key,value in output_dict.items()}
@@ -42,4 +42,6 @@ def write_json(dictionary, file_path):
 
 write_json(states_dict, file_path_states)
 write_json(output_dict, file_path_output)
+
+print("Files written")
 
