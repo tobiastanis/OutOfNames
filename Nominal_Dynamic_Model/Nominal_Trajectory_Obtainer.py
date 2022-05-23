@@ -17,15 +17,15 @@ import csv
 EML2O_initial = EML2O.initial_states; ELO_initial = ELO.initial_states
 initial_states = np.vstack([EML2O_initial.reshape(-1,1), ELO_initial.reshape(-1,1)])
 
-[states, output] = NOMINAL_dynamic_model_function.NOMINAL_dynamic_model(
+print("Starting: NOMINAL_dynamic_model_function.py")
+[states_dict, output_dict] = NOMINAL_dynamic_model_function.NOMINAL_dynamic_model(
     t0=Simulation_Time_Setup.simulation_start_epoch,
     dt=Simulation_Time_Setup.fixed_time_step,
     tend=Simulation_Time_Setup.simulation_end_epoch,
     X=initial_states
 )
+print("Finished: NOMINAL_dynamic_model_function.py")
 
-w = open('Saved_Data\\test.csv', 'w')
-for key, val in states.items():
-    w.writelines([key, val])
+states = np.vstack(list(states_dict.values()))
+output = np.vstack(list(output_dict.values()))
 
-#print(output)
