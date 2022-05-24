@@ -3,12 +3,16 @@ Some unit tests
 """
 #general
 import unittest
-#own libraries
 import numpy as np
 
+#own libraries
 from Initials import initial_states_obtainer
 from Saved_Data import Data_Loader
+from Measurement_Model import measurement_functions
+Name = "EML2_ELO_60390_10days"
 
+states = Data_Loader.json_states_reader(Name)
+output = Data_Loader.json_output_reader(Name)
 
 class TestCalc(unittest.TestCase):
 
@@ -26,13 +30,12 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(result[4], -0.7664085138876902 * 10 ** 3)
         self.assertEqual(result[5], -0.5251732804449779 * 10 ** 3)
     def test_states_loader(self):
-        result = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
-        self.assertEqual(result[0,0], -310537.9975687619880773 * 10 ** 3)
-        self.assertEqual(result[0,1], 249423.1565183288475964 * 10 ** 3)
-        self.assertEqual(result[0,2], 174937.7572135815862566 * 10 ** 3)
-        self.assertEqual(result[0,3], -0.9931718419758050 * 10 ** 3)
-        self.assertEqual(result[0,4], -0.7664085138876902 * 10 ** 3)
-        self.assertEqual(result[0,5], -0.5251732804449779 * 10 ** 3)
+        self.assertEqual(states[0,0], -310537.9975687619880773 * 10 ** 3)
+        self.assertEqual(states[0,1], 249423.1565183288475964 * 10 ** 3)
+        self.assertEqual(states[0,2], 174937.7572135815862566 * 10 ** 3)
+        self.assertEqual(states[0,3], -0.9931718419758050 * 10 ** 3)
+        self.assertEqual(states[0,4], -0.7664085138876902 * 10 ** 3)
+        self.assertEqual(states[0,5], -0.5251732804449779 * 10 ** 3)
     def test_moon(self):
         """Database Moon states and the ephemeris Moon states lie within 1 m position accuracy and 1 mm/s velocity
         accuracy if this condition is met"""
@@ -56,5 +59,9 @@ class TestCalc(unittest.TestCase):
         self.assertAlmostEqual(result_data2[3], result_tudat2[3], 3, "vx-direction is way too off")
         self.assertAlmostEqual(result_data2[4], result_tudat2[4], 3, "vy-direction is way too off")
         self.assertAlmostEqual(result_data2[5], result_tudat2[5], 3, "vz-direction is way too off")
+    def test_intersatellitedistance(self):
+        dist_func = measurement_functions.intersatellite_distance(states[1000, :])
+        dist_tudat = np.linalg.norm(output[1000, 34:37], axis=0)
+        self.assertEqual(dist_func, dist_tudat)
 if __name__ == '__main__':
     unittest.main()

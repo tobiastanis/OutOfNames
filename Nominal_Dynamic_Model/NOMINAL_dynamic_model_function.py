@@ -204,3 +204,5 @@ def NOMINAL_dynamic_model(t0, dt, tend, X):
     output_dict = dynamic_simulator.dependent_variable_history
 
     return [states_dict, output_dict]
+
+

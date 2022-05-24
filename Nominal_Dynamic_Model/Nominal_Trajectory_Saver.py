@@ -20,6 +20,7 @@ dir_name = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60390_10days"
 ########################################################################################################################
 file_name1 = "states.json"
 file_name2 = "output.json"
+file_name3 = "states_for_measurement"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent

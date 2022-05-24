@@ -10,7 +10,7 @@ from Saved_Data import Data_Loader
 #Loading Nominal Trajectory
 nominal_states = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
 
-add_noise = 0
+add_noise = 1
 add_bias = 0
 
 if add_noise == 1:

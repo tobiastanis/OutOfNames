@@ -4,7 +4,7 @@ Extended Kalman Filter, at this stage only ranging is taken into account
 """
 #own libraries
 import Nominal_Simulation
-import Measurement_Model
+import Measurement_Model_script
 #function_files
 import nominal_simulators
 import phi_calculator
@@ -25,7 +25,7 @@ true_initial_states = Nominal_Simulation.states[0, :]
 X0 = np.transpose([np.add(true_initial_states,estimated_initial_errors)])
 
 # Nominal Measurements
-Y_nominal = Measurement_Model.observations_array
+Y_nominal = Measurement_Model_script.observations_array
 
 # Initial covariance matrix
 P0 = 10*np.diag((estimated_initial_errors))
@@ -41,7 +41,7 @@ RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR2), axis=0), RR3), a
 Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
 
 # Weighting the observations
-R = Measurement_Model.sigma**2
+R = Measurement_Model_script.sigma**2
 
 # Initializing
 Pk = P0

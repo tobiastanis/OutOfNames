@@ -40,5 +40,3 @@ measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_en
 
 
 
-
-
