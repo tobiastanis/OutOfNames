@@ -16,7 +16,7 @@ states_dict = {key: value.tolist() for key,value in states_dict.items()}
 output_dict = {key: value.tolist() for key,value in output_dict.items()}
 
 #####################################Change the last directory everytime ###############################################
-dir_name = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60390_10days"
+dir_name = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60418_10days"
 ########################################################################################################################
 file_name1 = "states.json"
 file_name2 = "output.json"

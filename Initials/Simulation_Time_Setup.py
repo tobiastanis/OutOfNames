@@ -11,7 +11,7 @@ from tudatpy.kernel import constants
 
 # Simulation Settings
 #########################################ADJUSTABLES####################################################################
-t0_mjd = 60390.00                                           #Modified Julian Date
+t0_mjd = 60418.00                                           #Modified Julian Date
 simulation_duration = 10                                    #Days
 fixed_time_step = 1                                         #Fixed Time Step [s]
 ########################################################################################################################
