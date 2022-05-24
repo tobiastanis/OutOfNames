@@ -18,12 +18,26 @@ fixed_time_step = 1                                         #Fixed Time Step [s]
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided
 """
-# These values are used for the Nominal Trajectory Obtainer
+"""
+These values are used for the Nominal Trajectory Obtainer, which provides the trajectory of both satellites in 
+"""
 simulation_start_epoch = initial_states_obtainer.simulation_start_epoch(t0_mjd)
 simulation_end_epoch = simulation_start_epoch + simulation_duration*constants.JULIAN_DAY
 n_steps_nomdym = math.floor((simulation_end_epoch-simulation_start_epoch)/fixed_time_step)+1
 simulation_span = np.linspace(0, simulation_duration, n_steps_nomdym)
 simulation_span_ephemeris = np.linspace(simulation_start_epoch, simulation_end_epoch, n_steps_nomdym)
+
+"""
+The following values are used for the measurements. Measurements cannot take place every 1 second, so another 
+measurement interval is used, e.g., 5 min or more. Measurement interval will be provided in whole seconds.
+"""
+measurement_interval = 60
+measurement_time_step = measurement_interval*fixed_time_step
+measurement_start_epoch = simulation_start_epoch
+measurement_end_epoch = simulation_end_epoch
+n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
+measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
+
 
 
 
