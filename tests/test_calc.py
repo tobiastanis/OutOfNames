@@ -6,18 +6,10 @@ import unittest
 #own libraries
 from Initials import initial_states_obtainer
 from Saved_Data import Data_Loader
-#Test test function
-def add(x, y):
-    """ Add function """
-    return x + y
+
 
 class TestCalc(unittest.TestCase):
 
-    def test_add(self):
-        self.assertEqual(add(10, 5), 15)
-        self.assertEqual(add(-1, 1), 0)
-        self.assertEqual(add(-1, -1), -2)
-    # per def, one test is run, but more statements give a more accurate test
     def test_t0(self):
         self.assertEqual(initial_states_obtainer.simulation_start_epoch(59091.50), 652060869.1826417446136475)
         self.assertEqual(initial_states_obtainer.simulation_start_epoch(59137.00), 655992069.1826417446136475)

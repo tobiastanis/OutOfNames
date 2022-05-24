@@ -31,7 +31,8 @@ initial_states_ELO_Moon = element_conversion.keplerian_to_cartesian_elementwise(
 #Simulation time in Ephemeris Time for real time propagation
 def simulation_start_epoch(t0):
     data = np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] == t0)])[0]
-    return np.asscalar(data[1])
+    return data[1].item()
+    #return np.asscalar(data[1])
 
 #Initial states for the Earth-Moon L2 Orbiter
 def initial_states_eml2(t0):
@@ -47,9 +48,16 @@ def initial_states_elo(t0):
 """
 Some extra functions which might be handy
 """
-def states_moon(t0, tend):
+def states_moon_data(t0, tend):
     return np.asarray(Moon_dataframe.loc[(Moon_dataframe['MJD'] >= t0) & (Moon_dataframe['MJD'] <= tend)])[:, 2: 8]*10**3
 
-def states_eml2(t0,tend):
+def states_eml2_data(t0,tend):
     return np.asarray(LUMIO_dataframe.loc[(LUMIO_dataframe['MJD'] >= t0) & (LUMIO_dataframe['MJD'] <= tend)])[:, 2: 8]*10**3
 
+def moon_ephemeris(ephemeris_span):
+    x_moon = []
+    for i in range(len(ephemeris_span)):
+        t_n = ephemeris_span[i]
+        state = spice_interface.get_body_cartesian_state_at_epoch("Moon", "Earth", "J2000", "NONE", t_n)
+        x_moon.append(state)
+    return np.array(x_moon)

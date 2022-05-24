@@ -19,6 +19,7 @@ Moon_datacsv = open(Path.joinpath(Path(__file__).parent, 'Moon_states.csv'))
 # Reading
 csvreader_LUMIO = csv.reader(LUMIO_datacsv)
 csvreader_Moon = csv.reader(Moon_datacsv)
+
 # Extruding
 header_LUMIO = next(csvreader_LUMIO)
 header_Moon = next(csvreader_Moon)
@@ -44,4 +45,7 @@ Moon_dataframe = pd.DataFrame(
 Output are two dataframes, which are used obtain initial states and states over an epoch, which are determined by Milano
 . The states provided by Milano contain SKM
 """
+# Closing csv files
+LUMIO_datacsv.close()
+Moon_datacsv.close()
 print('Finished reading data')

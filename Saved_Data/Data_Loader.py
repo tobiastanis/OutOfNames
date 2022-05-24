@@ -21,6 +21,7 @@ def json_states_reader(dirname):
     file_path = Path.joinpath(working_dir, file_name_states)
     with open(file_path) as json_file:
         states_dict = json.load(json_file)
+    print("nominal states loaded successfully")
     return np.vstack(list(states_dict.values()))
 
 def json_output_reader(dirname):
@@ -29,4 +30,5 @@ def json_output_reader(dirname):
     file_path = Path.joinpath(working_dir, file_name_output)
     with open(file_path) as json_file:
         output_dict = json.load(json_file)
+    print("nominal output loaded successfully")
     return np.vstack(list(output_dict.values()))

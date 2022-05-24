@@ -1,9 +1,14 @@
 """
 This is the Nominal Measurement Model.
 """
+#general
 import numpy as np
-
+#own
 from Initials import Simulation_Time_Setup
+from Saved_Data import Data_Loader
+
+#Loading Nominal Trajectory
+nominal_states = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
 
 add_noise = 0
 add_bias = 0

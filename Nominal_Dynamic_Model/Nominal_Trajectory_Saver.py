@@ -7,7 +7,6 @@ import os
 import csv
 from pathlib import Path
 import json
-import pandas as pd
 #Own
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import states_dict
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import output_dict
@@ -29,7 +28,7 @@ working_dir = Path.joinpath(parent_dir, dir_name)
 if not os.path.exists(working_dir):
     os.makedirs(working_dir)
 
-overwrite_path = 1
+overwrite_path = 0
 if os.path.exists(working_dir) and overwrite_path == 0:
     quit("Path already exists and overwrite is not allowed (turn overwrite_path=1 to overwrite data)")
 
