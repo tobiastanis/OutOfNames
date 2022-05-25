@@ -17,13 +17,11 @@ nominal_states = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
 #Obtaining the measurement array
 measurement_array = measurement_functions.measurement_array(nominal_states, Simulation_Time_Setup.measurement_interval)
 
-measurement_list = list(measurement_array)
-
 measurement_dict = {"dict": measurement_array}
 measurement_dict = {key: value.tolist() for key,value in measurement_dict.items()}
 ############################################CHECK DIRECTORY NAME WITH Nominal_Trajectory_Saver##########################
 dir_name = Simulation_Time_Setup.DIRECTORY_NAME
-file_name = "nominal_measurement_array.txt"
+file_name = "nominal_measurement_array.json"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
