@@ -28,3 +28,21 @@ nominal_rangerate_array = np.transpose([Nominal_Observations_Cooker.rangerate_ob
 
 Y_nominal = estimator_functions.observations(nominal_range_array, nominal_rangerate_array, switch)
 
+#Initial Covariance Matrix
+P0 = Simulation_Time_Setup.P0
+
+#Gamma [RR]
+RR1 = np.concatenate((dt**2/2*np.eye(3), np.zeros((3,3))), axis=1)
+RR2 = np.concatenate((dt*np.eye(3), np.zeros((3,3))), axis=1)
+RR3 = np.concatenate((np.zeros((3,3)), dt**2/2*np.eye(3)), axis=1)
+RR4 = np.concatenate((np.zeros((3,3)), dt*np.eye(3)), axis=1)
+RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR2), axis=0), RR3), axis=0), RR4), axis=0)
+Qc = Simulation_Time_Setup.Qc
+
+Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
+
+#R
+R_element = Simulation_Time_Setup.sigma_noise**2
+R = estimator_functions.R_function(R_element, switch)
+
+

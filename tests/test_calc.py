@@ -27,7 +27,7 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(initial_states_obtainer.simulation_start_epoch(59137.00), 655992069.1826417446136475)
         self.assertEqual(initial_states_obtainer.simulation_start_epoch(60390.00), 764251269.1826417446136475)
         self.assertEqual(initial_states_obtainer.simulation_start_epoch(60418.00), 766670469.1826417446136475)
-        
+
     def test_inieml2(self):
         result = initial_states_obtainer.initial_states_eml2(60390.00)
         self.assertEqual(result[0], -310537.9975687619880773 * 10 ** 3)
@@ -114,6 +114,7 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(Y_rangerate[12], Y_both[12,1])
         self.assertEqual(Y_both[30, 1], nominal_rangerate_observ[30])
         self.assertEqual(Y_range[24], nominal_range_observ[24])
+
 
 if __name__ == '__main__':
     unittest.main()

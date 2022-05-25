@@ -53,5 +53,7 @@ Estimation Model Setup
 SWITCH = 2 # 0: only range, 1: range and rangerate, 2: only rangerate
 
 estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
-
-
+#Initial Covariance Matrix
+P0 = 10*np.diag((estimated_initial_error))
+#State Compensation matrix Qc (tunable)
+Qc = np.eye(6)*[1, 1, 1, 1, 1, 1]*5e-19
