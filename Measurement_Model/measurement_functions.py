@@ -8,7 +8,6 @@ def measurement_array(states, timestep):
     from Initials import Simulation_Time_Setup
     array_to_fill = []
     for i in range(Simulation_Time_Setup.n_steps_measure):
-        print(i)
         row = states[i*timestep, :]
         array_to_fill.append(row)
     return np.array(array_to_fill)

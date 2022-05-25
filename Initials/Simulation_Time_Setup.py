@@ -16,6 +16,7 @@ simulation_duration = 10                                    #Days
 fixed_time_step = 1                                         #Fixed Time Step [s]
 
 DIRECTORY_NAME = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60418_10days"
+OVERWRITE = 0 # OFF = 1, ON = 1
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided
@@ -39,6 +40,11 @@ measurement_start_epoch = simulation_start_epoch
 measurement_end_epoch = simulation_end_epoch
 n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
+
+sigma_noise = 100
+bias = 0
+noise_dot = 0
+bias_dot = 0
 
 
 

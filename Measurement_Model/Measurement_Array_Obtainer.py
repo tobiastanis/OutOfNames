@@ -16,11 +16,15 @@ from Measurement_Model import measurement_functions
 nominal_states = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
 #Obtaining the measurement array
 measurement_array = measurement_functions.measurement_array(nominal_states, Simulation_Time_Setup.measurement_interval)
-bias = 0
-sigma_noise = 0
 
-range_obser = measurement_functions.range_observations(measurement_array, bias, sigma_noise)
-print(range_obser)
+bias = Simulation_Time_Setup.bias
+sigma_noise = Simulation_Time_Setup.sigma_noise
+bias_dot = Simulation_Time_Setup.bias_dot
+noise_dot = Simulation_Time_Setup.noise_dot
+
+range_observations = measurement_functions.range_observations(measurement_array, bias, sigma_noise)
+rangerate_observations = measurement_functions.rangerate_observations(measurement_array, bias_dot, noise_dot)
+
 
 """
 ############################################CHECK DIRECTORY NAME WITH Nominal_Trajectory_Saver##########################
