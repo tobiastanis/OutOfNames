@@ -34,13 +34,6 @@ def write_json(dictionary, file_path):
         dump = json.dump(dictionary, json_file)
 
 write_json(measurement_dict, file_path)
-quit()
-
-
-
-
-
-
 
 """
 bias = Simulation_Time_Setup.bias

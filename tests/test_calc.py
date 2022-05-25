@@ -37,6 +37,11 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(states[0,3], -0.9931718419758050 * 10 ** 3)
         self.assertEqual(states[0,4], -0.7664085138876902 * 10 ** 3)
         self.assertEqual(states[0,5], -0.5251732804449779 * 10 ** 3)
+    def test_measurementsarray_loader(self):
+        a = Data_Loader.json_measurementarray_reader(Name)
+        self.assertEqual(a[0, 1], states[0, 1])
+        self.assertEqual(a[1, 2], states[60, 2])
+        self.assertEqual(a[2, 3], states[120, 3])
     def test_moon(self):
         """Database Moon states and the ephemeris Moon states lie within 1 m position accuracy and 1 mm/s velocity
         accuracy if this condition is met"""

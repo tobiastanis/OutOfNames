@@ -8,6 +8,8 @@ from pathlib import Path
 "All file names are states of output, but the directory they are saved in differ"
 file_name_states = "states.json"
 file_name_output = "output.json"
+file_name_measurement_array = "nominal_measurement_array.json"
+
 nom_trajectory_data = "Saved_Data\\Nominal_Trajectory_Data"
 
 this_path = Path(__file__)
@@ -33,5 +35,14 @@ def json_output_reader(dirname):
     print("nominal output loaded successfully")
     return np.vstack(list(output_dict.values()))
 
-
+def json_measurementarray_reader(dirname):
+    dir_name = dirname
+    working_dir = Path.joinpath(nom_trajectory_dir, dir_name)
+    file_path = Path.joinpath(working_dir, file_name_measurement_array)
+    with open(file_path) as json_file:
+        measurement_dict = json.load(json_file)
+    print("nominal measurement array loaded successfully")
+    a = list(list(measurement_dict.items())[0])[1]
+    measurements = np.array(a)
+    return measurements
 
