@@ -14,6 +14,8 @@ from tudatpy.kernel import constants
 t0_mjd = 60418.00                                           #Modified Julian Date
 simulation_duration = 10                                    #Days
 fixed_time_step = 1                                         #Fixed Time Step [s]
+
+DIRECTORY_NAME = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60418_10days"
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided

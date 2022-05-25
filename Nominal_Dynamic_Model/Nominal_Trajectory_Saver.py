@@ -10,13 +10,14 @@ import json
 #Own
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import states_dict
 from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import output_dict
+from Initials.Simulation_Time_Setup import DIRECTORY_NAME
 print("start json writing")
 #nparray items to list item
 states_dict = {key: value.tolist() for key,value in states_dict.items()}
 output_dict = {key: value.tolist() for key,value in output_dict.items()}
 
-#####################################Change the last directory everytime ###############################################
-dir_name = "Saved_Data\\Nominal_Trajectory_Data\\EML2_ELO_60418_10days"
+#########################Check the last directory everytime to prevent unwanted overwriting#############################
+dir_name = DIRECTORY_NAME # In Initials in Simulation_Time_Setup
 ########################################################################################################################
 file_name1 = "states.json"
 file_name2 = "output.json"
@@ -26,12 +27,11 @@ this_path = Path(__file__)
 parent_dir = this_path.parent.parent
 
 working_dir = Path.joinpath(parent_dir, dir_name)
-if not os.path.exists(working_dir):
-    os.makedirs(working_dir)
-
 overwrite_path = 0
 if os.path.exists(working_dir) and overwrite_path == 0:
     quit("Path already exists and overwrite is not allowed (turn overwrite_path=1 to overwrite data)")
+if not os.path.exists(working_dir):
+    os.makedirs(working_dir)
 
 file_path_states = Path.joinpath(working_dir, file_name1)
 file_path_output = Path.joinpath(working_dir, file_name2)

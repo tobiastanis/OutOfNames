@@ -32,3 +32,4 @@ def json_output_reader(dirname):
         output_dict = json.load(json_file)
     print("nominal output loaded successfully")
     return np.vstack(list(output_dict.values()))
+
