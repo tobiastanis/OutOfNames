@@ -8,9 +8,9 @@ import numpy as np
 from Initials import Simulation_Time_Setup
 from Measurement_Model import measurement_functions
 from Saved_Data import Data_Loader
-
+# States per measurement interval
 states = Data_Loader.json_measurementarray_reader(Simulation_Time_Setup.DIRECTORY_NAME)
-print(len(states))
+
 bias = Simulation_Time_Setup.bias
 sigma_noise = Simulation_Time_Setup.sigma_noise
 bias_dot = Simulation_Time_Setup.bias_dot
