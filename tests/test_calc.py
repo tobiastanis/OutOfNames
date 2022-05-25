@@ -10,7 +10,7 @@ from Initials import initial_states_obtainer
 from Initials import Simulation_Time_Setup
 from Saved_Data import Data_Loader
 from Measurement_Model import measurement_functions
-Name = "EML2_ELO_60390_10days"
+Name = Simulation_Time_Setup.DIRECTORY_NAME
 
 states = Data_Loader.json_states_reader(Name)
 output = Data_Loader.json_output_reader(Name)

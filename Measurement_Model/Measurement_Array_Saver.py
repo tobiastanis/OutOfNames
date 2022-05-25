@@ -2,10 +2,8 @@
 This is the Nominal Measurement Model.
 """
 #general
-import numpy as np
 import json
 from pathlib import Path
-import os
 #own
 from Initials import Simulation_Time_Setup
 from Saved_Data import Data_Loader
@@ -21,7 +19,8 @@ measurement_dict = {"dict": measurement_array}
 measurement_dict = {key: value.tolist() for key,value in measurement_dict.items()}
 ############################################CHECK DIRECTORY NAME WITH Nominal_Trajectory_Saver##########################
 dir_name = Simulation_Time_Setup.DIRECTORY_NAME
-file_name = "nominal_measurement_array.json"
+############################################ALWAYS CHECK THIS NAME######################################################
+file_name = "nominal_measurements_60s.json" #60s indicates the measurement_interval
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
@@ -35,12 +34,3 @@ def write_json(dictionary, file_path):
 
 write_json(measurement_dict, file_path)
 
-"""
-bias = Simulation_Time_Setup.bias
-sigma_noise = Simulation_Time_Setup.sigma_noise
-bias_dot = Simulation_Time_Setup.bias_dot
-noise_dot = Simulation_Time_Setup.noise_dot
-
-range_observations = measurement_functions.range_observations(measurement_array, bias, sigma_noise)
-rangerate_observations = measurement_functions.rangerate_observations(measurement_array, bias_dot, noise_dot)
-"""
