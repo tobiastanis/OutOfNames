@@ -7,6 +7,7 @@ import numpy as np
 
 #own libraries
 from Initials import initial_states_obtainer
+from Initials import Simulation_Time_Setup
 from Saved_Data import Data_Loader
 from Measurement_Model import measurement_functions
 Name = "EML2_ELO_60390_10days"
@@ -63,5 +64,31 @@ class TestCalc(unittest.TestCase):
         dist_func = measurement_functions.intersatellite_distance(states[1000, :])
         dist_tudat = np.linalg.norm(output[1000, 34:37], axis=0)
         self.assertEqual(dist_func, dist_tudat)
+    def test_measurementarray(self):
+        a0 = states[0, :]
+        a1 = states[60, :]
+        a2 = states[120, :]
+        b = measurement_functions.measurement_array(states, Simulation_Time_Setup.measurement_interval)
+        self.assertEqual(b[0, 0], a0[0])
+        self.assertEqual(b[0, 3], a0[3])
+        self.assertEqual(b[0, 5], a0[5])
+        self.assertEqual(b[1, 1], a1[1])
+        self.assertEqual(b[1, 4], a1[4])
+        self.assertEqual(b[2, 1], a2[1])
+        self.assertEqual(b[2, 3], a2[3])
+        self.assertEqual(b[2, 5], a2[5])
+    def test_rangeobservations(self):
+        a = measurement_functions.intersatellite_distances(states)
+        b = measurement_functions.range_observations(states, 0, 0)
+        self.assertEqual(a[23], b[23])
+        self.assertEqual(a[1111], b[1111])
+    def test_rangerateobservations(self):
+        a = 108/np.sqrt(108)
+        X = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+        b = measurement_functions.rangerate_observation_row(X, 0, 0)
+        self.assertEqual(a, b)
+
+
+
 if __name__ == '__main__':
     unittest.main()

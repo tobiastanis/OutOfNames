@@ -16,6 +16,13 @@ def intersatellite_distance(X):
     x1 = X[0]; y1 = X[1]; z1 = X[2]; x2 = X[6]; y2 = X[7]; z2 = X[8]
     return ((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2) ** 0.5
 
+def intersatellite_distances(X):
+    array_to_fill = []
+    for i in range(len(X)):
+        row = intersatellite_distance(X[i, :])
+        array_to_fill.append(row)
+    return np.array(array_to_fill)
+
 def range_observation_row(X, bias, sigma_noise):
     x1 = X[0]; y1 = X[1]; z1 = X[2]; x2 = X[6]; y2 = X[7]; z2 = X[8]
     R = ((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2) ** 0.5

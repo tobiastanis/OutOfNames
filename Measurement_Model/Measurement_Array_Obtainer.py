@@ -17,19 +17,13 @@ nominal_states = Data_Loader.json_states_reader("EML2_ELO_60390_10days")
 #Obtaining the measurement array
 measurement_array = measurement_functions.measurement_array(nominal_states, Simulation_Time_Setup.measurement_interval)
 
-bias = Simulation_Time_Setup.bias
-sigma_noise = Simulation_Time_Setup.sigma_noise
-bias_dot = Simulation_Time_Setup.bias_dot
-noise_dot = Simulation_Time_Setup.noise_dot
+measurement_list = list(measurement_array)
 
-range_observations = measurement_functions.range_observations(measurement_array, bias, sigma_noise)
-rangerate_observations = measurement_functions.rangerate_observations(measurement_array, bias_dot, noise_dot)
-
-
-"""
+measurement_dict = {"dict": measurement_array}
+measurement_dict = {key: value.tolist() for key,value in measurement_dict.items()}
 ############################################CHECK DIRECTORY NAME WITH Nominal_Trajectory_Saver##########################
 dir_name = Simulation_Time_Setup.DIRECTORY_NAME
-file_name = "nominal_measurement_array.json"
+file_name = "nominal_measurement_array.txt"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
@@ -37,28 +31,25 @@ parent_dir = this_path.parent.parent
 working_dir = Path.joinpath(parent_dir, dir_name)
 file_path = Path.joinpath(working_dir, file_name)
 
-def write_json(data, file_path):
-    with open(file_path, 'w'):
-        dump = json.dumps(data)
+def write_json(dictionary, file_path):
+    with open(file_path, 'w') as json_file:
+        dump = json.dump(dictionary, json_file)
+
+write_json(measurement_dict, file_path)
+quit()
 
 
-write_json(measurement_array, file_path)
 
 
 
-add_noise = 1
-add_bias = 0
 
-if add_noise == 1:
-    noise = 20  # This value will differ
-else:
-    noise = 0
 
-if add_bias == 1:
-    bias = 20 # This value will differ
-else:
-    bias = 0
 """
+bias = Simulation_Time_Setup.bias
+sigma_noise = Simulation_Time_Setup.sigma_noise
+bias_dot = Simulation_Time_Setup.bias_dot
+noise_dot = Simulation_Time_Setup.noise_dot
 
-
-
+range_observations = measurement_functions.range_observations(measurement_array, bias, sigma_noise)
+rangerate_observations = measurement_functions.rangerate_observations(measurement_array, bias_dot, noise_dot)
+"""
