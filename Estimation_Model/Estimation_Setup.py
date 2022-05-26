@@ -47,3 +47,7 @@ R = estimator_functions.R_function(R_element, switch)
 
 print("Estimation Setup ready for use")
 
+# Initializing
+Pk = P0
+Xhat_k = X0
+std_Pk = np.sqrt(np.diag(Pk))

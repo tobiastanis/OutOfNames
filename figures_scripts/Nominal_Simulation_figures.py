@@ -9,7 +9,7 @@ from Initials import Simulation_Time_Setup
 from Initials.initial_states_obtainer import moon_ephemeris
 from Saved_Data import Data_Loader
 
-Simulation_Name = "EML2_ELO_60390_10days"
+Simulation_Name = Simulation_Time_Setup.DIRECTORY_NAME
 output = Data_Loader.json_output_reader(Simulation_Name)
 states = Data_Loader.json_states_reader(Simulation_Name)
 
@@ -112,6 +112,8 @@ plt.ylabel('Acceleration [m/$s^{2}$]')
 plt.legend(['SRP', 'PM Earth', 'SH Moon', 'PM Sun', 'PM Mercury', 'PM Venus',
             'PM Mars', 'PM Jupiter', 'PM Saturn', 'PM Uranus', 'PM Neptune']
            , loc='upper left', bbox_to_anchor=(1, 1))
+
+
 
 
 plt.show()
