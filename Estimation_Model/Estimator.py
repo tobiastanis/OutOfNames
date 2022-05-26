@@ -52,19 +52,27 @@ def ekf(X0, P0, R, Y, t_span):
         P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Estimation_Setup.Qdt)
         # Observation difference
         y = Yk - Y_ref
-        print(Yk, '\n', Y_ref)
-        quit()
+
         # H
-        H = estimator_functions.H(Xstar_k, SWITCH)
+        H = estimator_functions.H(np.transpose(Xstar_k)[0], SWITCH)
 
-        # Kalman gain
-        K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose(H)) + R) ** -1
+        if SWITCH == 1:
+            # Kalman Gain K
+            K_left = np.matmul(P_flat_k, np.transpose(H))
+            K_right = (np.matmul(np.matmul(H, P_flat_k), np.transpose(H)) + R) ** -1
+            K = np.matmul(K_left, K_right)
+            # Measurement update Covariance Matrix
+            Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (np.matmul(K,H))), P_flat_k)
+            #Measurement update X
+            Xhat_k = np.add(Xstar_k, np.matmul(K, y))
 
-        # Measurement update covariance matrix
-        Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
-
-        # State update X_hat_k
-        Xhat_k = np.add(Xstar_k, (K * y))
+        else:
+            # Kalman gain K
+            K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose([H])) + R) ** -1
+            # Measurement update Covariance Matrix
+            Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
+            # Measurement update X
+            Xhat_k = np.add(Xstar_k, (K * y))
 
         # Savings
         X_ekf.append(Xhat_k)
