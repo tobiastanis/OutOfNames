@@ -18,7 +18,14 @@ bias_dot = Simulation_Time_Setup.bias_dot
 def ekf(X0, P0, R, Y, t_span):
     "Initializing"
     Xhat_k = X0
+
     Pk = P0
+
+    #arrays to fill
+    X_ekf = []
+    std_Pk = []
+    X_ekf.append(Xhat_k)
+    std_Pk.append(np.sqrt(np.diag(Pk)))
 
     for i in range(len(t_span)):
         print(i) #Counter
@@ -26,21 +33,51 @@ def ekf(X0, P0, R, Y, t_span):
         #Initialiing X, P, Y
         Xstar_k_1 = Xhat_k  # States in previous timestep
         P_k_1 = Pk          # Covariance matrix in previous timestep
-        Yk = Y[i+1]         # Nominal observations in current timestep
+        if SWITCH == 1:
+            Yk = np.transpose([Y[:, i+1]])         # Nominal observations in current timestep
+        else:
+            Yk = Y[i+1]
 
         # Xstar_k_1 -------> Xstar_k (timestep integration)
         [Xstar_k, Phi] = integrators.dynamic_integrator1(t_k_1, dt, t_k_1+dt, Xstar_k_1)
 
         # Y_ref from Xstar_k
-        est_range_observ = measurement_functions.range_observations(Xstar_k, bias, sigma_noise)
-        est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, bias_dot, noise_dot)
+        est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
+        est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
 
+        # Y_ref = G(X,t)
         Y_ref = estimator_functions.observations(est_range_observ, est_rangerate_observ, SWITCH)
 
         # Time updating P_k_1 to P_flat_k
         P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Estimation_Setup.Qdt)
-
         # Observation difference
         y = Yk - Y_ref
-        
+        print(Yk, '\n', Y_ref)
+        quit()
+        # H
+        H = estimator_functions.H(Xstar_k, SWITCH)
+
+        # Kalman gain
+        K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose(H)) + R) ** -1
+
+        # Measurement update covariance matrix
+        Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
+
+        # State update X_hat_k
+        Xhat_k = np.add(Xstar_k, (K * y))
+
+        # Savings
+        X_ekf.append(Xhat_k)
+        std_Pk.append(np.sqrt(np.diag(Pk)))
+
+    return [X_ekf, std_Pk]
+
+[X, stdP] = ekf(Estimation_Setup.X0,
+                Estimation_Setup.P0,
+                Estimation_Setup.R,
+                Estimation_Setup.Y_nominal,
+                Estimation_Setup.ephemeris_span)
+
+
+
 
