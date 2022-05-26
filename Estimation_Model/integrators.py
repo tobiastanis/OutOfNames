@@ -151,10 +151,10 @@ def dynamic_integrator1(t0, dt, tend, X):
 
     return [X_tend, Phi]
 
-X = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-a = dynamic_integrator1(0, 1, 1, X)
+# Dummy values
+#X = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+#a = dynamic_integrator1(0, 1, 1, X)
 
-print(a)
 
 
 
