@@ -25,8 +25,7 @@ X0 = np.transpose([np.add(TRUE_initial_states, estimated_initial_error)])
 #Measurements Setup
 nominal_range_array = Nominal_Observations_Cooker.range_observations
 nominal_rangerate_array = Nominal_Observations_Cooker.rangerate_observations
-print(nominal_range_array[1])
-print(nominal_rangerate_array[1])
+
 Y_nominal = estimator_functions.observations(nominal_range_array, nominal_rangerate_array, switch)
 
 #Initial Covariance Matrix

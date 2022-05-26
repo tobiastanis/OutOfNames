@@ -16,7 +16,7 @@ noise_dot = Simulation_Time_Setup.noise_dot
 bias_dot = Simulation_Time_Setup.bias_dot
 
 def ekf(X0, P0, R, Y, t_span):
-    "Initializing"
+    #Initialzing
     Xhat_k = X0
 
     Pk = P0
@@ -79,6 +79,7 @@ def ekf(X0, P0, R, Y, t_span):
         std_Pk.append(np.sqrt(np.diag(Pk)))
 
     return [X_ekf, std_Pk]
+
 
 [X, stdP] = ekf(Estimation_Setup.X0,
                 Estimation_Setup.P0,
