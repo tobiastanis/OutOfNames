@@ -1,7 +1,9 @@
 """
 Extended Kalman Filter Function
 """
+import os
 import numpy as np
+from pathlib import Path
 from Initials.Simulation_Time_Setup import SWITCH
 from Initials import  Simulation_Time_Setup
 from Measurement_Model import measurement_functions
@@ -15,6 +17,17 @@ bias = Simulation_Time_Setup.bias
 noise_dot = Simulation_Time_Setup.noise_dot
 bias_dot = Simulation_Time_Setup.bias_dot
 
+"""
+dir_name = Simulation_Time_Setup.DIRECTORY_NAME
+parent_dir = Path(__file__).parent.parent
+working_dir = Path.joinpath(parent_dir, dir_name)
+overwrite_path = 0
+if os.path.exists(working_dir) and overwrite_path == Simulation_Time_Setup.OVERWRITE:
+    quit("Path already exists and overwrite is not allowed (turn overwrite_path=1 to overwrite data)")
+if not os.path.exists(working_dir):
+    os.makedirs(working_dir)
+quit()
+"""
 def ekf(X0, P0, R, Y, t_span):
     #Initialzing
     Xhat_k = X0

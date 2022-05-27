@@ -176,6 +176,7 @@ def NOMINAL_dynamic_model(t0, dt, tend, X):
             propagation_setup.acceleration.point_mass_gravity_type, "ELO", "Neptune"
         ),
         propagation_setup.dependent_variable.central_body_fixed_cartesian_position("EML2O", "Moon"),
+        propagation_setup.dependent_variable.central_body_fixed_cartesian_position("ELO", "Moon"),
         propagation_setup.dependent_variable.relative_velocity("EML2O", "ELO"),
         propagation_setup.dependent_variable.relative_position("EML2O", "ELO"),
     ]

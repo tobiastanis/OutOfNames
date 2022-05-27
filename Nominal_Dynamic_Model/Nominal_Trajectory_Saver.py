@@ -4,7 +4,6 @@ measurement model and estimation model.
 """
 #General
 import os
-import csv
 from pathlib import Path
 import json
 #Own
@@ -22,7 +21,6 @@ dir_name = DIRECTORY_NAME # In Initials in Simulation_Time_Setup
 ########################################################################################################################
 file_name1 = "states.json"
 file_name2 = "output.json"
-file_name3 = "states_for_measurement"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent

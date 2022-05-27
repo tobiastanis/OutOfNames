@@ -14,14 +14,15 @@ from tudatpy.kernel.numerical_simulation import propagation_setup
 from tudatpy.kernel.numerical_simulation import estimation_setup
 spice_interface.load_standard_kernels()
 
+
+
 #Satellites
 # SRP
 reference_area_radiation_eml2o = EML2O.reference_area
 radiation_pressure_coefficient_eml2o = EML2O.radiation_pressure_coefficient
-occulting_bodies_eml2o = EML2O.occulting_bodies
+#occulting_bodies_eml2o = EML2O.occulting_bodies
 radiation_pressure_settings_eml2o = environment_setup.radiation_pressure.cannonball(
-    "Sun", reference_area_radiation_eml2o, radiation_pressure_coefficient_eml2o, occulting_bodies_eml2o
-)
+    "Sun", reference_area_radiation_eml2o, radiation_pressure_coefficient_eml2o)
 reference_area_radiation_elo = ELO.reference_area
 radiation_pressure_coefficient_elo = ELO.radiation_pressure_coefficient
 occulting_bodies_elo = ELO.occulting_bodies
@@ -32,7 +33,7 @@ radiation_pressure_settings_elo = environment_setup.radiation_pressure.cannonbal
 
 
 def dynamic_integrator1(t0, dt, tend, X):
-    dt = 0.20*dt
+    dt = (1/3)*dt
     #Environment
     bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
     global_frame_origin = "Earth"
@@ -90,7 +91,6 @@ def dynamic_integrator1(t0, dt, tend, X):
 
         states_EML2O = variational_equations_solver.state_history
         Phi_EML2O = variational_equations_solver.state_transition_matrix_history
-
 
         return [states_EML2O[tend], Phi_EML2O[tend]]
     def Lun(X):
