@@ -33,7 +33,7 @@ radiation_pressure_settings_elo = environment_setup.radiation_pressure.cannonbal
 
 
 def dynamic_integrator1(t0, dt, tend, X):
-    dt = (1/3)*dt
+    dt = 1/3*dt
     #Environment
     bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
     global_frame_origin = "Earth"
