@@ -18,21 +18,31 @@ from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
 from tudatpy.kernel.numerical_simulation import estimation_setup
 
+eph_time = Estimation_Setup.ephemeris_span
+dt = Estimation_Setup.dt
 #Loading in environment and accelerations
 for_eml2 = EstimationClass(name=EML2O.name,
                            mass=EML2O.mass,
                            Aref=EML2O.reference_area,
                            Cr=EML2O.radiation_pressure_coefficient,
-                           occulting_bodies=EML2O.occulting_bodies)
+                           occulting_bodies=EML2O.occulting_bodies,
+                           t0=min(eph_time),
+                           tend=max(eph_time),
+                           dt=dt
+                           )
 for_elo = EstimationClass(name=ELO.name,
                           mass=ELO.mass,
                           Aref=ELO.reference_area,
                           Cr=ELO.radiation_pressure_coefficient,
-                          occulting_bodies=ELO.occulting_bodies)
+                          occulting_bodies=ELO.occulting_bodies,
+                          t0=min(eph_time),
+                          tend=max(eph_time),
+                          dt=dt
+                          )
 eml2_variables = for_eml2.create_variables()
 elo_variables = for_elo.create_variables()
 
-dt = Estimation_Setup.dt
+#errors
 sigma_noise = Simulation_Time_Setup.sigma_noise
 bias = Simulation_Time_Setup.bias
 noise_dot = Simulation_Time_Setup.noise_dot

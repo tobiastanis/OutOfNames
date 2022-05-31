@@ -14,7 +14,7 @@ from Satellites_list.ELO import ELO
 from Satellites_list.EML2O import EML2O
 
 class EstimationClass:
-    def __init__(self, name, mass, Aref, Cr, occulting_bodies):
+    def __init__(self, name, mass, Aref, Cr, occulting_bodies, t0, tend, dt):
         self.name = name
         self.mass = mass
         self.Aref = Aref
@@ -22,13 +22,20 @@ class EstimationClass:
         self.occulting_bodies = occulting_bodies
         self.body_to_propagate = [self.name]
         self.central_bodies = ["Earth"]
+        self.t0 = t0
+        self.tend = tend
+        self.dt = dt
         self.bodies = None
         self.acceleration_models = None
+
         spice.load_standard_kernels()
 
     def create_variables(self):
         bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
-        body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
+        #body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
+        body_settings = environment_setup.get_default_body_settings_time_limited(
+            bodies_to_create, self.t0, self.tend, "Earth", "J2000", self.dt
+        )
         self.bodies = environment_setup.create_system_of_bodies(body_settings)
         self.central_bodies = ["Earth"]
 
