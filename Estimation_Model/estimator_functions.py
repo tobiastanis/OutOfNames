@@ -37,4 +37,10 @@ def H(X, switch):
     if switch == 2:
         return H_rangerate
 
+# Phi
+def Phi(Phi_EML2, Phi_ELO):
+    Phi_top = np.concatenate((Phi_EML2, np.zeros((6, 6))), axis=1)
+    Phi_bot = np.concatenate((np.zeros((6, 6)), Phi_ELO), axis=1)
+    Phi = np.concatenate((Phi_top, Phi_bot), axis=0)
+    return Phi
 
