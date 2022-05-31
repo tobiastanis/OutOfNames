@@ -12,9 +12,8 @@ from tudatpy.kernel.interface import spice_interface
 from tudatpy.kernel.numerical_simulation import environment_setup
 from tudatpy.kernel.numerical_simulation import propagation_setup
 from tudatpy.kernel.numerical_simulation import estimation_setup
+
 spice_interface.load_standard_kernels()
-
-
 
 #Satellites
 # SRP
@@ -29,8 +28,6 @@ occulting_bodies_elo = ELO.occulting_bodies
 radiation_pressure_settings_elo = environment_setup.radiation_pressure.cannonball(
     "Sun", reference_area_radiation_elo, radiation_pressure_coefficient_elo, occulting_bodies_elo
 )
-
-
 
 def dynamic_integrator1(t0, dt, tend, X):
     dt = 1/3*dt

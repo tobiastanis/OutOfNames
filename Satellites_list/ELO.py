@@ -13,3 +13,4 @@ ELO = satellite(name="ELO",
                 radiation_pressure_coefficient=1.8,
                 occulting_bodies=["Moon", "Earth"],
                 initial_states=initial_states)
+
