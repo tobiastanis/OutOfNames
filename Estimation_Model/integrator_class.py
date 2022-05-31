@@ -21,7 +21,6 @@ class EstimationClass:
         self.Cr = Cr
         self.occulting_bodies = occulting_bodies
         self.body_to_propagate = [self.name]
-        self.central_bodies = ["Earth"]
         self.t0 = t0
         self.tend = tend
         self.dt = dt
