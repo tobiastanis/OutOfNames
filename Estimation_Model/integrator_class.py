@@ -22,13 +22,40 @@ class EstimationClass:
         self.occulting_bodies = occulting_bodies
         spice.load_standard_kernels()
 
-    def create_bodies(self, SRP_settings):
+    def create_bodies(self):
         bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
         body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
         bodies = environment_setup.create_system_of_bodies(body_settings)
-        central_bodies = ["Earth"]
-        body_to_propagate = name
+        self.central_bodies = ["Earth"]
+        self.body_to_propagate = self.name
 
-        bodies.create_empty_body(name)
-        bodies.get(name).mass = mass
+        bodies.create_empty_body(self.name)
+        bodies.get(self.name).mass = self.mass
 
+        radiation_pressure_settings = environment_setup.radiation_pressure.cannonball(
+            "Sun", self.Aref, self.Cr, self.occulting_bodies
+        )
+
+        self.bodies = bodies
+        self.radiation_pressure_settings = radiation_pressure_settings
+
+    def propagation(self):
+        environment_setup.add_radiation_pressure_interface(self.bodies, self.name, self.radiation_pressure_settings)
+
+        acceleration_settings = dict(
+            Earth=[propagation_setup.acceleration.point_mass_gravity()],
+            Moon=[propagation_setup.acceleration.point_mass_gravity()],
+            Sun=[propagation_setup.acceleration.point_mass_gravity(),
+                 propagation_setup.acceleration.cannonball_radiation_pressure()],
+            Jupiter=[propagation_setup.acceleration.point_mass_gravity()]
+        )
+
+        acceleration_settings = {
+            self.name: acceleration_settings
+        }
+
+        self.acceleration_models = propagation_setup.create_acceleration_models(
+            self.bodies, acceleration_settings, self.body_to_propagate, self.central_bodies
+        )
+
+        
