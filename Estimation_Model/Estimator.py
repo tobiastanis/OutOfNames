@@ -102,29 +102,33 @@ def ekf(X0, P0, R, Y, t_span):
         Phi_elo = variational_eqn_solver_elo.state_transition_matrix_history[t_k_1+dt]
         Phi = estimator_functions.Phi(Phi_eml2, Phi_elo)
 
-
-        # Y_ref from Xstar_k
-        est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
-        est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
-
-        # Y_ref = G(X,t)
-        Y_ref = estimator_functions.observations(est_range_observ, est_rangerate_observ, SWITCH)
-
-        # Time updating P_k_1 to P_flat_k
+        # Time update covariance matrix
         P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Estimation_Setup.Qdt)
 
-        # Observation difference
-        y = Yk - Y_ref
 
-        # H
-        H = estimator_functions.H(np.transpose(Xstar_k)[0], SWITCH)
+        if Yk == 0:
+            Xhat_k = Xstar_k
+            Pk = P_flat_k
+        else:
+            # Y_ref from Xstar_k
+            est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
+            est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
 
-        # Kalman gain K
-        K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose([H])) + R) ** -1
-        # Measurement update Covariance Matrix
-        Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
-        # Measurement update X
-        Xhat_k = np.add(Xstar_k, (K * y))
+            # Y_ref = G(X,t)
+            Y_ref = estimator_functions.observations(est_range_observ, est_rangerate_observ, SWITCH)
+
+            # Observation difference
+            y = Yk - Y_ref
+
+            # H
+            H = estimator_functions.H(np.transpose(Xstar_k)[0], SWITCH)
+
+            # Kalman gain K
+            K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose([H])) + R) ** -1
+            # Measurement update Covariance Matrix
+            Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
+            # Measurement update X
+            Xhat_k = np.add(Xstar_k, (K * y))
 
         # Savings
         X_ekf.append(np.transpose(Xhat_k)[0])
