@@ -20,30 +20,26 @@ class EstimationClass:
         self.Aref = Aref
         self.Cr = Cr
         self.occulting_bodies = occulting_bodies
-
+        self.body_to_propagate = [self.name]
+        self.central_bodies = ["Earth"]
+        self.bodies = None
+        self.acceleration_models = None
         spice.load_standard_kernels()
 
-    def create_bodies(self):
+    def create_variables(self):
         bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
         body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
-        bodies = environment_setup.create_system_of_bodies(body_settings)
+        self.bodies = environment_setup.create_system_of_bodies(body_settings)
         self.central_bodies = ["Earth"]
-        self.body_to_propagate = self.name
 
-        bodies.create_empty_body(self.name)
-        bodies.get(self.name).mass = self.mass
+        self.bodies.create_empty_body(self.name)
+        self.bodies.get(self.name).mass = self.mass
 
         radiation_pressure_settings = environment_setup.radiation_pressure.cannonball(
             "Sun", self.Aref, self.Cr, self.occulting_bodies
         )
 
-        self.bodies = bodies
-        self.radiation_pressure_settings = radiation_pressure_settings
-
-        return bodies
-
-    def accelerations(self):
-        environment_setup.add_radiation_pressure_interface(self.bodies, self.name, self.radiation_pressure_settings)
+        environment_setup.add_radiation_pressure_interface(self.bodies, self.name, radiation_pressure_settings)
 
         acceleration_settings = dict(
             Earth=[propagation_setup.acceleration.point_mass_gravity()],
@@ -58,9 +54,8 @@ class EstimationClass:
         }
 
         self.acceleration_models = propagation_setup.create_acceleration_models(
-            self.bodies, acceleration_settings, self.body_to_propagate, self.central_bodies
-        )
-        return self.acceleration_models
+            self.bodies, acceleration_settings, self.body_to_propagate, self.central_bodies)
+
 
 
 

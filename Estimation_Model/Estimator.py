@@ -14,6 +14,7 @@ from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
 
+#Loading in environment and accelerations
 for_eml2 = EstimationClass(name=EML2O.name,
                            mass=EML2O.mass,
                            Aref=EML2O.reference_area,
@@ -24,7 +25,8 @@ for_elo = EstimationClass(name=ELO.name,
                           Aref=ELO.reference_area,
                           Cr=ELO.radiation_pressure_coefficient,
                           occulting_bodies=ELO.occulting_bodies)
-for_elo.create_bodies()
+eml2_variables = for_eml2.create_variables()
+elo_variables = for_elo.create_variables()
 
 dt = Estimation_Setup.dt
 sigma_noise = Simulation_Time_Setup.sigma_noise
@@ -57,6 +59,9 @@ def ekf(X0, P0, R, Y, t_span):
 
         # Xstar_k_1 -------> Xstar_k (timestep integration)
         [Xstar_k, Phi] = integrators.dynamic_integrator1(t_k_1, dt, t_k_1+dt, Xstar_k_1)
+
+
+
 
         # Y_ref from Xstar_k
         est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
