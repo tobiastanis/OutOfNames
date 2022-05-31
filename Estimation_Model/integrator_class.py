@@ -20,6 +20,7 @@ class EstimationClass:
         self.Aref = Aref
         self.Cr = Cr
         self.occulting_bodies = occulting_bodies
+
         spice.load_standard_kernels()
 
     def create_bodies(self):
@@ -39,7 +40,9 @@ class EstimationClass:
         self.bodies = bodies
         self.radiation_pressure_settings = radiation_pressure_settings
 
-    def propagation(self):
+        return bodies
+
+    def accelerations(self):
         environment_setup.add_radiation_pressure_interface(self.bodies, self.name, self.radiation_pressure_settings)
 
         acceleration_settings = dict(
@@ -57,5 +60,7 @@ class EstimationClass:
         self.acceleration_models = propagation_setup.create_acceleration_models(
             self.bodies, acceleration_settings, self.body_to_propagate, self.central_bodies
         )
+        return self.acceleration_models
 
-        
+
+

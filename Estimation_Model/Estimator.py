@@ -1,15 +1,30 @@
 """
 Extended Kalman Filter Function
 """
-import os
+#general
 import numpy as np
-from pathlib import Path
+#own
 from Initials.Simulation_Time_Setup import SWITCH
 from Initials import  Simulation_Time_Setup
 from Measurement_Model import measurement_functions
 from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 from Estimation_Model import integrators
+from Satellites_list.EML2O import EML2O
+from Satellites_list.ELO import ELO
+from Estimation_Model.integrator_class import EstimationClass
+
+for_eml2 = EstimationClass(name=EML2O.name,
+                           mass=EML2O.mass,
+                           Aref=EML2O.reference_area,
+                           Cr=EML2O.radiation_pressure_coefficient,
+                           occulting_bodies=EML2O.occulting_bodies)
+for_elo = EstimationClass(name=ELO.name,
+                          mass=ELO.mass,
+                          Aref=ELO.reference_area,
+                          Cr=ELO.radiation_pressure_coefficient,
+                          occulting_bodies=ELO.occulting_bodies)
+for_elo.create_bodies()
 
 dt = Estimation_Setup.dt
 sigma_noise = Simulation_Time_Setup.sigma_noise
@@ -17,17 +32,6 @@ bias = Simulation_Time_Setup.bias
 noise_dot = Simulation_Time_Setup.noise_dot
 bias_dot = Simulation_Time_Setup.bias_dot
 
-"""
-dir_name = Simulation_Time_Setup.DIRECTORY_NAME
-parent_dir = Path(__file__).parent.parent
-working_dir = Path.joinpath(parent_dir, dir_name)
-overwrite_path = 0
-if os.path.exists(working_dir) and overwrite_path == Simulation_Time_Setup.OVERWRITE:
-    quit("Path already exists and overwrite is not allowed (turn overwrite_path=1 to overwrite data)")
-if not os.path.exists(working_dir):
-    os.makedirs(working_dir)
-quit()
-"""
 def ekf(X0, P0, R, Y, t_span):
     #Initialzing
     Xhat_k = X0
