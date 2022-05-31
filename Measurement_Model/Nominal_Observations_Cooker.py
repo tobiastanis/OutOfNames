@@ -6,8 +6,12 @@ import numpy as np
 
 #Own
 from Initials import Simulation_Time_Setup
+from Initials.initial_states_obtainer import moon_ephemeris
 from Measurement_Model import measurement_functions
 from Saved_Data import Data_Loader
+
+x_moon = moon_ephemeris(Simulation_Time_Setup.measurement_span_ephemeris)
+
 # States per measurement interval
 states = Data_Loader.json_measurementarray_reader(Simulation_Time_Setup.DIRECTORY_NAME)
 

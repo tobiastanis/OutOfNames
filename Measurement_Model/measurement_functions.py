@@ -3,6 +3,15 @@ function file for ranging and range rate functions
 """
 import numpy as np
 
+def h(states, x_moon):
+    a = np.subtract(states[0:3], x_moon[0:3])
+    b = np.subtract(states[0:3], states[6:9])
+    a_abs = np.linalg.norm(a)
+    b_abs = np.linalg.norm(b)
+    theta = np.arccos(np.dot(a,b)/(a_abs*b_abs))
+    h = a_abs*np.sin(theta)
+    return h
+
 
 def measurement_array(states, timestep):
     from Initials import Simulation_Time_Setup
