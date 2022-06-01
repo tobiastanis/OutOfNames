@@ -33,5 +33,6 @@ Vector entry, Vector contents
 26, Single acceleration norm of type central gravity , acting on ELO, exerted by Uranus
 27, Single acceleration norm of type central gravity , acting on ELO, exerted by Neptune
 28, Body-fixed relative Cartesian position of EML2O w.r.t. Moon
-31, Relative velocity of EML2O w.r.t. ELO
-34, Relative position of EML2O w.r.t. ELO
+31, Body-fixed relative Cartesian position of ELO w.r.t. Moon
+34, Relative velocity of EML2O w.r.t. ELO
+37, Relative position of EML2O w.r.t. ELO

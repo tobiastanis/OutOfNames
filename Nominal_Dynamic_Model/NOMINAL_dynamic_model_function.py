@@ -33,9 +33,8 @@ def NOMINAL_dynamic_model(t0, dt, tend, X):
     global_frame_orientation = "J2000"
     initial_time = simulation_start_epoch
     final_time = simulation_end_epoch
-    body_settings = environment_setup.get_default_body_settings_time_limited(
-        bodies_to_create, initial_time, final_time, global_frame_origin, global_frame_orientation, fixed_time_step
-    )
+    body_settings = environment_setup.get_default_body_settings(
+        bodies_to_create, global_frame_origin, global_frame_orientation)
 
     body_system = environment_setup.create_system_of_bodies(body_settings)
 
