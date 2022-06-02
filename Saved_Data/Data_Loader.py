@@ -6,8 +6,8 @@ import json
 import numpy as np
 from pathlib import Path
 "All file names are states of output, but the directory they are saved in differ"
-file_name_states = "states.json"
-file_name_output = "output.json"
+file_name_states = "states_no_time_lim.json"
+file_name_output = "output1_no_time_lim.json"
 file_name_measurement_array = "nominal_measurements_60s.json"
 
 this_path = Path(__file__)
