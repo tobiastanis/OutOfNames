@@ -20,7 +20,7 @@ measurement_dict = {key: value.tolist() for key,value in measurement_dict.items(
 ############################################CHECK DIRECTORY NAME WITH Nominal_Trajectory_Saver##########################
 dir_name = Simulation_Time_Setup.DIRECTORY_NAME
 ############################################ALWAYS CHECK THIS NAME######################################################
-file_name = "nominal_measurements_60s.json" #60s indicates the measurement_interval
+file_name = "nominal_states_dt_60.json" #60s indicates the measurement_interval
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
