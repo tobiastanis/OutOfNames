@@ -38,6 +38,25 @@ def range_observation_row(X, bias, sigma_noise):
     noise = np.random.normal(0, sigma_noise)
     return R + bias + noise
 
+def range_observation_test(X, X_moon, bias, sigma_noise):
+    array_to_fill = []
+    for i in range(len(X)):
+        states = X[i, :]
+        x_moon = X_moon[i, :]
+        a = np.subtract(states[0:3], x_moon[0:3])
+        b = np.subtract(states[0:3], states[6:9])
+        a_abs = np.linalg.norm(a)
+        b_abs = np.linalg.norm(b)
+        theta = np.arccos(np.dot(a, b) / (a_abs * b_abs))
+        h = a_abs * np.sin(theta)
+        if h <= 1800e3:
+            array_to_fill.append(0)
+        else:
+            row = range_observation_row(states, bias, sigma_noise)
+            array_to_fill.append(row)
+    return np.array(array_to_fill)
+
+
 def range_observations(X, bias, sigma_noise):
     array_to_fill = []
     for i in range(len(X)):

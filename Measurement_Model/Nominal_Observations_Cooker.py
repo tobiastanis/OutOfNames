@@ -21,6 +21,10 @@ bias_dot = Simulation_Time_Setup.bias_dot
 noise_dot = Simulation_Time_Setup.noise_dot
 
 range_observations = measurement_functions.range_observations(states, bias, sigma_noise)
-rangerate_observations = measurement_functions.rangerate_observations(states, bias_dot, noise_dot)
+range_observations_test = measurement_functions.range_observation_test(states, x_moon, bias, sigma_noise)
+
+print(range_observations)
+print(range_observations_test)
+#rangerate_observations = measurement_functions.rangerate_observations(states, bias_dot, noise_dot)
 
 

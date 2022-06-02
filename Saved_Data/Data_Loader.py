@@ -8,7 +8,7 @@ from pathlib import Path
 "All file names are states of output, but the directory they are saved in differ"
 file_name_states = "states.json"
 file_name_output = "output.json"
-file_name_measurement_array = "nominal_measurements_60s.json"
+file_name_measurement_array = "nominal_states_dt_60.json"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
