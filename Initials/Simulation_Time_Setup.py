@@ -16,7 +16,7 @@ simulation_duration = 10                                    #Days
 fixed_time_step = 1                                         #Fixed Time Step [s]
 
 DIRECTORY_NAME = "Saved_Data\\EML2_ELO_60390_10days"
-OVERWRITE = 1 # OFF = 0, ON = 1
+OVERWRITE = 0 # OFF = 0, ON = 1
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided

@@ -19,8 +19,8 @@ output_dict = {key: value.tolist() for key,value in output_dict.items()}
 #########################Check the last directory everytime to prevent unwanted overwriting#############################
 dir_name = DIRECTORY_NAME # In Initials in Simulation_Time_Setup
 ########################################################################################################################
-file_name1 = "states_no_time_lim.json"
-file_name2 = "output1_no_time_lim.json"
+file_name1 = "states.json"
+file_name2 = "output.json"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
