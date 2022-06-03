@@ -33,22 +33,31 @@ if CONFIGURATION_NAME == 2:
     measurement_array = np.concatenate(([rangerate_observations], [ID_array]), axis=0)
 if CONFIGURATION_NAME == 3:
     ID_array= []
+    measurement_row = []
     for i in range(len(range_observations)):
         if (i % 2 == 0):
             ID_array.append(1)
+            measurement_row.append(range_observations[i])
         else:
             ID_array.append(2)
-    measurement_array = []
+            measurement_row.append(rangerate_observations[i])
+    measurement_array = np.concatenate(([ID_array], [measurement_row]), axis=0)
 
 if CONFIGURATION_NAME == 4:
     ID_array = []
+    measurement_row = []
     for i in range(len(range_observations)):
         if i == 0:
             ID_array.append(1)
+            measurement_row.append(range_observations[i])
         if (i % 3 == 0):
             ID_array.append(2)
+            measurement_row.append(rangerate_observations[i])
         else:
             ID_array.append(1)
+            measurement_row.append(range_observations[i])
     ID_array.pop(1)
+    measurement_row.pop(1)
+    measurement_array = np.concatenate(([ID_array], [measurement_row]), axis=0)
 
 print(measurement_array)
