@@ -16,6 +16,7 @@ Name = Simulation_Time_Setup.DIRECTORY_NAME
 
 states = Data_Loader.json_states_reader(Name)
 output = Data_Loader.json_output_reader(Name)
+x_moon = initial_states_obtainer.moon_ephemeris(Simulation_Time_Setup.measurement_span_ephemeris)
 
 nominal_range_observ = Estimation_Setup.nominal_range_array
 nominal_rangerate_observ = Estimation_Setup.nominal_rangerate_array
@@ -106,12 +107,8 @@ class TestCalc(unittest.TestCase):
         b = measurement_functions.rangerate_observation_row(X, 0, 0)
         self.assertEqual(a, b)
 
-    "This one needs checking"
-    #def test_observations(self):
-        #Y_range = estimator_functions.observations(nominal_range_observ, nominal_rangerate_observ, 0)
-        #Y_rangerate = estimator_functions.observations(nominal_range_observ, nominal_rangerate_observ, 2)
-        #self.assertEqual(Y_rangerate[12], Y_both[12,1])
-        #self.assertEqual(Y_range[24], nominal_range_observ[24])
+
+
 
 
 if __name__ == '__main__':

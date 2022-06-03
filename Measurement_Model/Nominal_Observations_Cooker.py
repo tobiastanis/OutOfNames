@@ -20,14 +20,35 @@ sigma_noise = Simulation_Time_Setup.sigma_noise
 bias_dot = Simulation_Time_Setup.bias_dot
 noise_dot = Simulation_Time_Setup.noise_dot
 
-range_observations = measurement_functions.range_observations(states, bias, sigma_noise)
-range_observations_test = measurement_functions.nominal_range_observation(states, x_moon, bias, sigma_noise)
-rangerate_observations = measurement_functions.rangerate_observations(states, bias_dot, noise_dot)
-rangerate_observations_test = measurement_functions.nominal_rangerate_observations(states, x_moon, bias_dot, noise_dot)
+range_observations = measurement_functions.nominal_range_observation(states, x_moon, bias, sigma_noise)
+rangerate_observations = measurement_functions.nominal_rangerate_observations(states, x_moon, bias_dot, noise_dot)
 
-print(range_observations[15:20])
-print(range_observations_test[15:20])
-print(rangerate_observations[15:20])
-print(rangerate_observations_test[15:20])
+CONFIGURATION_NAME = Simulation_Time_Setup.CONFIGURATION
 
+if CONFIGURATION_NAME == 1:
+    ID_array = np.ones((1, len(range_observations)))[0]
+    measurement_array = np.concatenate(([range_observations], [ID_array]), axis=0)
+if CONFIGURATION_NAME == 2:
+    ID_array = np.full((1, len(rangerate_observations)), 2)[0]
+    measurement_array = np.concatenate(([rangerate_observations], [ID_array]), axis=0)
+if CONFIGURATION_NAME == 3:
+    ID_array= []
+    for i in range(len(range_observations)):
+        if (i % 2 == 0):
+            ID_array.append(1)
+        else:
+            ID_array.append(2)
+    measurement_array = []
 
+if CONFIGURATION_NAME == 4:
+    ID_array = []
+    for i in range(len(range_observations)):
+        if i == 0:
+            ID_array.append(1)
+        if (i % 3 == 0):
+            ID_array.append(2)
+        else:
+            ID_array.append(1)
+    ID_array.pop(1)
+
+print(measurement_array)

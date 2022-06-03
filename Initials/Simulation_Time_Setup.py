@@ -41,6 +41,10 @@ measurement_end_epoch = simulation_end_epoch
 n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
+
+
+CONFIGURATION = 2
+
 sigma_noise = 0
 bias = 0
 noise_dot = 0

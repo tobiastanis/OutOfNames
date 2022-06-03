@@ -96,3 +96,5 @@ def rangerate_observations(X, bias_dot, noise_dot):
         array_to_fill.append(Y)
     rangerate_array = np.array(array_to_fill)
     return rangerate_array
+
+
