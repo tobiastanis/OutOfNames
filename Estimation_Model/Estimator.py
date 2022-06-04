@@ -66,7 +66,7 @@ def ekf(X0, P0, R, Y, t_span):
         #Initialiing X, P, Y
         Xstar_k_1 = Xhat_k  # States in previous timestep
         P_k_1 = Pk          # Covariance matrix in previous timestep
-        Yk = Y[i+1]
+        Yk = Y[:,i+1]
 
         # Xstar_k_1 -------> Xstar_k (timestep integration)
         #[Xstar_k, Phi] = integrators.dynamic_integrator1(t_k_1, dt, t_k_1+dt, Xstar_k_1)
@@ -95,6 +95,7 @@ def ekf(X0, P0, R, Y, t_span):
         )
         X_eml2o = variational_eqn_solver_eml2.state_history[t_k_1+dt]
         X_elo = variational_eqn_solver_elo.state_history[t_k_1+dt]
+
         ##### Time updated states #####
         Xstar_k = np.vstack([X_eml2o.reshape(-1,1), X_elo.reshape(-1,1)])
         ##### Time updated Phi #####
@@ -106,10 +107,11 @@ def ekf(X0, P0, R, Y, t_span):
         P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Estimation_Setup.Qdt)
 
 
-        if Yk == 0:
+        if Yk[1] == 0:
             Xhat_k = Xstar_k
             Pk = P_flat_k
         else:
+            ##################From here move on!!!!!!
             # Y_ref from Xstar_k
             est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
             est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
