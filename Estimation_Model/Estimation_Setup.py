@@ -9,7 +9,6 @@ from Measurement_Model import Nominal_Observations_Cooker
 from Estimation_Model import estimator_functions
 #tudatpy
 print("Preparing Estimation Setup")
-switch = Simulation_Time_Setup.SWITCH
 
 #Time Setup
 dt = Simulation_Time_Setup.measurement_interval
@@ -40,9 +39,7 @@ Qc = Simulation_Time_Setup.Qc
 
 Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
 
-#R
-R_element = Simulation_Time_Setup.sigma_noise**2
-R = estimator_functions.R_function(R_element, switch)
+R = Simulation_Time_Setup.sigma_noise**2
 
 print("Estimation Setup ready for use")
 

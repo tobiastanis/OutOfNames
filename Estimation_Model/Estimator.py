@@ -4,7 +4,6 @@ Extended Kalman Filter Function
 #general
 import numpy as np
 #own
-from Initials.Simulation_Time_Setup import SWITCH
 from Initials import  Simulation_Time_Setup
 from Measurement_Model import measurement_functions
 from Measurement_Model.Nominal_Observations_Cooker import states
@@ -111,22 +110,22 @@ def ekf(X0, P0, R, Y, t_span):
             Xhat_k = Xstar_k
             Pk = P_flat_k
         else:
-            ##################From here move on!!!!!!
             # Y_ref from Xstar_k
-            est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
-            est_rangerate_observ = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
-
-            # Y_ref = G(X,t)
-            Y_ref = estimator_functions.observations(est_range_observ, est_rangerate_observ, SWITCH)
-
+            if Yk[0] == 1:
+                Y_ref = measurement_functions.range_observation_row(Xstar_k, 0, 0)
+            #est_range_observ = measurement_functions.range_observation_row(Xstar_k, 0, 0)
+            if Yk[0] == 2:
+                Y_ref = measurement_functions.rangerate_observation_row(Xstar_k, 0, 0)
+            if Yk[0] != 1 and Yk[0] != 2:
+                quit("Error: ID-value is incorrect")
             # Observation difference
-            y = Yk - Y_ref
-
-            # H
-            H = estimator_functions.H(np.transpose(Xstar_k)[0], SWITCH)
+            y = Yk[1] - Y_ref[0]
+             # H
+            H = estimator_functions.H(np.transpose(Xstar_k)[0], Yk[0])
 
             # Kalman gain K
             K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose([H])) + R) ** -1
+
             # Measurement update Covariance Matrix
             Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
             # Measurement update X

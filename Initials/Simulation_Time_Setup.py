@@ -54,7 +54,6 @@ bias_dot = 0
 """
 Estimation Model Setup
 """
-SWITCH = 0 # 0: only range, 1: range and rangerate, 2: only rangerate
 
 estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
 #Initial Covariance Matrix
