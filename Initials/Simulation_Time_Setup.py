@@ -45,8 +45,8 @@ measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
 CONFIGURATION = 1
 
-sigma_noise = 200
-bias = 0
+sigma_noise = 50
+bias = 1
 noise_dot = 0
 bias_dot = 0
 
@@ -56,8 +56,9 @@ Estimation Model Setup
 """
 
 estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
+#estimated_initial_error = np.array([1000, 1000, 1000, 5e-3, 2e-3, 2e-3, 1000, 1000, 1000, 2e-3, 2e-3, 2e-3])
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
-Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
+Qc = np.eye(6)*[0.008, 0.008, 0.008, 0.4, 0.4, 0.7]*4e-11
 

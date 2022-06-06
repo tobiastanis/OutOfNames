@@ -70,8 +70,6 @@ def ekf(X0, P0, R, Y, t_span):
         Yk = Y[:,i+1]
 
         # Xstar_k_1 -------> Xstar_k (timestep integration)
-        #[Xstar_k, Phi] = integrators.dynamic_integrator1(t_k_1, dt, t_k_1+dt, Xstar_k_1)
-
         termination_condition = propagation_setup.propagator.time_termination(t_k_1+dt)
         propagation_settings_eml2 = propagation_setup.propagator.translational(
             for_eml2.central_bodies, for_eml2.acceleration_models, for_eml2.body_to_propagate, Xstar_k_1[0:6],
@@ -80,7 +78,7 @@ def ekf(X0, P0, R, Y, t_span):
             for_elo.central_bodies, for_elo.acceleration_models, for_elo.body_to_propagate, Xstar_k_1[6:12],
             termination_condition)
 
-        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/60*dt)
+        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/6*dt)
 
         parameter_settings_eml2 = estimation_setup.parameter.initial_states(propagation_settings_eml2, for_eml2.bodies)
         parameter_settings_elo = estimation_setup.parameter.initial_states(propagation_settings_elo, for_elo.bodies)
@@ -151,6 +149,7 @@ stdP = np.array(stdP)
 t = Simulation_Time_Setup.measurement_span_t
 
 x_error = np.subtract(states, X)
+print(x_error[0, :])
 
 import matplotlib.pyplot as plt
 std_Pk_up = 3*stdP
