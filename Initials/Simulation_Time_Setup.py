@@ -43,9 +43,9 @@ measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_en
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
 
-CONFIGURATION = 4
+CONFIGURATION = 1
 
-sigma_noise = 0
+sigma_noise = 200
 bias = 0
 noise_dot = 0
 bias_dot = 0
@@ -59,4 +59,5 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
-Qc = np.eye(6)*[1, 1, 1, 100, 100, 100]*5e-15
+Qc = np.eye(6)*[0.01, 0.01, 0.01, 0.5, 0.5, 0.8]*5e-11
+
