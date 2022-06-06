@@ -59,5 +59,5 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
-Qc = np.eye(6)*[0.01, 0.01, 0.01, 0.5, 0.5, 0.8]*5e-11
+Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
 

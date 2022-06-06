@@ -56,6 +56,8 @@ def ekf(X0, P0, R, Y, t_span):
     #arrays to fill
     X_ekf = []
     std_Pk = []
+    visibility = []
+    visibility.append(0)
     X_ekf.append(np.transpose(Xhat_k)[0])
     std_Pk.append(np.sqrt(np.diag(Pk)))
 
@@ -78,7 +80,7 @@ def ekf(X0, P0, R, Y, t_span):
             for_elo.central_bodies, for_elo.acceleration_models, for_elo.body_to_propagate, Xstar_k_1[6:12],
             termination_condition)
 
-        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/3*dt)
+        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/60*dt)
 
         parameter_settings_eml2 = estimation_setup.parameter.initial_states(propagation_settings_eml2, for_eml2.bodies)
         parameter_settings_elo = estimation_setup.parameter.initial_states(propagation_settings_elo, for_elo.bodies)
@@ -109,6 +111,7 @@ def ekf(X0, P0, R, Y, t_span):
         if Yk[1] == 0:
             Xhat_k = Xstar_k
             Pk = P_flat_k
+            visibility.append(0)
         else:
             # Y_ref from Xstar_k
             if Yk[0] == 1:
@@ -130,13 +133,14 @@ def ekf(X0, P0, R, Y, t_span):
             Pk = np.matmul(np.subtract(np.eye(12, dtype=int), (K * H)), P_flat_k)
             # Measurement update X
             Xhat_k = np.add(Xstar_k, (K * y))
+            visibility.append(1)
 
         # Savings
         X_ekf.append(np.transpose(Xhat_k)[0])
         std_Pk.append(np.sqrt(np.diag(Pk)))
-    return [X_ekf, std_Pk]
+    return [X_ekf, std_Pk, visibility]
 
-[X, stdP] = ekf(Estimation_Setup.X0,
+[X, stdP, visibility] = ekf(Estimation_Setup.X0,
                 Estimation_Setup.P0,
                 Estimation_Setup.R,
                 Estimation_Setup.Y_nominal,
@@ -220,7 +224,11 @@ plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m/s]')
 plt.title('ELO velocity error')
 
-
+plt.figure()
+plt.plot(t, visibility)
+plt.xlabel('Time [days]')
+plt.ylabel('Visibility [0:No, 1:Yes]')
+plt.title('Visbility between the satellites')
 plt.show()
 
 

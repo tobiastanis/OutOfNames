@@ -30,7 +30,7 @@ class EstimationClass:
         spice.load_standard_kernels()
 
     def create_variables(self):
-        bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter", "Venus", "Mars"]
+        bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter", "Venus", "Mercury", "Saturn" , "Mars"]
         #body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
         body_settings = environment_setup.get_default_body_settings_time_limited(
             bodies_to_create, self.t0, self.tend, "Earth", "J2000", self.dt
@@ -54,7 +54,9 @@ class EstimationClass:
                  propagation_setup.acceleration.cannonball_radiation_pressure()],
             Jupiter=[propagation_setup.acceleration.point_mass_gravity()],
             Venus=[propagation_setup.acceleration.point_mass_gravity()],
-            Mars=[propagation_setup.acceleration.point_mass_gravity()]
+            Mars=[propagation_setup.acceleration.point_mass_gravity()],
+            Mercury=[propagation_setup.acceleration.point_mass_gravity()],
+            Saturn=[propagation_setup.acceleration.point_mass_gravity()]
         )
 
         acceleration_settings = {
