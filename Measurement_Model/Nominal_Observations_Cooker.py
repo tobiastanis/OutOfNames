@@ -28,7 +28,6 @@ CONFIGURATION_NAME = Simulation_Time_Setup.CONFIGURATION
 if CONFIGURATION_NAME == 0:
     ID_array = np.ones((1, len(range_observations)))[0]
     measurement_array = np.concatenate(([ID_array], [np.zeros(len(ID_array))]), axis=0)
-
 if CONFIGURATION_NAME == 1:
     ID_array = np.ones((1, len(range_observations)))[0]
     measurement_array = np.concatenate(([ID_array], [range_observations]), axis=0)

@@ -13,7 +13,6 @@ from Estimation_Model.Estimator import ekf
 
 [X, stdP, visibility] = ekf(Estimation_Setup.X0,
                             Estimation_Setup.P0,
-                            Estimation_Setup.R,
                             Estimation_Setup.Y_nominal,
                             Estimation_Setup.ephemeris_span)
 

@@ -46,7 +46,8 @@ bias = Simulation_Time_Setup.bias
 noise_dot = Simulation_Time_Setup.noise_dot
 bias_dot = Simulation_Time_Setup.bias_dot
 
-def ekf(X0, P0, R, Y, t_span):
+def ekf(X0, P0, Y, t_span):
+    print("Start estimation process")
     #Initialzing
     Xhat_k = X0
     Pk = P0
@@ -124,6 +125,7 @@ def ekf(X0, P0, R, Y, t_span):
              # H
             H = estimator_functions.H(np.transpose(Xstar_k)[0], Yk[0])
 
+            R = estimator_functions.weightobservations(sigma_noise, noise_dot, Yk[0])
             # Kalman gain K
             K = np.matmul(P_flat_k, np.transpose([H])) * (np.matmul(np.matmul(H, P_flat_k), np.transpose([H])) + R) ** -1
 
@@ -136,5 +138,6 @@ def ekf(X0, P0, R, Y, t_span):
         # Savings
         X_ekf.append(np.transpose(Xhat_k)[0])
         std_Pk.append(np.sqrt(np.diag(Pk)))
+    print("Finished estimation process")
     return [X_ekf, std_Pk, visibility]
 

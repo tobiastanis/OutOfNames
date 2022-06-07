@@ -10,6 +10,7 @@ from Initials import initial_states_obtainer
 from Initials import Simulation_Time_Setup
 from Saved_Data import Data_Loader
 from Measurement_Model import measurement_functions
+from Measurement_Model import Nominal_Observations_Cooker
 from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 Name = Simulation_Time_Setup.DIRECTORY_NAME
@@ -17,9 +18,7 @@ Name = Simulation_Time_Setup.DIRECTORY_NAME
 states = Data_Loader.json_states_reader(Name)
 output = Data_Loader.json_output_reader(Name)
 x_moon = initial_states_obtainer.moon_ephemeris(Simulation_Time_Setup.measurement_span_ephemeris)
-
-nominal_range_observ = Estimation_Setup.nominal_range_array
-nominal_rangerate_observ = Estimation_Setup.nominal_rangerate_array
+states_measure = Nominal_Observations_Cooker.states
 
 class TestCalc(unittest.TestCase):
 
@@ -76,6 +75,10 @@ class TestCalc(unittest.TestCase):
         self.assertAlmostEqual(result_data2[4], result_tudat2[4], 3, "vy-direction is way too off")
         self.assertAlmostEqual(result_data2[5], result_tudat2[5], 3, "vz-direction is way too off")
 
+    def test_h(self):
+        dummy1 = measurement_functions.h(states[0, :], x_moon[0, :])
+        self.assertGreater(1800e3, dummy1)
+
     def test_intersatellitedistance(self):
         dist_func = measurement_functions.intersatellite_distance(states[1000, :])
         dist_tudat = np.linalg.norm(output[1000, 37:40], axis=0)
@@ -95,6 +98,11 @@ class TestCalc(unittest.TestCase):
         self.assertEqual(b[2, 3], a2[3])
         self.assertEqual(b[2, 5], a2[5])
 
+    def test_nominal_range_observations(self):
+        dummy = measurement_functions.nominal_range_observation(states_measure, x_moon, 0, 0)
+        self.assertGreater(1800e3, dummy[1])
+        self.assertGreater(dummy[20], 1800e3)
+
     def test_rangeobservations(self):
         a = measurement_functions.intersatellite_distances(states)
         b = measurement_functions.range_observations(states, 0, 0)
@@ -106,6 +114,8 @@ class TestCalc(unittest.TestCase):
         X = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
         b = measurement_functions.rangerate_observation_row(X, 0, 0)
         self.assertEqual(a, b)
+
+
 
 
 

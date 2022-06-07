@@ -41,12 +41,12 @@ measurement_end_epoch = simulation_end_epoch
 n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
-CONFIGURATION = 2
+CONFIGURATION = 3
 
 sigma_noise = 200
-bias = 100
+bias = 10
 noise_dot = 1e-3
-bias_dot = 3e-4
+bias_dot = 0
 
 """
 Estimation Model Setup
@@ -61,13 +61,13 @@ Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
 
 
 if CONFIGURATION == 0:
-    filename = "estimation_data_CONF_0"
+    filename = "estimation_data_CONF_0.json"
 if CONFIGURATION == 1:
-    filename = "estimation_data_CONF_1"
+    filename = "estimation_data_CONF_1.json"
 if CONFIGURATION == 2:
-    filename = "estimation_data_CONF_2"
+    filename = "estimation_data_CONF_2.json"
 if CONFIGURATION == 3:
-    filename = "estimation_data_CONF_3"
+    filename = "estimation_data_CONF_3.json"
 if CONFIGURATION == 4:
-    filename = "estimation_data_CONF_4"
+    filename = "estimation_data_CONF_4.json"
 

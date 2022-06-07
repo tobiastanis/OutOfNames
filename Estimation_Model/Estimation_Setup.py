@@ -20,11 +20,11 @@ TRUE_initial_states = TRUE_states[0, :]
 estimated_initial_error = Simulation_Time_Setup.estimated_initial_error
 # X_k_1 = Nominal states + initial states error
 X0 = np.transpose([np.add(TRUE_initial_states, estimated_initial_error)])
-
+"""
 #Measurements Setup
 nominal_range_array = Nominal_Observations_Cooker.range_observations
 nominal_rangerate_array = Nominal_Observations_Cooker.rangerate_observations
-
+"""
 Y_nominal = Nominal_Observations_Cooker.measurement_array
 #Initial Covariance Matrix
 P0 = Simulation_Time_Setup.P0
@@ -38,8 +38,6 @@ RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR2), axis=0), RR3), a
 Qc = Simulation_Time_Setup.Qc
 
 Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
-
-R = Simulation_Time_Setup.sigma_noise**2
 
 print("Estimation Setup ready for use")
 
