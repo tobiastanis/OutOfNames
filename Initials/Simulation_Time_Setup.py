@@ -43,12 +43,12 @@ measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_en
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
 
-CONFIGURATION = 1
+CONFIGURATION = 2
 
-sigma_noise = 50
-bias = 1
-noise_dot = 0
-bias_dot = 0
+sigma_noise = 200
+bias = 100
+noise_dot = 1e-3
+bias_dot = 3e-4
 
 
 """
