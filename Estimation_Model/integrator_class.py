@@ -30,10 +30,8 @@ class EstimationClass_eml2o:
 
     def create_variables(self):
         bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter"]
-        #body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
-        body_settings = environment_setup.get_default_body_settings_time_limited(
-            bodies_to_create, self.t0, self.tend, "Earth", "J2000", self.dt
-        )
+        body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
+
         self.bodies = environment_setup.create_system_of_bodies(body_settings)
         self.central_bodies = ["Earth"]
 
@@ -79,10 +77,8 @@ class EstimationClass_elo:
 
     def create_variables(self):
         bodies_to_create = ["Earth", "Moon", "Sun", "Jupiter", "Venus", "Mercury", "Saturn" , "Mars", "Uranus", "Neptune"]
-        #body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
-        body_settings = environment_setup.get_default_body_settings_time_limited(
-            bodies_to_create, self.t0, self.tend, "Earth", "J2000", self.dt
-        )
+        body_settings = environment_setup.get_default_body_settings(bodies_to_create, "Earth", "J2000")
+
         self.bodies = environment_setup.create_system_of_bodies(body_settings)
         self.central_bodies = ["Earth"]
 
