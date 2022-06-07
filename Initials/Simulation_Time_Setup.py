@@ -46,16 +46,9 @@ measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 CONFIGURATION = 2
 
 sigma_noise = 200
-<<<<<<< HEAD
 bias = 100
 noise_dot = 1e-3
 bias_dot = 3e-4
-=======
-bias = 0
-noise_dot = 0
-bias_dot = 0
->>>>>>> parent of 5534d6a (last run of today noise 50 and bias 1, CONF1)
-
 
 """
 Estimation Model Setup
