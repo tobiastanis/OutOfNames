@@ -41,8 +41,6 @@ measurement_end_epoch = simulation_end_epoch
 n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
-
-
 CONFIGURATION = 2
 
 sigma_noise = 200
@@ -59,4 +57,17 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
 Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
+
+
+
+if CONFIGURATION == 0:
+    filename = "estimation_data_CONF_0"
+if CONFIGURATION == 1:
+    filename = "estimation_data_CONF_1"
+if CONFIGURATION == 2:
+    filename = "estimation_data_CONF_2"
+if CONFIGURATION == 3:
+    filename = "estimation_data_CONF_3"
+if CONFIGURATION == 4:
+    filename = "estimation_data_CONF_4"
 

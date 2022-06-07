@@ -3,9 +3,11 @@ This is the Nominal Measurement Model.
 """
 #general
 import json
+import os
 from pathlib import Path
 #own
 from Initials import Simulation_Time_Setup
+from Initials.Simulation_Time_Setup import OVERWRITE
 from Saved_Data import Data_Loader
 from Measurement_Model import measurement_functions
 
@@ -27,6 +29,10 @@ parent_dir = this_path.parent.parent
 
 working_dir = Path.joinpath(parent_dir, dir_name)
 file_path = Path.joinpath(working_dir, file_name)
+
+overwrite_path = 0
+if os.path.exists(file_path) and overwrite_path == OVERWRITE:
+    quit("Path already exists and overwrite is not allowed (turn overwrite_path=1 to overwrite data)")
 
 def write_json(dictionary, file_path):
     with open(file_path, 'w') as json_file:

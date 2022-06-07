@@ -6,7 +6,6 @@ import numpy as np
 #own
 from Initials import Simulation_Time_Setup
 from Measurement_Model import measurement_functions
-from Measurement_Model.Nominal_Observations_Cooker import states
 from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
@@ -50,7 +49,6 @@ bias_dot = Simulation_Time_Setup.bias_dot
 def ekf(X0, P0, R, Y, t_span):
     #Initialzing
     Xhat_k = X0
-
     Pk = P0
 
     #arrays to fill
@@ -80,7 +78,7 @@ def ekf(X0, P0, R, Y, t_span):
             for_elo.central_bodies, for_elo.acceleration_models, for_elo.body_to_propagate, Xstar_k_1[6:12],
             termination_condition)
 
-        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/60*dt)
+        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/6*dt)
 
         parameter_settings_eml2 = estimation_setup.parameter.initial_states(propagation_settings_eml2, for_eml2.bodies)
         parameter_settings_elo = estimation_setup.parameter.initial_states(propagation_settings_elo, for_elo.bodies)
@@ -139,97 +137,4 @@ def ekf(X0, P0, R, Y, t_span):
         X_ekf.append(np.transpose(Xhat_k)[0])
         std_Pk.append(np.sqrt(np.diag(Pk)))
     return [X_ekf, std_Pk, visibility]
-
-[X, stdP, visibility] = ekf(Estimation_Setup.X0,
-                Estimation_Setup.P0,
-                Estimation_Setup.R,
-                Estimation_Setup.Y_nominal,
-                Estimation_Setup.ephemeris_span)
-X = np.array(X)
-stdP = np.array(stdP)
-
-t = Simulation_Time_Setup.measurement_span_t
-
-x_error = np.subtract(states, X)
-
-import matplotlib.pyplot as plt
-std_Pk_up = 3*stdP
-std_Pk_down =-3*stdP
-
-plt.figure()
-plt.plot(t, x_error[:, 0], color='red', label='x')
-plt.plot(t, x_error[:, 1], color='blue', label='y')
-plt.plot(t, x_error[:, 2], color='green', label='z')
-plt.plot(t, std_Pk_up[:, 0], color='orange', linestyle='--' , label='3$\sigma_{x}$')
-plt.plot(t, std_Pk_down[:, 0], color='orange', linestyle='--')
-plt.plot(t, std_Pk_up[:, 1], color='cyan', linestyle='--', label='3$\sigma_{y}$')
-plt.plot(t, std_Pk_down[:, 1], color='cyan', linestyle='--')
-plt.plot(t, std_Pk_up[:, 2], color='yellow', linestyle='--', label='3$\sigma_{z}$')
-plt.plot(t, std_Pk_down[:, 2], color='yellow', linestyle='--')
-plt.legend()
-plt.xlim(0, 10)
-plt.grid(True, which="both", ls="-")
-plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated position error [m]')
-plt.title('EML2 position error')
-
-plt.figure()
-plt.plot(t, x_error[:, 3], color='red', label='$\dot{x}$')
-plt.plot(t, x_error[:, 4], color='blue', label='$\dot{y}$')
-plt.plot(t, x_error[:, 5], color='green', label='$\dot{z}$')
-plt.plot(t, std_Pk_up[:, 3], color='orange', linestyle='--', label='3$\sigma_{\dot{x}}$')
-plt.plot(t, std_Pk_down[:, 3], color='orange', linestyle='--')
-plt.plot(t, std_Pk_up[:, 4], color='cyan', linestyle='--', label='3$\sigma_{\dot{y}}$')
-plt.plot(t, std_Pk_down[:, 4], color='cyan', linestyle='--')
-plt.plot(t, std_Pk_up[:, 5], color='yellow', linestyle='--', label='3$\sigma_{\dot{z}}$')
-plt.plot(t, std_Pk_down[:, 5], color='yellow', linestyle='--')
-plt.legend()
-plt.xlim(0, 10)
-plt.grid(True, which="both", ls="-")
-plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated velocity error [m/s]')
-plt.title('EML2 velocity error')
-
-plt.figure()
-plt.plot(t, x_error[:, 6], color='red', label='x')
-plt.plot(t, x_error[:, 7], color='blue', label='y')
-plt.plot(t, x_error[:, 8], color='green', label='z')
-plt.plot(t, std_Pk_up[:, 6], color='orange', linestyle='--', label='3$\sigma_{x}$')
-plt.plot(t, std_Pk_down[:, 6], color='orange', linestyle='--')
-plt.plot(t, std_Pk_up[:, 7], color='cyan', linestyle='--', label='3$\sigma_{y}$')
-plt.plot(t, std_Pk_down[:, 7], color='cyan', linestyle='--')
-plt.plot(t, std_Pk_up[:, 8], color='yellow', linestyle='--', label='3$\sigma_{z}$')
-plt.plot(t, std_Pk_down[:, 8], color='yellow', linestyle='--')
-plt.legend()
-plt.xlim(0, 10)
-plt.grid(True, which="both", ls="-")
-plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated position error [m]')
-plt.title('ELO position error')
-
-plt.figure()
-plt.plot(t, x_error[:, 9], color='red', label='$\dot{x}$')
-plt.plot(t, x_error[:, 10], color='blue', label='$\dot{y}$')
-plt.plot(t, x_error[:, 11], color='green', label='$\dot{z}$')
-plt.plot(t, std_Pk_up[:, 9], color='orange', linestyle='--', label='3$\sigma_{\dot{x}}$')
-plt.plot(t, std_Pk_down[:, 9], color='orange', linestyle='--')
-plt.plot(t, std_Pk_up[:, 10], color='cyan', linestyle='--', label='3$\sigma_{\dot{y}}$')
-plt.plot(t, std_Pk_down[:, 10], color='cyan', linestyle='--')
-plt.plot(t, std_Pk_up[:, 11], color='yellow', linestyle='--', label='3$\sigma_{\dot{z}}$')
-plt.plot(t, std_Pk_down[:, 11], color='yellow', linestyle='--')
-plt.legend()
-plt.xlim(0, 10)
-plt.grid(True, which="both", ls="-")
-plt.xlabel('Time since epoch [days]')
-plt.ylabel('Estimated velocity error [m/s]')
-plt.title('ELO velocity error')
-
-plt.figure()
-plt.plot(t, visibility)
-plt.xlabel('Time [days]')
-plt.ylabel('Visibility [0:No, 1:Yes]')
-plt.title('Visbility between the satellites')
-plt.show()
-
-
 
