@@ -10,8 +10,8 @@ from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
-from Estimation_Model.integrator_class import EstimationClass_eml2o
-from Estimation_Model.integrator_class import EstimationClass_elo
+from Estimation_Model.integrator_class import EstimationClass
+#from Estimation_Model.integrator_class import EstimationClass_elo
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
@@ -20,15 +20,16 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = EstimationClass_eml2o(name=EML2O.name,
+for_eml2 = EstimationClass(name=EML2O.name,
                            mass=EML2O.mass,
                            Aref=EML2O.reference_area,
                            Cr=EML2O.radiation_pressure_coefficient,
+                           occulting_bodies=EML2O.occulting_bodies,
                            t0=min(eph_time),
                            tend=max(eph_time),
                            dt=dt
                            )
-for_elo = EstimationClass_elo(name=ELO.name,
+for_elo = EstimationClass(name=ELO.name,
                           mass=ELO.mass,
                           Aref=ELO.reference_area,
                           Cr=ELO.radiation_pressure_coefficient,
