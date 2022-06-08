@@ -35,10 +35,15 @@ RR2 = np.concatenate((dt*np.eye(3), np.zeros((3,3))), axis=1)
 RR3 = np.concatenate((np.zeros((3,3)), dt**2/2*np.eye(3)), axis=1)
 RR4 = np.concatenate((np.zeros((3,3)), dt*np.eye(3)), axis=1)
 RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR2), axis=0), RR3), axis=0), RR4), axis=0)
+
+#RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR1), axis=0), RR3), axis=0), RR3), axis=0)
+
+print(RR)
+
 Qc = Simulation_Time_Setup.Qc
 
 Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
-
+print(Qdt)
 print("Estimation Setup ready for use")
 
 # Initializing
