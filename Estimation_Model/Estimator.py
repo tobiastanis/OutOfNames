@@ -62,7 +62,7 @@ def ekf(X0, P0, Y, t_span):
     std_Pk.append(np.sqrt(np.diag(Pk)))
 
     for i in range(len(t_span)-1):
-        print(i) #Counter
+        #print(i) #Counter
         t_k_1 = t_span[i]
         #Initialiing X, P, Y
         Xstar_k_1 = Xhat_k  # States in previous timestep

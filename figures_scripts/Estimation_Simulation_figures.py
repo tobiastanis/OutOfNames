@@ -8,7 +8,7 @@ from Measurement_Model.Nominal_Observations_Cooker import states
 
 std_Pk_up = 3*stdP
 std_Pk_down =-3*stdP
-"""
+
 fig1, (ax1, ax2, ax3) = plt.subplots(3, 1, constrained_layout=True, sharey=True)
 ax1.plot(t, states[:, 0], color='blue', label='Nominal')
 ax1.plot(t, X[:, 0], color='red', label='Estimated')
@@ -44,7 +44,7 @@ ax2.plot(t, X[:, 10], color='red')
 ax3.plot(t, states[:, 11], color='blue')
 ax3.plot(t, X[:, 11], color='red')
 ax1.legend()
-"""
+
 
 plt.figure()
 plt.plot(t, x_error[:, 0], color='red', label='x')
@@ -114,12 +114,12 @@ plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m/s]')
 plt.title('ELO velocity error')
 
-"""
+
 plt.figure()
 plt.plot(t, visibility)
 plt.xlabel('Time [days]')
 plt.ylabel('Visibility [0:No, 1:Yes]')
 plt.title('Visbility between the satellites')
-"""
+
 plt.show()
 

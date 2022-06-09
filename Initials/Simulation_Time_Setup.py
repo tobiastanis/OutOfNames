@@ -59,7 +59,7 @@ P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
 #Qc = np.eye(6)*[0.02, 0.01, 0.01, 0.2, 0.1, 0.2]*4e-11
 #Qc = np.eye(6)*[4, 0.2, 0.003, 0.0004, 0.0002, 0.05]*5e-10
-#Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11              # best until now
+#Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
 #Qc = np.eye(6)*[0.006, 0.0055, 0.007, 0.7, 0.4, 0.7]*4e-11
 Qc = np.eye(6)*[0.08, 0.08, 0.08, 6, 6, 6]*5e-12                   # This one is bes6 until now
 

@@ -38,12 +38,10 @@ RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR2), axis=0), RR3), a
 
 #RR = np.concatenate((np.concatenate((np.concatenate((RR1, RR1), axis=0), RR3), axis=0), RR3), axis=0)
 
-print(RR)
-
 Qc = Simulation_Time_Setup.Qc
 
 Qdt = np.matmul(np.matmul(RR,Qc), np.transpose(RR))
-print(Qdt)
+
 print("Estimation Setup ready for use")
 
 # Initializing
