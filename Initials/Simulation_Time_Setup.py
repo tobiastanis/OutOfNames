@@ -41,18 +41,17 @@ measurement_end_epoch = simulation_end_epoch
 n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/measurement_time_step)+1
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
-CONFIGURATION = 1
 
-sigma_noise = 20
+sigma_noise = 50
 bias = 0
-noise_dot = 1e-3
+noise_dot = 0
 bias_dot = 0
 
 """
 Estimation Model Setup
 """
 
-estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 1500, 1500, 1500, 1e-3, 1e-3, 1e-3])
+estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
 #estimated_initial_error = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
@@ -61,8 +60,9 @@ P0 = 10*np.diag((estimated_initial_error))
 #Qc = np.eye(6)*[4, 0.2, 0.003, 0.0004, 0.0002, 0.05]*5e-10
 #Qc = np.eye(6)*[0.005, 0.005, 0.005, 0.4, 0.4, 0.7]*4e-11
 #Qc = np.eye(6)*[0.006, 0.0055, 0.007, 0.7, 0.4, 0.7]*4e-11
-Qc = np.eye(6)*[0.08, 0.08, 0.08, 6, 6, 6]*5e-12                   # This one is bes6 until now
+Qc = np.eye(6)*[0.04, 0.04, 0.04, 6, 6, 6]*5e-12                   # This one is bes6 until now
 
+CONFIGURATION = 1
 if CONFIGURATION == 0:
     filename = "estimation_data_CONF_0.json"
 if CONFIGURATION == 1:
