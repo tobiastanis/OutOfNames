@@ -81,7 +81,7 @@ class TestCalc(unittest.TestCase):
 
     def test_intersatellitedistance(self):
         dist_func = measurement_functions.intersatellite_distance(states[1000, :])
-        dist_tudat = np.linalg.norm(output[1000, 37:40], axis=0)
+        dist_tudat = np.linalg.norm(output[1000, 37:40])
         self.assertEqual(dist_func, dist_tudat)
 
     def test_measurementarray(self):
