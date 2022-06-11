@@ -27,9 +27,13 @@ import numpy as np
 #own
 from Initials.Simulation_Time_Setup import DIRECTORY_NAME
 from Saved_Data import Data_Loader
+
 #tudatpy
 from tudatpy.kernel import constants
-
+###constants###
+b = constants.BOLTZMANN_CONSTANT
+c = constants.SPEED_OF_LIGHT
+pi = np.pi
 
 states = Data_Loader.json_measurementarray_reader(DIRECTORY_NAME)
 
@@ -41,25 +45,39 @@ dmax = max(d_abs)               #Maximum operation distance [m]
 
 """
 margin = EbNo - EbNo_treshold - implementationLOSS [dB]
-EbNo = SNR = 10log(bitrate) [dB]                            (Energy per bit to noise power spectral density ratio)
+EbNo = SNR - 10log(bitrate) [dB]                            (Energy per bit to noise power spectral density ratio)
 EbNo_treshold = e.g. 2.5 [dB]          ----ask how to determine this----
 implementationLOSS = e.g. 1 [dB]       ----ask how to determine this----
 
 SNR = Rx_signal + G/T - 1-*log(kb)                          (Signal-to-noise ratio)
 Rx_signal = EIRP - attenuation - polarizationLOSS - receiverLOSS
 G/T = (None for intersatellite?) [dBK]              Gain to noise temperature
+G/T = G + 10log(T/1K)         
 kb = Boltzmann constant
+G = eta*4piA/lambda^2
 
 EIRP = e.g. 9.0 [dBW]                  ----Check where it comes from----
+EIRP = Tx - CableLOSS + antennaGAIN
+
 attenuation = freespace             (no atmosphere)
 PolarizationLOSS = e.g. 0 [dB]         ----ask how to determine this----
+If polarization of receiving antenna is not the same as the polarization of the incident wave, then polarization 
+mismatch. PLF characterizes the polarization mismatch and 0=<PLF=<1. then PolarizationLOSS = 10log(PLF)
+
 receiverLOSS = e.g. 2 [dB]             ----ask how to determine this----
 
 freespace(LOSS) = 20log(4pi*d/lambda)   (Lfs)
 
-
-
-
+Important starting parameters:
+f =                                         [Hz] or lambda since lambda = c/f
+datarate/bitrate =                          [bps]
+A_antenna =                                 [m^2]
+eta_antenna =                               [-] ([0:1])
+Tx = 3                                      [dBW]
 """
+
+
+
+
 
 
