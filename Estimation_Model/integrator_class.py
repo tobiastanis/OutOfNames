@@ -47,7 +47,7 @@ class EstimationClass:
 
         accelerations = dict(
             Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(10, 10)],
-            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(30, 30)],
+            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(40, 40)],
             Sun=[propagation_setup.acceleration.point_mass_gravity(),
                  propagation_setup.acceleration.cannonball_radiation_pressure()],
             Jupiter=[propagation_setup.acceleration.point_mass_gravity()],
