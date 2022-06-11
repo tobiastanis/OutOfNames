@@ -46,8 +46,8 @@ class EstimationClass:
         environment_setup.add_radiation_pressure_interface(self.bodies, self.name, radiation_pressure_settings)
 
         accelerations = dict(
-            Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(5, 5)],
-            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(40, 40)],
+            Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(10, 10)],
+            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(30, 30)],
             Sun=[propagation_setup.acceleration.point_mass_gravity(),
                  propagation_setup.acceleration.cannonball_radiation_pressure()],
             Jupiter=[propagation_setup.acceleration.point_mass_gravity()],

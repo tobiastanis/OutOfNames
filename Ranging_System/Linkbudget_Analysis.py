@@ -79,7 +79,7 @@ Tx = 3                                      [dBW]
 
 Dummy_SAT = communication(dmin=dmin,
                           dmax=dmax,
-                          Tx=4106,
+                          Tx=20,
                           frequency=2200e6,
                           datarate=5000,
                           A_antenna=(10e-2)**2*np.pi,
@@ -95,7 +95,6 @@ Dummy_SAT = communication(dmin=dmin,
 Dummy_SAT.communication_parameters()
 
 print(Dummy_SAT.SNR_max)
-
 
 
 
