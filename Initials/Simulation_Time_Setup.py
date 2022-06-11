@@ -57,7 +57,7 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
 #Qc = np.eye(6)*[0.033, 0.033, 0.033, 6.5, 6.5, 6.5]*5e-12                   # This one is bes6 until now
-Qc = np.eye(6)*[0.033, 0.035, 0.033, 4, 2.2, 3]*5e-12
+Qc = np.eye(6)*[0.033, 0.035, 0.033, 4, 2, 3]*5e-12
 
 CONFIGURATION = 1
 if CONFIGURATION == 0:

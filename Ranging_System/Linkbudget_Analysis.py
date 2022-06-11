@@ -27,6 +27,7 @@ import numpy as np
 #own
 from Initials.Simulation_Time_Setup import DIRECTORY_NAME
 from Saved_Data import Data_Loader
+from Ranging_System.communicationclass import communication
 
 #tudatpy
 from tudatpy.kernel import constants
@@ -49,7 +50,7 @@ EbNo = SNR - 10log(bitrate) [dB]                            (Energy per bit to n
 EbNo_treshold = e.g. 2.5 [dB]          ----ask how to determine this----
 implementationLOSS = e.g. 1 [dB]       ----ask how to determine this----
 
-SNR = Rx_signal + G/T - 1-*log(kb)                          (Signal-to-noise ratio)
+SNR = Rx_signal + G/T - 10*log(kb)                          (Signal-to-noise ratio)
 Rx_signal = EIRP - attenuation - polarizationLOSS - receiverLOSS
 G/T = (None for intersatellite?) [dBK]              Gain to noise temperature
 G/T = G + 10log(T/1K)         
@@ -76,6 +77,24 @@ eta_antenna =                               [-] ([0:1])
 Tx = 3                                      [dBW]
 """
 
+Dummy_SAT = communication(dmin=dmin,
+                          dmax=dmax,
+                          Tx=4106,
+                          frequency=2200e6,
+                          datarate=5000,
+                          A_antenna=(10e-2)**2*np.pi,
+                          eta_antenna=0.60,
+                          cablelosses=0.50,
+                          polarizationlossfactor=1,
+                          T_noise=4000,
+                          Rx_LOSS=0.50,
+                          implementationLOSS=1.0,
+                          EbNo_treshold=1.0,
+                          Bandwidth=np.transpose([[1e0, 1e1, 1e2, 1e3, 1e4, 1e5, 1e6]])
+                          )
+Dummy_SAT.communication_parameters()
+
+print(Dummy_SAT.SNR_max)
 
 
 
