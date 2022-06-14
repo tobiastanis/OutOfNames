@@ -42,9 +42,9 @@ n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/mea
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
-sigma_noise = 50
+sigma_noise = 10
 bias = 0
-noise_dot = 0
+noise_dot = 0   #1e-3, 1e-4, 5e-4
 bias_dot = 0
 
 """
@@ -56,8 +56,8 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
-#Qc = np.eye(6)*[0.033, 0.033, 0.033, 6.5, 6.5, 6.5]*5e-12                   # This one is bes6 until now
-Qc = np.eye(6)*[0.025, 0.035, 0.033, 4, 2, 3]*5e-12
+#Qc = np.eye(6)*[0.033, 0.033, 0.033, 6.5, 6.5, 6.5]*5e-12                   # This one is best until now
+Qc = np.eye(6)*[0.000000025, 0.0035, 0.33, 0.5, 0.02, 0.003]*5e-12
 
 CONFIGURATION = 1
 if CONFIGURATION == 0:

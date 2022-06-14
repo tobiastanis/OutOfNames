@@ -10,14 +10,14 @@ class communication:
     def __init__(self,dmin, dmax, Tx, frequency, datarate, A_antenna, eta_antenna, cablelosses, polarizationlossfactor, T_noise, Rx_LOSS, implementationLOSS, EbNo_treshold, Bandwidth):
         self.dmin = dmin                                        #Calculated
         self.dmax = dmax                                        #Calculated
-        self.Tx = Tx                                           #From exisiting literature?
+        self.Tx = Tx                                            #From exisiting literature?
         self.frequency = frequency                              #Low level S-band (2200MHz)
         self.datarate = datarate                                #approx 5000 bps?
-        self.A_antenna = A_antenna                              #10cm^2?
+        self.A_antenna = A_antenna                              #r = 10cm?
         self.eta_antenna = eta_antenna                          #How to calculate? normal is around 50-60% right?
         self.cablelosses = cablelosses                          #How to calculate
         self.polarizationlossfactor = polarizationlossfactor    #Guess or determine this?
-        self.T_noise = 10*np.log10(T_noise)                                  #Is this just operationtemperatur?
+        self.T_noise = 10*np.log10(T_noise)                     #Is this just operationtemperatur?
         self.Rx_LOSS = Rx_LOSS                                  #Is this cableLOSS on receiver side?
         self.implementationLOSS = implementationLOSS            #
         self.EbNo_treshold = EbNo_treshold
@@ -36,7 +36,7 @@ class communication:
         wavelength = constants.SPEED_OF_LIGHT/self.frequency
         Gain = self.eta_antenna*4*np.pi*self.A_antenna/wavelength**2
         GoverT = Gain + 10*np.log10(self.T_noise)
-
+        print(GoverT)
         polarizationLOSS = 10*np.log10(self.polarizationlossfactor)
         freespaceLOSS_min = 20*np.log10(4*np.pi*self.dmin/wavelength)
         freespaceLOSS_max = 20*np.log10(4*np.pi*self.dmax/wavelength)
@@ -46,18 +46,40 @@ class communication:
         Rx_signal_min = EIRP - freespaceLOSS_min - polarizationLOSS - self.Rx_LOSS
         Rx_signal_max = EIRP - freespaceLOSS_max - polarizationLOSS - self.Rx_LOSS
 
-        self.SNR_max = Rx_signal_max + GoverT - 10*np.log10(constants.BOLTZMANN_CONSTANT) - 10*np.log10(self.Bandwidth)
-        self.SNR_min = Rx_signal_min + GoverT - 10*np.log10(constants.BOLTZMANN_CONSTANT) - 10*np.log10(self.Bandwidth)
+        #Rx_SignalAntenna = Rx_signal + Rx_AntennaGain (min and max)
+        #RxNoise = 10*log10(kb*bitrate) - GoverT + Rx_AntennaGain, seems same as SNR but there Rx_Gain is not added
 
 
-        self.EbNo_max = self.SNR_max + 10*np.log10(self.datarate)
-        self.EbNo_min = self.SNR_min + 10*np.log10(self.datarate)
+        self.SNR_max = Rx_signal_max + GoverT - 10*np.log10(constants.BOLTZMANN_CONSTANT) # - 10*np.log10(self.Bandwidth)
+        self.SNR_min = Rx_signal_min + GoverT - 10*np.log10(constants.BOLTZMANN_CONSTANT) # - 10*np.log10(self.Bandwidht)
+
+
+        self.EbNo_max = self.SNR_max - 10*np.log10(self.datarate)    #(from 6)
+        self.EbNo_min = self.SNR_min - 10*np.log10(self.datarate)
+        #EbNo = Rx_SignalAntenna - Rx_Noise (three)
+        #EbNo = Rx_Signal + GoverT - 10*log10(kb*bitrate), (four), seems like my SNR
 
         self.margin_max = self.EbNo_max - self.EbNo_treshold - self.implementationLOSS
         self.margin_min = self.EbNo_min - self.EbNo_treshold - self.implementationLOSS
 
         #self.noise_1hz = 10*constants.BOLTZMANN_CONSTANT*self.T_noise
         #self.noise = self.noise_1hz * 10*np.log10(self.Bandwidth)
+
+
+
+        """      
+        How to get from this budget to noise in m?
+        
+        How to calculate the time needed for a range operation?
+        
+        Are there other important things to consider?
+        
+        To what extent can I assume certain values?
+        
+        Should I make a linspace from min to max distance, or are the two extreme okay?
+        If so, it becomes a funtion of freespaceloss which I think is nice
+        
+        """
 
 
 
