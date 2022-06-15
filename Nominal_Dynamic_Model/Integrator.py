@@ -84,12 +84,12 @@ def integrator(t0, dt, tend, X0_eml2o, X0_elo, NAME):
         for_eml2o.bodies, integrator_settings, propagation_settings_eml2o
     )
 
-    dynamic_simulator_eml2o = numerical_simulation.SingleArcSimulator(
+    dynamic_simulator_elo = numerical_simulation.SingleArcSimulator(
         for_elo.bodies, integrator_settings, propagation_settings_elo
     )
 
     states_eml2o_dict = dynamic_simulator_eml2o.state_history
-    states_elo_dict = dynamic_simulator_eml2o.state_history
+    states_elo_dict = dynamic_simulator_elo.state_history
 
     return [states_eml2o_dict, states_elo_dict]
 
