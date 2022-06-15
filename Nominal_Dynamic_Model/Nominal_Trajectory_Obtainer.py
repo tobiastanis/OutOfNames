@@ -9,9 +9,6 @@ from Satellites_list.ELO import ELO
 from Nominal_Dynamic_Model import NOMINAL_dynamic_model_function
 #general libraries
 import numpy as np
-from pathlib import Path
-import csv
-#tudatpy libraries
 
 # Initializing states
 EML2O_initial = EML2O.initial_states; ELO_initial = ELO.initial_states
