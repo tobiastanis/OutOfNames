@@ -13,7 +13,7 @@ from tudatpy.kernel import constants
 #########################################ADJUSTABLES####################################################################
 t0_mjd = 60390.00                                           #Modified Julian Date
 simulation_duration = 10                                    #Days
-fixed_time_step = 1000                                        #Fixed Time Step [s]
+fixed_time_step = 10                                        #Fixed Time Step [s]
 
 DIRECTORY_NAME = "Saved_Data\\Validation_Data"
 OVERWRITE = 0 # OFF = 0, ON = 1
