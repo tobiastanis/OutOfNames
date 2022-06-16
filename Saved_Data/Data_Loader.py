@@ -22,6 +22,20 @@ def json_states_reader(dirname):
     print("nominal states loaded successfully")
     return np.vstack(list(states_dict.values()))
 
+def json_2states_reader(dirname):
+    dirname = dirname
+    working_dir = Path.joinpath(parent_dir, dirname)
+    file_path1 = Path.joinpath(working_dir, "states_eml2o.json")
+    file_path2 = Path.joinpath(working_dir, "states_elo.json")
+    with open(file_path1) as json_file:
+        states_eml2o_dict = json.load(json_file)
+    with open(file_path2) as json_file:
+        states_elo_dict = json.load(json_file)
+    states_eml2o = np.vstack(list(states_eml2o_dict.values()))
+    states_elo = np.vstack(list(states_elo_dict.values()))
+    states = np.concatenate((states_eml2o, states_elo), axis=1)
+    return states
+
 def json_output_reader(dirname):
     dir_name = dirname
     working_dir = Path.joinpath(parent_dir, dir_name)

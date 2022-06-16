@@ -13,7 +13,8 @@ from Measurement_Model import measurement_functions
 
 
 #Loading Nominal Trajectory
-nominal_states = Data_Loader.json_states_reader(Simulation_Time_Setup.DIRECTORY_NAME)
+nominal_states = Data_Loader.json_2states_reader(Simulation_Time_Setup.DIRECTORY_NAME)
+
 #Obtaining the measurement array
 measurement_array = measurement_functions.measurement_array(nominal_states, Simulation_Time_Setup.measurement_interval)
 

@@ -11,6 +11,7 @@ from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
+from Nominal_Dynamic_Model.Environments.Three_Body_system_PM_NO_SRP import three_body_system_pm_no_srp
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
@@ -19,24 +20,26 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = EstimationClass(name=EML2O.name,
-                           mass=EML2O.mass,
-                           Aref=EML2O.reference_area,
-                           Cr=EML2O.radiation_pressure_coefficient,
-                           occulting_bodies=EML2O.occulting_bodies,
-                           t0=min(eph_time),
-                           tend=max(eph_time),
-                           dt=dt
-                           )
-for_elo = EstimationClass(name=ELO.name,
-                          mass=ELO.mass,
-                          Aref=ELO.reference_area,
-                          Cr=ELO.radiation_pressure_coefficient,
-                          occulting_bodies=ELO.occulting_bodies,
-                          t0=min(eph_time),
-                          tend=max(eph_time),
-                          dt=dt
-                          )
+for_eml2 = three_body_system_pm_no_srp(
+    name=EML2O.name,
+    mass=EML2O.mass,
+    #Aref=EML2O.reference_area,
+    #Cr=EML2O.radiation_pressure_coefficient,
+    #occulting_bodies=EML2O.occulting_bodies,
+    t0=min(eph_time),
+    tend=max(eph_time),
+    dt=dt
+)
+for_elo = three_body_system_pm_no_srp(
+    name=ELO.name,
+    mass=ELO.mass,
+    #Aref=ELO.reference_area,
+    #Cr=ELO.radiation_pressure_coefficient,
+    #occulting_bodies=ELO.occulting_bodies,
+    t0=min(eph_time),
+    tend=max(eph_time),
+    dt=dt
+)
 elo_variables = for_elo.create_variables()
 eml2_variables = for_eml2.create_variables()
 
@@ -61,8 +64,9 @@ def ekf(X0, P0, Y, t_span):
     std_Pk.append(np.sqrt(np.diag(Pk)))
 
     for i in range(len(t_span)-1):
-        #print(i) #Counter
+        print(i) #Counter
         t_k_1 = t_span[i]
+        t_k = t_span[i+1]
         #Initialiing X, P, Y
         Xstar_k_1 = Xhat_k  # States in previous timestep
         P_k_1 = Pk          # Covariance matrix in previous timestep
@@ -71,7 +75,7 @@ def ekf(X0, P0, Y, t_span):
         # Xstar_k_1 -------> Xstar_k (timestep integration)
         #[Xstar_k, Phi] = integrators.dynamic_integrator1(t_k_1, dt, t_k_1+dt, Xstar_k_1)
 
-        termination_condition = propagation_setup.propagator.time_termination(t_k_1+dt)
+        termination_condition = propagation_setup.propagator.time_termination(t_k)
         propagation_settings_eml2 = propagation_setup.propagator.translational(
             for_eml2.central_bodies, for_eml2.acceleration_models, for_eml2.body_to_propagate, Xstar_k_1[0:6],
             termination_condition)
@@ -79,7 +83,7 @@ def ekf(X0, P0, Y, t_span):
             for_elo.central_bodies, for_elo.acceleration_models, for_elo.body_to_propagate, Xstar_k_1[6:12],
             termination_condition)
 
-        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/6*dt)
+        integrator_settings = numerical_simulation.propagation_setup.integrator.runge_kutta_4(t_k_1, 1/6*(t_k - t_k_1))
 
         parameter_settings_eml2 = estimation_setup.parameter.initial_states(propagation_settings_eml2, for_eml2.bodies)
         parameter_settings_elo = estimation_setup.parameter.initial_states(propagation_settings_elo, for_elo.bodies)
@@ -93,15 +97,24 @@ def ekf(X0, P0, Y, t_span):
             for_elo.bodies, integrator_settings, propagation_settings_elo,
             estimation_setup.create_parameter_set(parameter_settings_elo, for_elo.bodies), integrate_on_creation=1
         )
-
-        X_eml2o = variational_eqn_solver_eml2.state_history[t_k_1+dt]
-        X_elo = variational_eqn_solver_elo.state_history[t_k_1+dt]
+        """
+        dynamic_simulator_elo = numerical_simulation.SingleArcSimulator(
+            for_elo.bodies, integrator_settings, propagation_settings_elo, print_state_data=False
+        )
+        dynamic_simulator_eml2o = numerical_simulation.SingleArcSimulator(
+            for_eml2.bodies, integrator_settings, propagation_settings_eml2, print_state_data=False
+        )
+        """
+        X_eml2o = variational_eqn_solver_eml2.state_history[t_k]
+        X_elo = variational_eqn_solver_elo.state_history[t_k]
+        #X_eml2o = dynamic_simulator_eml2o.state_history[t_k]
+        #X_elo = dynamic_simulator_elo.state_history[t_k]
 
         ##### Time updated states #####
         Xstar_k = np.vstack([X_eml2o.reshape(-1,1), X_elo.reshape(-1,1)])
         ##### Time updated Phi #####
-        Phi_eml2 = variational_eqn_solver_eml2.state_transition_matrix_history[t_k_1+dt]
-        Phi_elo = variational_eqn_solver_elo.state_transition_matrix_history[t_k_1+dt]
+        Phi_eml2 = variational_eqn_solver_eml2.state_transition_matrix_history[t_k]
+        Phi_elo = variational_eqn_solver_elo.state_transition_matrix_history[t_k]
         Phi = estimator_functions.Phi(Phi_eml2, Phi_elo)
 
         # Time update covariance matrix

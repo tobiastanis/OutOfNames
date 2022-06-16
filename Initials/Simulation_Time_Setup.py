@@ -34,7 +34,7 @@ simulation_span_ephemeris = np.linspace(simulation_start_epoch, simulation_end_e
 The following values are used for the measurements. Measurements cannot take place every 1 second, so another 
 measurement interval is used, e.g., 5 min or more. Measurement interval will be provided in whole seconds.
 """
-measurement_interval = 60
+measurement_interval = 6
 measurement_time_step = measurement_interval*fixed_time_step
 measurement_start_epoch = simulation_start_epoch
 measurement_end_epoch = simulation_end_epoch
@@ -42,7 +42,7 @@ n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/mea
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
-sigma_noise = 10
+sigma_noise = 0
 bias = 0
 noise_dot = 0   #1e-3, 1e-4, 5e-4
 bias_dot = 0
@@ -51,15 +51,15 @@ bias_dot = 0
 Estimation Model Setup
 """
 
-estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
-#estimated_initial_error = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+#estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 500, 1e-3, 1e-3, 1e-3])
+estimated_initial_error = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
 #State Compensation matrix Qc (tunable)
 #Qc = np.eye(6)*[0.033, 0.033, 0.033, 6.5, 6.5, 6.5]*5e-12                   # This one is best until now
-Qc = np.eye(6)*[0.000000025, 0.0035, 0.33, 0.5, 0.02, 0.003]*5e-12
+Qc = np.eye(6)*[1, 1, 1, 0.1, 0.1, 0.1]*5e-15
 
-CONFIGURATION = 1
+CONFIGURATION = 0
 if CONFIGURATION == 0:
     filename = "estimation_data_CONF_0.json"
 if CONFIGURATION == 1:
