@@ -46,7 +46,7 @@ measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
 sigma_noise = 10
 bias = 0
-noise_dot = 1e-3   #1e-3, 1e-4, 5e-4
+noise_dot = 5e-4   #1e-3, 1e-4, 5e-4
 bias_dot = 0
 
 """
@@ -57,12 +57,10 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 #estimated_initial_error = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 #Initial Covariance Matrix
 P0 = 10*np.diag((estimated_initial_error))
-#State Compensation matrix Qc (tunable)
-#Qc = np.eye(6)*[0.033, 0.033, 0.033, 6.5, 6.5, 6.5]*5e-12
-#Qc = np.eye(6)*[1, 1, 1, 30, 30, 30]*5e-13
+#State Compensation matrix Qc
 Qc = np.eye(6)*[1, 1, 1, 0.1, 0.1, 0.1]*5e-19
 
-CONFIGURATION = 2
+CONFIGURATION = 1
 if CONFIGURATION == 0:
     filename = "estimation_data_CONF_0.json"
 if CONFIGURATION == 1:
