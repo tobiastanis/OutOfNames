@@ -56,6 +56,9 @@ def integrator(t0, dt, tend, X0_eml2o, X0_elo, NAME):
         for_eml2o = solar_system(
             name=EML2O.name,
             mass=EML2O.mass,
+            Aref=EML2O.reference_area,
+            Cr=EML2O.radiation_pressure_coefficient,
+            occulting_bodies=EML2O.occulting_bodies,
             t0=t0,
             tend=tend,
             dt=dt
@@ -63,6 +66,9 @@ def integrator(t0, dt, tend, X0_eml2o, X0_elo, NAME):
         for_elo = solar_system(
             name=ELO.name,
             mass=ELO.mass,
+            Aref=ELO.reference_area,
+            Cr=ELO.radiation_pressure_coefficient,
+            occulting_bodies=ELO.occulting_bodies,
             t0=t0,
             tend=tend,
             dt=dt

@@ -11,7 +11,7 @@ from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
-from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
+from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
@@ -20,7 +20,7 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = three_body_system_pm(
+for_eml2 = solar_system(
     name=EML2O.name,
     mass=EML2O.mass,
     Aref=EML2O.reference_area,
@@ -30,7 +30,7 @@ for_eml2 = three_body_system_pm(
     tend=max(eph_time),
     dt=dt
 )
-for_elo = three_body_system_pm(
+for_elo = solar_system(
     name=ELO.name,
     mass=ELO.mass,
     Aref=ELO.reference_area,
@@ -65,7 +65,7 @@ def aekf(X0, P0, Y, t_span):
     std_Pk.append(np.sqrt(np.diag(Pk)))
 
     for i in range(len(t_span)-1):
-        #print(i) #Counter
+        print(i) #Counter
         t_k_1 = t_span[i]
         t_k = t_span[i+1]
         #Initialiing X, P, Y
