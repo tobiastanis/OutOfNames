@@ -11,7 +11,7 @@ from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
-from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import three_body_system_pm_no_srp
+from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
@@ -20,22 +20,22 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = three_body_system_pm_no_srp(
+for_eml2 = three_body_system_pm(
     name=EML2O.name,
     mass=EML2O.mass,
-    #Aref=EML2O.reference_area,
-    #Cr=EML2O.radiation_pressure_coefficient,
-    #occulting_bodies=EML2O.occulting_bodies,
+    Aref=EML2O.reference_area,
+    Cr=EML2O.radiation_pressure_coefficient,
+    occulting_bodies=EML2O.occulting_bodies,
     t0=min(eph_time),
     tend=max(eph_time),
     dt=dt
 )
-for_elo = three_body_system_pm_no_srp(
+for_elo = three_body_system_pm(
     name=ELO.name,
     mass=ELO.mass,
-    #Aref=ELO.reference_area,
-    #Cr=ELO.radiation_pressure_coefficient,
-    #occulting_bodies=ELO.occulting_bodies,
+    Aref=ELO.reference_area,
+    Cr=ELO.radiation_pressure_coefficient,
+    occulting_bodies=ELO.occulting_bodies,
     t0=min(eph_time),
     tend=max(eph_time),
     dt=dt

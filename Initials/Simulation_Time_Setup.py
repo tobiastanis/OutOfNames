@@ -15,8 +15,9 @@ t0_mjd = 60390.00                                           #Modified Julian Dat
 simulation_duration = 14                                    #Days
 fixed_time_step = 10                                        #Fixed Time Step [s]
 
-NAME = "Three_Body_System_PM_NO_SRP"
-DIRECTORY_NAME = "Saved_Data\\Three_Body_System_PM_NO_SRP"
+"For NAME, choose from Three_Body_System_PM(_NO_SRP), Solar_System"
+NAME = "Solar_System"
+DIRECTORY_NAME = "Saved_Data\\Solar_System"
 
 OVERWRITE = 0 # OFF = 0, ON = 1
 ########################################################################################################################
