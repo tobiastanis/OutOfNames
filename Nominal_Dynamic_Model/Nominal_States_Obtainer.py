@@ -5,7 +5,7 @@ from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Nominal_Dynamic_Model.Integrator import integrator
 
-name = "Three_Body_system_PM_NO_SRP"
+name = Simulation_Time_Setup.NAME
 
 t0 = Simulation_Time_Setup.simulation_start_epoch
 dt = Simulation_Time_Setup.fixed_time_step

@@ -30,3 +30,4 @@ def weightobservations(sigma,sigma_dot, ID_number):
     if ID_number == 2:
         R = sigma_dot**2
     return R
+

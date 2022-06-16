@@ -63,3 +63,4 @@ if CONFIGURATION_NAME == 4:
     measurement_row.pop(1)
     measurement_array = np.concatenate(([ID_array], [measurement_row]), axis=0)
 
+

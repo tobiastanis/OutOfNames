@@ -49,13 +49,13 @@ bias = Simulation_Time_Setup.bias
 noise_dot = Simulation_Time_Setup.noise_dot
 bias_dot = Simulation_Time_Setup.bias_dot
 
-def ekf(X0, P0, Y, t_span):
+def aekf(X0, P0, Y, t_span):
     print("Start estimation process")
     #Initialzing
     Xhat_k = X0
     Pk = P0
-
-
+    Q = Estimation_Setup.Qdt
+    alpha = 0.3
     #arrays to fill
     X_ekf = []
     std_Pk = []
@@ -108,7 +108,7 @@ def ekf(X0, P0, Y, t_span):
         Phi = estimator_functions.Phi(Phi_eml2, Phi_elo)
 
         # Time update covariance matrix
-        P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Estimation_Setup.Qdt)
+        P_flat_k = np.add(np.matmul(np.matmul(Phi, P_k_1), np.transpose(Phi)), Q)
 
 
         if Yk[1] == 0:
@@ -140,6 +140,8 @@ def ekf(X0, P0, Y, t_span):
             # Measurement update X
             Xhat_k = np.add(Xstar_k, (K * y))
             visibility.append(1)
+
+            Q = alpha*Q + (1-alpha)*K*y*y*np.transpose(K)
 
         # Savings
         X_ekf.append(np.transpose(Xhat_k)[0])
