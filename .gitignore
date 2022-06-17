@@ -3,3 +3,4 @@
 *.json
 Saved_Data/Nominal_Trajectory_Data/EML2_ELO_60390_10days/output.json
 Saved_Data/Nominal_Trajectory_Data/EML2_ELO_60390_10days/states.json
+*.pyc
