@@ -11,6 +11,7 @@ from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
+from Nominal_Dynamic_Model.Environments.Solar_System1 import solar_system1
 from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
 from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
 #tudatpy
@@ -21,7 +22,7 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = solar_system(
+for_eml2 = solar_system1(
     name=EML2O.name,
     mass=EML2O.mass,
     Aref=EML2O.reference_area,
@@ -31,7 +32,7 @@ for_eml2 = solar_system(
     tend=max(eph_time),
     dt=dt
 )
-for_elo = solar_system(
+for_elo = solar_system1(
     name=ELO.name,
     mass=ELO.mass,
     Aref=ELO.reference_area,
