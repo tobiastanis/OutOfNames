@@ -69,6 +69,9 @@ class communication:
 
         """      
         How to get from this budget to noise in m?
+        1. calc datarate
+        2. bit correlator, one bit time rangig error
+        3. Then ranging error per bit        
         
         How to calculate the time needed for a range operation?
         

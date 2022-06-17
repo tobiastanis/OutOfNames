@@ -12,6 +12,7 @@ from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
 from Estimation_Model.integrator_class import EstimationClass
 from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
+from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
@@ -64,8 +65,9 @@ def aekf(X0, P0, Y, t_span):
     X_ekf.append(np.transpose(Xhat_k)[0])
     std_Pk.append(np.sqrt(np.diag(Pk)))
 
+
     for i in range(len(t_span)-1):
-        print(i) #Counter
+        #print(i) #Counter
         t_k_1 = t_span[i]
         t_k = t_span[i+1]
         #Initialiing X, P, Y
@@ -141,6 +143,7 @@ def aekf(X0, P0, Y, t_span):
             Xhat_k = np.add(Xstar_k, (K * y))
             visibility.append(1)
 
+            #Describe QQQQQ
             Q = alpha*Q + (1-alpha)*K*y*y*np.transpose(K)
 
         # Savings

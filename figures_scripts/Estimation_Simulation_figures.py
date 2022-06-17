@@ -8,6 +8,7 @@ from Measurement_Model.Nominal_Observations_Cooker import states
 
 std_Pk_up = 3*stdP
 std_Pk_down =-3*stdP
+
 """
 fig1, (ax1, ax2, ax3) = plt.subplots(3, 1, constrained_layout=True, sharey=True)
 ax1.plot(t, states[:, 0], color='blue', label='Nominal')
@@ -59,7 +60,7 @@ plt.plot(t, std_Pk_up[:, 2], color='yellow', linestyle='--', label='3$\sigma_{z}
 plt.plot(t, std_Pk_down[:, 2], color='yellow', linestyle='--')
 plt.legend()
 plt.xlim(0, 14)
-plt.ylim(-2000, 2000)
+#plt.ylim(-2000, 2000)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated position error [m]')
@@ -77,7 +78,7 @@ plt.plot(t, std_Pk_up[:, 5], color='yellow', linestyle='--', label='3$\sigma_{\d
 plt.plot(t, std_Pk_down[:, 5], color='yellow', linestyle='--')
 plt.legend()
 plt.xlim(0, 14)
-plt.ylim(-0.02, 0.02)
+#plt.ylim(-0.02, 0.02)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m/s]')
@@ -95,7 +96,7 @@ plt.plot(t, std_Pk_up[:, 8], color='yellow', linestyle='--', label='3$\sigma_{z}
 plt.plot(t, std_Pk_down[:, 8], color='yellow', linestyle='--')
 plt.legend()
 plt.xlim(0, 14)
-plt.ylim(-1500, 1500)
+#plt.ylim(-1500, 1500)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated position error [m]')
@@ -113,19 +114,19 @@ plt.plot(t, std_Pk_up[:, 11], color='yellow', linestyle='--', label='3$\sigma_{\
 plt.plot(t, std_Pk_down[:, 11], color='yellow', linestyle='--')
 plt.legend()
 plt.xlim(0, 14)
-plt.ylim(-0.3, 0.3)
+#plt.ylim(-0.3, 0.3)
 plt.grid(True, which="both", ls="-")
 plt.xlabel('Time since epoch [days]')
 plt.ylabel('Estimated velocity error [m/s]')
 plt.title('ELO velocity error')
 
-"""
+
 plt.figure()
 plt.plot(t, visibility)
 plt.xlabel('Time [days]')
 plt.ylabel('Visibility [0:No, 1:Yes]')
 plt.title('Visbility between the satellites')
-"""
+
 
 plt.show()
 
