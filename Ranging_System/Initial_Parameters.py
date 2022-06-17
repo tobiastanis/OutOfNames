@@ -33,6 +33,8 @@ cablelosses_down = 1                #Losses within the system (both sides) [dB]
 Req_EBNO_down = 2.5                 #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
+Gain_down = np.linspace(6.5, 65, 10)#Gain array [dBi]
+
 
 #Uplink (ELO)
 Tx_up = 3                           #Transmission power [dBW]
@@ -41,5 +43,5 @@ cablelosses_up = 1                  #Losses within the system (both sides) [dB]
 Req_EBNO_up= 2.5                    #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_up = 0.5           #Polarization loss [dB]
 margin_up = 3                       #Link margin [dB]
-
+Gain_up = 23.6                      #Gain [dBi]
 

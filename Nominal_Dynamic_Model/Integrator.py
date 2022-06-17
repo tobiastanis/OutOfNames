@@ -6,7 +6,8 @@ from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
 
 def integrator(t0, dt, tend, X0_eml2o, X0_elo, NAME):
-    if NAME != "Three_Body_System_PM" and NAME != "Three_Body_System_PM_NO_SRP" and NAME != "Solar_System":
+    if NAME != "Three_Body_System_PM" and NAME != "Three_Body_System_PM_NO_SRP" and NAME != "Solar_System"\
+            and NAME != "Solar_System_200_200":
         quit("Integrator name is ill-defined, Check Initial/Simulation_Time_Setup line 18")
     if NAME == "Three_Body_System_PM":
         from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
@@ -64,6 +65,30 @@ def integrator(t0, dt, tend, X0_eml2o, X0_elo, NAME):
             dt=dt
         )
         for_elo = solar_system(
+            name=ELO.name,
+            mass=ELO.mass,
+            Aref=ELO.reference_area,
+            Cr=ELO.radiation_pressure_coefficient,
+            occulting_bodies=ELO.occulting_bodies,
+            t0=t0,
+            tend=tend,
+            dt=dt
+        )
+        eml2o_variables = for_eml2o.create_variables()
+        elo_variables = for_elo.create_variables()
+    if NAME == "Solar_System_200_200":
+        from Nominal_Dynamic_Model.Environments.Solar_System_200_200 import solar_system_200_200
+        for_eml2o = solar_system_200_200(
+            name=EML2O.name,
+            mass=EML2O.mass,
+            Aref=EML2O.reference_area,
+            Cr=EML2O.radiation_pressure_coefficient,
+            occulting_bodies=EML2O.occulting_bodies,
+            t0=t0,
+            tend=tend,
+            dt=dt
+        )
+        for_elo = solar_system_200_200(
             name=ELO.name,
             mass=ELO.mass,
             Aref=ELO.reference_area,
