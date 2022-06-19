@@ -10,10 +10,13 @@ from tudatpy.kernel.numerical_simulation import environment, environment_setup
 from tudatpy.kernel.numerical_simulation import propagation, propagation_setup
 
 
-class three_body_system_pm_no_srp:
-    def __init__(self, name, mass, t0, tend, dt):
+class int_environment:
+    def __init__(self, name, mass, Aref, Cr, occulting_bodies, t0, tend, dt):
         self.name = name
         self.mass = mass
+        self.Aref = Aref
+        self.Cr = Cr
+        self.occulting_bodies = occulting_bodies
         self.body_to_propagate = [self.name]
         self.t0 = t0
         self.tend = tend

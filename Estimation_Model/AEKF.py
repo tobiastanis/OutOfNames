@@ -18,7 +18,7 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 from Nominal_Dynamic_Model.Environments.Integrator_env_SMVE22M1515J import int_environment
 #from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
 #from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
-
+from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import int_environment
 
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
@@ -153,7 +153,7 @@ def aekf(X0, P0, Y, t_span):
             Xhat_k = np.add(Xstar_k, (K * y))
             visibility.append(1)
 
-            #Describe QQQQQ
+            #Updating the state compensation matrix
             Q = alpha*Q + (1-alpha)*K*y*y*np.transpose(K)
 
         # Savings
