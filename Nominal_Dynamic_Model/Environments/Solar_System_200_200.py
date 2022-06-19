@@ -28,7 +28,7 @@ class solar_system_200_200:
         spice.load_standard_kernels()
 
     def create_variables(self):
-        bodies_to_create = ["Earth", "Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Uranus", "Neptune"]
+        bodies_to_create = ["Earth", "Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn","Uranus", "Neptune"]
         global_frame_origin = "Earth"
         global_frame_orientation = "J2000"
         body_settings = environment_setup.get_default_body_settings(
@@ -55,6 +55,7 @@ class solar_system_200_200:
             Venus=[propagation_setup.acceleration.point_mass_gravity()],
             Mars=[propagation_setup.acceleration.point_mass_gravity()],
             Jupiter=[propagation_setup.acceleration.point_mass_gravity()],
+            Saturn=[propagation_setup.acceleration.point_mass_gravity()],
             Uranus=[propagation_setup.acceleration.point_mass_gravity()],
             Neptune=[propagation_setup.acceleration.point_mass_gravity()],
         )

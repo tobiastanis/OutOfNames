@@ -1,16 +1,13 @@
 """
 Integrator class
 """
-#general
-import numpy as np
-
 #tudatpy
 from tudatpy.kernel.interface import spice
 from tudatpy.kernel.numerical_simulation import environment, environment_setup
 from tudatpy.kernel.numerical_simulation import propagation, propagation_setup
 
 
-class solar_system:
+class solar_system_ex_ur_nep:
     def __init__(self, name, mass, Aref, Cr, occulting_bodies, t0, tend, dt):
         self.name = name
         self.mass = mass
@@ -28,7 +25,7 @@ class solar_system:
         spice.load_standard_kernels()
 
     def create_variables(self):
-        bodies_to_create = ["Earth", "Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+        bodies_to_create = ["Earth", "Moon", "Sun", "Mercury", "Venus", "Jupiter"]
         global_frame_origin = "Earth"
         global_frame_orientation = "J2000"
         body_settings = environment_setup.get_default_body_settings(
@@ -47,17 +44,13 @@ class solar_system:
         environment_setup.add_radiation_pressure_interface(self.bodies, self.name, radiation_pressure_settings)
 
         accelerations = dict(
-            Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(10, 10)],
-            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(40, 40)],
+            Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(2, 2)],
+            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(15, 15)],
             Sun=[propagation_setup.acceleration.point_mass_gravity(),
                  propagation_setup.acceleration.cannonball_radiation_pressure()],
             Mercury=[propagation_setup.acceleration.point_mass_gravity()],
             Venus=[propagation_setup.acceleration.point_mass_gravity()],
-            Mars=[propagation_setup.acceleration.point_mass_gravity()],
-            Jupiter=[propagation_setup.acceleration.point_mass_gravity()],
-            Saturn=[propagation_setup.acceleration.point_mass_gravity()],
-            Uranus=[propagation_setup.acceleration.point_mass_gravity()],
-            Neptune=[propagation_setup.acceleration.point_mass_gravity()],
+            Jupiter=[propagation_setup.acceleration.point_mass_gravity()]
         )
 
         acceleration_settings = {
