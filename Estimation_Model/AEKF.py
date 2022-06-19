@@ -10,20 +10,20 @@ from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
-#from Estimation_Model.integrator_class import EstimationClass
-#from Nominal_Dynamic_Model.Environments.Solar_System1 import solar_system1
-from Nominal_Dynamic_Model.Environments.Solar_System_Ex_Ur_Nep import solar_system_ex_ur_nep
-#from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
-#from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
 #tudatpy
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
 from tudatpy.kernel.numerical_simulation import estimation_setup
+#from Nominal_Dynamic_Model.Environments.Solar_System1 import solar_system1
+from Nominal_Dynamic_Model.Environments.Integrator_env_SMVE22M1515J import int_environment
+#from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
+#from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
+
 
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
 #Loading in environment and accelerations
-for_eml2 = solar_system_ex_ur_nep(
+for_eml2 = int_environment(
     name=EML2O.name,
     mass=EML2O.mass,
     Aref=EML2O.reference_area,
@@ -33,7 +33,7 @@ for_eml2 = solar_system_ex_ur_nep(
     tend=max(eph_time),
     dt=dt
 )
-for_elo = solar_system_ex_ur_nep(
+for_elo = int_environment(
     name=ELO.name,
     mass=ELO.mass,
     Aref=ELO.reference_area,
@@ -70,6 +70,14 @@ def aekf(X0, P0, Y, t_span):
 
     for i in range(len(t_span)-1):
         #print(i) #Counter
+        if i == 5000:
+            print("+/- 25%")
+        if i == 10000:
+            print("+/- 50%")
+        if i == 15000:
+            print("+/- 75%")
+        if i == 20000:
+            print("Any second now...")
         t_k_1 = t_span[i]
         t_k = t_span[i+1]
         #Initialiing X, P, Y

@@ -7,7 +7,7 @@ from tudatpy.kernel.numerical_simulation import environment, environment_setup
 from tudatpy.kernel.numerical_simulation import propagation, propagation_setup
 
 
-class solar_system_ex_ur_nep:
+class int_environment:
     def __init__(self, name, mass, Aref, Cr, occulting_bodies, t0, tend, dt):
         self.name = name
         self.mass = mass

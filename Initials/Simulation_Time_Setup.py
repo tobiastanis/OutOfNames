@@ -19,7 +19,7 @@ fixed_time_step = 10                                        #Fixed Time Step [s]
 NAME = "Solar_System_200_200"
 DIRECTORY_NAME = "Saved_Data\\Solar_System_200_200"
 
-OVERWRITE = 0 # OFF = 0, ON = 1
+OVERWRITE = 1 # OFF = 0, ON = 1
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided
