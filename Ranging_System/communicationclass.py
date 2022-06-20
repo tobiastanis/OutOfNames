@@ -74,14 +74,7 @@ class communication:
         3. Then ranging error per bit        
         
         How to calculate the time needed for a range operation?
-        
-        Are there other important things to consider?
-        
-        To what extent can I assume certain values?
-        
-        Should I make a linspace from min to max distance, or are the two extreme okay?
-        If so, it becomes a funtion of freespaceloss which I think is nice
-        
+             
         """
 
 
