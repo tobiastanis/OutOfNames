@@ -18,7 +18,7 @@ from tudatpy.kernel.numerical_simulation import estimation_setup
 from Nominal_Dynamic_Model.Environments.Integrator_env_SMVE22M1515J import int_environment
 #from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
 #from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
-from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import int_environment
+#from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import int_environment
 
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
@@ -69,15 +69,6 @@ def aekf(X0, P0, Y, t_span):
 
 
     for i in range(len(t_span)-1):
-        #print(i) #Counter
-        if i == 5000:
-            print("+/- 25%")
-        if i == 10000:
-            print("+/- 50%")
-        if i == 15000:
-            print("+/- 75%")
-        if i == 20000:
-            print("Any second now...")
         t_k_1 = t_span[i]
         t_k = t_span[i+1]
         #Initialiing X, P, Y
