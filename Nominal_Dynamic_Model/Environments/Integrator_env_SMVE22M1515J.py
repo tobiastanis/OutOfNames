@@ -45,7 +45,7 @@ class int_environment:
 
         accelerations = dict(
             Earth=[propagation_setup.acceleration.spherical_harmonic_gravity(2, 2)],
-            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(15, 15)],
+            Moon=[propagation_setup.acceleration.spherical_harmonic_gravity(20, 20)],
             Sun=[propagation_setup.acceleration.point_mass_gravity(),
                  propagation_setup.acceleration.cannonball_radiation_pressure()],
             Mercury=[propagation_setup.acceleration.point_mass_gravity()],

@@ -33,20 +33,20 @@ based on datarate and transimission power, a certain energy come in
 distance = 1.00*dmax                # Worst case distance, 3 percent extra max distance added [m]
 #Downlink (EML2O)
 Tx_down = 3                         #Transmission power [dBW]
-frequency_down = 2290e6             #Frequency [Hz]
+frequency_down = 2290e6             #Frequency [Hz]         [0.5 kbps - 2 Mbps
 #Bandwidth_down = 1e6                #Bandwidth [Hz]
 cablelosses_down = 1                #Losses within the system (both sides) [dB]
 req_EBNO_down = 2.5                 #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
 #Gain_down = np.linspace(6.5, 65, 10)#Gain array [dBi]
-Gain_down = 6.5
+Gain_down = 9.5
 Tnoise_down = 26.9 #dB/K
-bitrate_down = 900 #bps
+bitrate_down = 850 #bps
 
 #Uplink (ELO)
 Tx_up = 3                           #Transmission power [dBW]
-frequency_up = 2110e6               #Frequency [Hz]
+frequency_up = 2110e6               #Frequency [Hz]     bitrate [0.5 - 128 kbps]
 #Bandwidth_up = 1e6                  #Bandwidth [Hz]
 cablelosses_up = 1                  #Losses within the system (both sides) [dB]
 req_EBNO_up= 2.5                    #Required Energy per bit to noise power spectral density ratio [dB], need to be higher than 2.5d B
@@ -54,11 +54,11 @@ polarizationloss_up = 0.5           #Polarization loss [dB]
 margin_up = 3                       #Link margin [dB]
 Gain_up = 23.6                      #Gain [dBi]
 Tnoise_up = 26.9                    #dB/K
-bitrate_up = 900                  #bps
+bitrate_up = 1000                  #bps
 ########################################################################################################################
 ################################################ CALCULATIONS ##########################################################
 ########################################################################################################################
-#Down from LUMIO ---> Pathfinder
+#Down from EML2O ---> ELO
 wavelength_down = c / frequency_down                                    #Wavelength down [m]
 freespaceloss_down = 20*np.log10(4*pi*dmax/wavelength_down)             #FreeSpace Loss down [dB]
 EIRP_down = Tx_down - cablelosses_down + Gain_down                      #Effective Isotropic Radiated Power [dB]
@@ -68,7 +68,7 @@ Rx_down = EIRP_down - freespaceloss_down - polarizationloss_down
 GoverT_down = Gain_down - Tnoise_down           # G/T LUMIO
 
 
-#Up from PAthfinder ---> LUMIO
+#Up from ELO ---> EML2O
 wavelength_up = c / frequency_up
 freespaceloss_up = 20*np.log10(4*pi*dmax/wavelength_up)
 EIRP_up = Tx_up - cablelosses_up + Gain_up
@@ -76,11 +76,10 @@ EIRP_up = Tx_up - cablelosses_up + Gain_up
 Rx_up = EIRP_up - freespaceloss_up - polarizationloss_up
 GoverT_up = Gain_up - Tnoise_up         # G/T Pathfinder
 
-
+# Calculating Energy to bit Noise power spectral ratio
 EbN0_down = Rx_down + GoverT_up - 10*np.log10(kb*bitrate_down)
-
 EbN0_up = Rx_up + GoverT_down - 10*np.log10(kb*bitrate_up)
-
+# Margin above required EbN0, must be above 3 dB
 EbN0_margin_down = EbN0_down - req_EBNO_down
 EbN0_margin_up = EbN0_up - req_EBNO_up
 
