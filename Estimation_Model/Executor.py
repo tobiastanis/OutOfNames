@@ -11,10 +11,11 @@ from Estimation_Model import Estimation_Setup
 from Estimation_Model.AEKF import aekf
 
 
-[X, stdP, visibility] = aekf(Estimation_Setup.X0,
-                            Estimation_Setup.P0,
-                            Estimation_Setup.Y_nominal,
-                            Estimation_Setup.ephemeris_span)
+[X, stdP, visibility] = aekf(
+        Estimation_Setup.X0,
+        Estimation_Setup.P0,
+        Estimation_Setup.Y_nominal,
+        Estimation_Setup.ephemeris_span)
 
 X = np.array(X)
 stdP = np.array(stdP)

@@ -70,11 +70,14 @@ class communication:
         """      
         How to get from this budget to noise in m?
         1. calc datarate
-        2. bit correlator, one bit time rangig error
+        - I can't figure out how to obtain the temperature needed for G/T, which is needed for Signal to Noise ratio
+          and then obtian datarate
+        2. bit correlator, one bit time ranging error
+        - I'm still a bit confused in this part. 
         3. Then ranging error per bit        
         
         How to calculate the time needed for a range operation?
-             
+        I can't find steps to take or equations to get here.
         """
 
 
