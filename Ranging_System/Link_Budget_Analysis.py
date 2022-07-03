@@ -40,7 +40,7 @@ req_EBNO_down = 2.5                 #Required Energy per bit to noise power spec
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
 #Gain_down = np.linspace(6.5, 65, 10)#Gain array [dBi]
-Gain_down = 9.5
+Gain_down = 6.5
 Tnoise_down = 26.9 #dB/K
 bitrate_down = 850 #bps
 
@@ -83,13 +83,16 @@ EbN0_up = Rx_up + GoverT_down - 10*np.log10(kb*bitrate_up)
 EbN0_margin_down = EbN0_down - req_EBNO_down
 EbN0_margin_up = EbN0_up - req_EBNO_up
 
+
 print('EbN0_margin_down:', EbN0_margin_down, '\n', 'EbN0_margin_up:', EbN0_margin_up)
 
-ranging_error_per_bit = c / bitrate_down            #meter per bit (per measurement)
+ranging_error_per_bit_down = c / bitrate_down            #meter per bit (per measurement)
+ranging_error_per_bit_up = c / bitrate_up
+ranging_error_per_bit = np.sqrt(ranging_error_per_bit_down**2 + ranging_error_per_bit_up**2)
 no_of_meaurements = bitrate_down
 ranging_error = ranging_error_per_bit/np.sqrt(no_of_meaurements)
-print(ranging_error_per_bit)
-
+print('Down:', ranging_error_per_bit_down, '\n', 'Up:', ranging_error_per_bit_up, '\n', 'ranging_error_per_bit:', ranging_error_per_bit)
+print('Ranging_error_conventional:', ranging_error)
 integration_time_down = no_of_meaurements/bitrate_down           #transmissiontime [s]
 integration_time_up = no_of_meaurements/bitrate_up
 # We are using GMSK, so EbN0 = EsN0
@@ -112,3 +115,4 @@ print('sigma_rhoTM:', sigma_rhoTM)
 
 
 # Eventually compare 3sigma lines of different scenarios with each other or take average values after days 3 or 4
+
