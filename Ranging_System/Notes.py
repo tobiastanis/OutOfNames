@@ -22,7 +22,15 @@ X-band: high cost and not small and beyond is too large
 S-band probably best choice
 """
 
+"""
+28 July Green light 10:00 morging, Tobias makes teams, hand in asap preferably 25th
+AE3A and AE3B forms, 
+10 working days after green light is final submit dat of thesis. Upload on pure and email and hardcopy
+Email whole commitee to ask if they want a hardcopy
 
+30 aug prob defence, wait eberhart or jian
+
+"""
 
 
 

@@ -1,5 +1,7 @@
 """
 Initial parameters of the Radio System
+
+Bias for future work
 """
 #general
 import numpy as np
@@ -39,11 +41,11 @@ cablelosses_down = 1                #Losses within the system (both sides) [dB]
 req_EBNO_down = 2.5                 #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
-Gain_down = np.linspace(6.5, 15.5, 100)#Gain array [dBi]
-print(Gain_down[0], Gain_down[33], Gain_down[66], Gain_down[99])
+Gain_down = np.linspace(6.5, 18.5, 161)#Gain array [dBi]
+print(Gain_down[0], Gain_down[40], Gain_down[80], Gain_down[120], Gain_down[160])
 #Gain_down = 15.5
 Tnoise_down = 26.9 #dB/K
-bitrate_down = 6800 #bps
+#bitrate_down = 6800 #bps
 
 #Uplink (ELO)
 Tx_up = 3                           #Transmission power [dBW]
@@ -55,7 +57,7 @@ polarizationloss_up = 0.5           #Polarization loss [dB]
 margin_up = 3                       #Link margin [dB]
 Gain_up = 23.6                      #Gain [dBi]
 Tnoise_up = 26.9                    #dB/K
-bitrate_up = 8000                  #bps
+#bitrate_up = 8000                  #bps
 ########################################################################################################################
 ################################################ CALCULATIONS ##########################################################
 ########################################################################################################################
@@ -102,9 +104,17 @@ print('Down:', ranging_error_per_bit_down, '\n', 'Up:', ranging_error_per_bit_up
 print('Ranging_error_conventional:', ranging_error)
 integration_time_down = no_of_meaurements/bitrate_down           #transmissiontime [s]
 integration_time_up = no_of_meaurements/bitrate_up
+
+
+#Symbol to Noise ratio
+EsN0_down = EbN0_down
+EsN0_up = EbN0_up
+
 # We are using GMSK, so EbN0 = EsN0
-sigma_rhoTM_down = (4*c*(1/bitrate_down)**2/(pi*integration_time_down*10**((EbN0_down-3)/10)))
-sigma_rhoTM_up = (4*c*(1/bitrate_up)**2/(pi*integration_time_up*10**((EbN0_up-3)/10)))
+# Forward error correction, send to bits in order to have one bit of information, so 1 symbol is made by two bits
+#
+sigma_rhoTM_down = (4*c*(1/bitrate_down)**2/(pi*integration_time_down*10**((EsN0_down-margin_down)/10)))
+sigma_rhoTM_up = (4*c*(1/bitrate_up)**2/(pi*integration_time_up*10**((EsN0_up-margin_up)/10)))
 sigma_rhoTM = np.sqrt(sigma_rhoTM_down**2 + sigma_rhoTM_up**2)
 
 
