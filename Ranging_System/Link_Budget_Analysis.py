@@ -39,10 +39,11 @@ cablelosses_down = 1                #Losses within the system (both sides) [dB]
 req_EBNO_down = 2.5                 #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
-#Gain_down = np.linspace(6.5, 65, 10)#Gain array [dBi]
-Gain_down = 6.5
+Gain_down = np.linspace(6.5, 15.5, 100)#Gain array [dBi]
+print(Gain_down[0], Gain_down[33], Gain_down[66], Gain_down[99])
+#Gain_down = 15.5
 Tnoise_down = 26.9 #dB/K
-bitrate_down = 850 #bps
+bitrate_down = 6800 #bps
 
 #Uplink (ELO)
 Tx_up = 3                           #Transmission power [dBW]
@@ -54,7 +55,7 @@ polarizationloss_up = 0.5           #Polarization loss [dB]
 margin_up = 3                       #Link margin [dB]
 Gain_up = 23.6                      #Gain [dBi]
 Tnoise_up = 26.9                    #dB/K
-bitrate_up = 1000                  #bps
+bitrate_up = 8000                  #bps
 ########################################################################################################################
 ################################################ CALCULATIONS ##########################################################
 ########################################################################################################################
@@ -77,8 +78,14 @@ Rx_up = EIRP_up - freespaceloss_up - polarizationloss_up
 GoverT_up = Gain_up - Tnoise_up         # G/T Pathfinder
 
 # Calculating Energy to bit Noise power spectral ratio
+bitrate_down = 1/kb*10**((Rx_down+GoverT_up-5.5)/10)
+bitrate_up = 1/kb*10**((Rx_up+GoverT_down-5.5)/10)
+
 EbN0_down = Rx_down + GoverT_up - 10*np.log10(kb*bitrate_down)
 EbN0_up = Rx_up + GoverT_down - 10*np.log10(kb*bitrate_up)
+
+
+
 # Margin above required EbN0, must be above 3 dB
 EbN0_margin_down = EbN0_down - req_EBNO_down
 EbN0_margin_up = EbN0_up - req_EBNO_up
