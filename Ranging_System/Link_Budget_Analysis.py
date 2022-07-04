@@ -42,6 +42,7 @@ req_EBNO_down = 2.5                 #Required Energy per bit to noise power spec
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
 Gain_down = np.linspace(6.5, 18.5, 161)#Gain array [dBi]
+#Gain_down = 15.5
 print(Gain_down[0], Gain_down[40], Gain_down[80], Gain_down[120], Gain_down[160])
 #Gain_down = 15.5
 Tnoise_down = 26.9 #dB/K
