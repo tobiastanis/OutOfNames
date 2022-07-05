@@ -13,6 +13,7 @@ tend = Simulation_Time_Setup.simulation_end_epoch
 
 # Initializing states
 EML2O_initial = EML2O.initial_states; ELO_initial = ELO.initial_states
+print(EML2O_initial, ELO_initial)
 
 [states_eml2o_dict, states_elo_dict] = integrator(
     t0, dt, tend, EML2O_initial, ELO_initial, name

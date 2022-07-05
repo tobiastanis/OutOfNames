@@ -18,7 +18,6 @@ fixed_time_step = 10                                        #Fixed Time Step [s]
 "For NAME, choose from Three_Body_System_PM(_NO_SRP), Solar_System(_200_200)"
 NAME = "Solar_System_200_200"
 DIRECTORY_NAME = "Saved_Data\\Solar_System_200_200"
-
 OVERWRITE = 1 # OFF = 0, ON = 1
 ########################################################################################################################
 """
