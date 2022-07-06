@@ -22,8 +22,7 @@ OVERWRITE = 1 # OFF = 0, ON = 1
 ########################################################################################################################
 """
 Simulation start and end epoch in ephemeris time. Also simulation spans from 0 and from ephemeris time are provided
-"""
-"""
+
 These values are used for the Nominal Trajectory Obtainer, which provides the trajectory of both satellites in 
 """
 simulation_start_epoch = initial_states_obtainer.simulation_start_epoch(t0_mjd)
