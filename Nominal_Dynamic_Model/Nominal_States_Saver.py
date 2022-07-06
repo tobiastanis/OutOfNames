@@ -9,6 +9,8 @@ import json
 #Own
 from Nominal_Dynamic_Model.Nominal_States_Obtainer import states_eml2o_dict
 from Nominal_Dynamic_Model.Nominal_States_Obtainer import states_elo_dict
+from Nominal_Dynamic_Model.Nominal_States_Obtainer import output_eml2o_dict
+from Nominal_Dynamic_Model.Nominal_States_Obtainer import output_elo_dict
 from Initials.Simulation_Time_Setup import DIRECTORY_NAME
 from Initials.Simulation_Time_Setup import OVERWRITE
 print("start json writing")
@@ -17,11 +19,17 @@ print("start json writing")
 states_eml2o = {key: value.tolist() for key,value in states_eml2o_dict.items()}
 states_elo = {key: value.tolist() for key,value in states_elo_dict.items()}
 
+output_eml2o = {key: value.tolist() for key,value in output_eml2o_dict.items()}
+output_elo = {key: value.tolist() for key,value in output_elo_dict.items()}
+
 #########################Check the last directory everytime to prevent unwanted overwriting#############################
 dir_name = DIRECTORY_NAME # In Initials in Simulation_Time_Setup
 ########################################################################################################################
 file_name1 = "states_eml2o.json"
 file_name2 = "states_elo.json"
+
+file_name3 = "output_eml2o.json"
+file_name4 = "output_elo.json"
 
 this_path = Path(__file__)
 parent_dir = this_path.parent.parent
@@ -33,15 +41,21 @@ if os.path.exists(working_dir) and overwrite_path == OVERWRITE:
 if not os.path.exists(working_dir):
     os.makedirs(working_dir)
 
-file_path_states = Path.joinpath(working_dir, file_name1)
-file_path_output = Path.joinpath(working_dir, file_name2)
+file_path_states_eml2o = Path.joinpath(working_dir, file_name1)
+file_path_states_elo = Path.joinpath(working_dir, file_name2)
+
+file_path_output_eml2o = Path.joinpath(working_dir, file_name3)
+file_path_output_elo = Path.joinpath(working_dir, file_name4)
 
 def write_json(dictionary, file_path):
     with open(file_path, 'w') as json_file:
         dump = json.dump(dictionary, json_file)
 
-write_json(states_eml2o, file_path_states)
-write_json(states_elo, file_path_output)
+
+write_json(states_eml2o, file_path_states_eml2o)
+write_json(states_elo, file_path_states_elo)
+write_json(output_eml2o, file_path_output_eml2o)
+write_json(output_elo, file_path_output_elo)
 
 print("Files written")
 

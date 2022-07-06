@@ -39,11 +39,16 @@ def json_2states_reader(dirname):
 def json_output_reader(dirname):
     dir_name = dirname
     working_dir = Path.joinpath(parent_dir, dir_name)
-    file_path = Path.joinpath(working_dir, file_name_output)
-    with open(file_path) as json_file:
-        output_dict = json.load(json_file)
-    print("nominal output loaded successfully")
-    return np.vstack(list(output_dict.values()))
+    file_path1 = Path.joinpath(working_dir, "output_eml2o.json")
+    file_path2 = Path.joinpath(working_dir, "output_elo.json")
+    with open(file_path1) as json_file:
+        output_eml2o_dict = json.load(json_file)
+    with open(file_path2) as json_file:
+        output_elo_dict = json.load(json_file)
+    output_eml2o = np.vstack(list(output_eml2o_dict.values()))
+    output_elo = np.vstack(list(output_elo_dict.values()))
+    output = np.concatenate((output_eml2o, output_elo), axis=1)
+    return output
 
 def json_measurementarray_reader(dirname):
     dir_name = dirname
