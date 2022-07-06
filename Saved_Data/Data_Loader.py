@@ -50,6 +50,23 @@ def json_output_reader(dirname):
     output = np.concatenate((output_eml2o, output_elo), axis=1)
     return output
 
+def json_eml2o_output_reader(dirname):
+    dir_name = dirname
+    working_dir = Path.joinpath(parent_dir, dir_name)
+    file_path = Path.joinpath(working_dir, "output_eml2o.json")
+    with open(file_path) as json_file:
+        output_eml2o_dict = json.load(json_file)
+    output_eml2o = np.vstack(list(output_eml2o_dict.values()))
+    return output_eml2o
+def json_elo_output_reader(dirname):
+    dir_name = dirname
+    working_dir = Path.joinpath(parent_dir, dir_name)
+    file_path = Path.joinpath(working_dir, "output_elo.json")
+    with open(file_path) as json_file:
+        output_elo_dict = json.load(json_file)
+    output_eml2o = np.vstack(list(output_elo_dict.values()))
+    return output_eml2o
+
 def json_measurementarray_reader(dirname):
     dir_name = dirname
     working_dir = Path.joinpath(parent_dir, dir_name)

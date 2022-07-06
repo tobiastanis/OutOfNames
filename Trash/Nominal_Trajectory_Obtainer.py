@@ -6,7 +6,7 @@ Obtains the Nominal trajectory in a very high fidelity model
 from Initials import Simulation_Time_Setup
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
-from Nominal_Dynamic_Model import NOMINAL_dynamic_model_function
+from Trash import NOMINAL_dynamic_model_function
 #general libraries
 import numpy as np
 

@@ -7,8 +7,8 @@ import os
 from pathlib import Path
 import json
 #Own
-from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import states_dict
-from Nominal_Dynamic_Model.Nominal_Trajectory_Obtainer import output_dict
+from Trash.Nominal_Trajectory_Obtainer import states_dict
+from Trash.Nominal_Trajectory_Obtainer import output_dict
 from Initials.Simulation_Time_Setup import DIRECTORY_NAME
 from Initials.Simulation_Time_Setup import OVERWRITE
 print("start json writing")
