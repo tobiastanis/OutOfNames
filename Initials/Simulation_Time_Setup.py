@@ -43,9 +43,26 @@ n_steps_measure = math.floor((measurement_end_epoch-measurement_start_epoch)/mea
 measurement_span_ephemeris = np.linspace(measurement_start_epoch, measurement_end_epoch, n_steps_measure)
 measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
+'No. of antennas 1, 2, 4, 8, 16'
+ranging_errors_array = np.array([385.57269806470686, 96.622056952627, 24.212870715731942, 6.067590846096244, 1.5204995354685686])
+no_of_antennas = 16
+if no_of_antennas == 1:
+    sigma_noise = ranging_errors_array[0]
+    filename = "estimation_data_1_antenna.json"
+if no_of_antennas == 2:
+    sigma_noise = ranging_errors_array[1]
+    filename = "estimation_data_2_antenna.json"
+if no_of_antennas == 4:
+    sigma_noise = ranging_errors_array[2]
+    filename = "estimation_data_4_antenna.json"
+if no_of_antennas == 8:
+    sigma_noise = ranging_errors_array[3]
+    filename = "estimation_data_8_antenna.json"
+if no_of_antennas == 16:
+    sigma_noise = ranging_errors_array[4]
+    filename = "estimation_data_16_antenna.json"
 
 
-sigma_noise = 50
 bias = 0
 noise_dot = 0   #1e-3, 1e-4, 5e-4
 bias_dot = 0
@@ -61,20 +78,13 @@ estimated_initial_error = np.array([500, 500, 500, 1e-3, 1e-3, 1e-3, 500, 500, 5
 #P0 = np.diag([25e4, 25e4, 25e4, 1e-2, 1e-2, 1e-2, 25e4, 25e4, 25e4, 1e-2, 1e-2, 1e-2])
 #P0 = np.diag(np.square(estimated_initial_error))
 #P0 = np.diag([20e4, 20e4, 20e4, 1e-2, 1e-2, 1e-2, 20e4, 20e4, 20e4, 1e-2, 1e-2, 1e-2])
-P0 = np.diag([15e4, 15e4, 15e4, 1e-2, 1e-2, 1e-2, 15e4, 15e4, 15e4, 1e-2, 1e-2, 1e-2])
-#P0 = np.diag([10e4, 10e4, 10e4, 1e-2, 1e-2, 1e-2, 10e4, 10e4, 10e4, 1e-2, 1e-2, 1e-2])
+#P0 = np.diag([15e4, 15e4, 15e4, 1e-2, 1e-2, 1e-2, 15e4, 15e4, 15e4, 1e-2, 1e-2, 1e-2])
+P0 = np.diag([10e4, 10e4, 10e4, 1e-2, 1e-2, 1e-2, 10e4, 10e4, 10e4, 1e-2, 1e-2, 1e-2])    # 1 and 2 antennas
+
+#P0 = np.diag([5e4, 5e4, 5e4, 1e-2, 1e-2, 1e-2, 5e4, 5e4, 5e4, 1e-2, 1e-2, 1e-2])     # 4 antennas
 #State Compensation matrix Qc
 Qc = np.eye(6)*[1, 1, 1, 0.1, 0.1, 0.1]*5e-10
 
 CONFIGURATION = 1
-if CONFIGURATION == 0:
-    filename = "estimation_data_CONF_0.json"
-if CONFIGURATION == 1:
-    filename = "estimation_data_CONF_1.json"
-if CONFIGURATION == 2:
-    filename = "estimation_data_CONF_2.json"
-if CONFIGURATION == 3:
-    filename = "estimation_data_CONF_3.json"
-if CONFIGURATION == 4:
-    filename = "estimation_data_CONF_4.json"
+
 

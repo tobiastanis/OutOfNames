@@ -10,7 +10,6 @@ from Estimation_Model import Estimation_Setup
 from Estimation_Model import estimator_functions
 from Satellites_list.EML2O import EML2O
 from Satellites_list.ELO import ELO
-from Estimation_Model.integrator_class import EstimationClass
 from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import three_body_system_pm_no_srp
 #tudatpy
 from tudatpy.kernel import numerical_simulation

@@ -41,12 +41,12 @@ cablelosses_down = 1                #Losses within the system (both sides) [dB]
 req_EBNO_down = 2.5                 #Required Energy per bit to noise power spectral density ratio [dB]
 polarizationloss_down = 0.5         #Polarization loss [dB]
 margin_down = 3                     #Link margin [dB]
-Gain_down = np.linspace(6.5, 18.5, 161)#Gain array [dBi]
-#Gain_down = 15.5
-print(Gain_down[0], Gain_down[40], Gain_down[80], Gain_down[120], Gain_down[160])
+#Gain_down = np.linspace(6.5, 18.5, 161)#Gain array [dBi]
+Gain_down = 18.5
+#print(Gain_down[0], Gain_down[40], Gain_down[80], Gain_down[120], Gain_down[160])
 #Gain_down = 15.5
 Tnoise_down = 26.9 #dB/K
-#bitrate_down = 6800 #bps
+bitrate_down = 13600 #bps
 
 #Uplink (ELO)
 Tx_up = 3                           #Transmission power [dBW]
@@ -58,7 +58,7 @@ polarizationloss_up = 0.5           #Polarization loss [dB]
 margin_up = 3                       #Link margin [dB]
 Gain_up = 23.6                      #Gain [dBi]
 Tnoise_up = 26.9                    #dB/K
-#bitrate_up = 8000                  #bps
+bitrate_up = 16000                  #bps
 ########################################################################################################################
 ################################################ CALCULATIONS ##########################################################
 ########################################################################################################################
@@ -81,8 +81,8 @@ Rx_up = EIRP_up - freespaceloss_up - polarizationloss_up
 GoverT_up = Gain_up - Tnoise_up         # G/T Pathfinder
 
 # Calculating Energy to bit Noise power spectral ratio
-bitrate_down = 1/kb*10**((Rx_down+GoverT_up-5.5)/10)
-bitrate_up = 1/kb*10**((Rx_up+GoverT_down-5.5)/10)
+#bitrate_down = 1/kb*10**((Rx_down+GoverT_up-5.5)/10)
+#bitrate_up = 1/kb*10**((Rx_up+GoverT_down-5.5)/10)
 
 EbN0_down = Rx_down + GoverT_up - 10*np.log10(kb*bitrate_down)
 EbN0_up = Rx_up + GoverT_down - 10*np.log10(kb*bitrate_up)
@@ -124,6 +124,9 @@ print('integration_time_down:', integration_time_down, 's')
 print('integration_time_up:', integration_time_up, 's')
 print('down:', sigma_rhoTM_down, '\n', 'up:', sigma_rhoTM_up)
 print('sigma_rhoTM:', sigma_rhoTM)
+
+
+ranging_errors_array = np.array([385.57269806470686, 96.622056952627, 24.212870715731942, 6.067590846096244, 1.5204995354685686])
 
 
 #Tsd = 1/bitrate

@@ -14,11 +14,8 @@ from Satellites_list.ELO import ELO
 from tudatpy.kernel import numerical_simulation
 from tudatpy.kernel.numerical_simulation import propagation_setup
 from tudatpy.kernel.numerical_simulation import estimation_setup
-#from Nominal_Dynamic_Model.Environments.Solar_System1 import solar_system1
 from Nominal_Dynamic_Model.Environments.Integrator_env_SMVE22M1515J import int_environment
-#from Nominal_Dynamic_Model.Environments.Solar_System import solar_system
-#from Nominal_Dynamic_Model.Environments.Three_Body_System_PM import three_body_system_pm
-#from Nominal_Dynamic_Model.Environments.Three_Body_System_PM_NO_SRP import int_environment
+
 
 eph_time = Estimation_Setup.ephemeris_span
 dt = Estimation_Setup.dt
