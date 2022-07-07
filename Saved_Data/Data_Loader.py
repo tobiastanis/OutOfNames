@@ -78,3 +78,15 @@ def json_measurementarray_reader(dirname):
     measurements = np.array(a)
     return measurements
 
+
+def json_estimation_data_reader(dirname, name):
+    dirname = dirname
+    working_dir = Path.joinpath(parent_dir, dirname)
+    file_path = Path.joinpath(working_dir, name)
+    with open(file_path) as json_file:
+        estimation_data_dict = json.load(json_file)
+    a = list(list(estimation_data_dict.items())[0])[1]
+    estimation_data = np.array(a)
+    return estimation_data
+
+
