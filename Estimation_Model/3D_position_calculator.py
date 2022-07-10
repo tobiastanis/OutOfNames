@@ -38,13 +38,16 @@ stdP_1_3sigma_after_5days = stdP_1_3sigma[1440:4033, :]
 
 pos_3D_eml2o_1 = np.linalg.norm(stdP_1_3sigma_after_5days[:, 0:3], axis=1)
 pos_3D_elo_1 = np.linalg.norm(stdP_1_3sigma_after_5days[:, 6:9], axis=1)
+
+velo_3D_eml2o_1 = np.linalg.norm(stdP_1_3sigma_after_5days[:, 3:6], axis=1)
+velo_3D_elo_1 = np.linalg.norm(stdP_1_3sigma_after_5days[:, 9:12], axis=1)
+
 #Average position errors between 5 and 14 days of simulation
 eml2o_average_3D_pos_error_1 = sum(pos_3D_eml2o_1)/len(pos_3D_eml2o_1)
 elo_average_3D_pos_error_1 = sum(pos_3D_elo_1)/len(pos_3D_elo_1)
 
-print("Position error EML2O (1 antenna):", eml2o_average_3D_pos_error_1, 'm')
-print("Position error ELO (1 antenna):", elo_average_3D_pos_error_1, 'm')
-
+eml2o_average_3D_velo_error_1 = sum(velo_3D_eml2o_1)/len(velo_3D_eml2o_1)
+elo_average_3D_velo_error_1 = sum(velo_3D_elo_1)/len(velo_3D_elo_1)
 
 '2 Antenna'
 x_error_eml2o_2 = est_data_2_antenna[:, 1:7]
@@ -58,12 +61,15 @@ stdP_2_3sigma_after_5days = stdP_2_3sigma[1440:4033, :]
 pos_3D_eml2o_2 = np.linalg.norm(stdP_2_3sigma_after_5days[:, 0:3], axis=1)
 pos_3D_elo_2 = np.linalg.norm(stdP_2_3sigma_after_5days[:, 6:9], axis=1)
 
+velo_3D_eml2o_2 = np.linalg.norm(stdP_2_3sigma_after_5days[:, 3:6], axis=1)
+velo_3D_elo_2 = np.linalg.norm(stdP_2_3sigma_after_5days[:, 9:12], axis=1)
+
 #Average position errors between 5 and 14 days of simulation
 eml2o_average_3D_pos_error_2 = sum(pos_3D_eml2o_2)/len(pos_3D_eml2o_2)
 elo_average_3D_pos_error_2 = sum(pos_3D_elo_2)/len(pos_3D_elo_2)
 
-print("Position error EML2O (2 antenna):", eml2o_average_3D_pos_error_2, 'm')
-print("Position error ELO (2 antenna):", elo_average_3D_pos_error_2, 'm')
+eml2o_average_3D_velo_error_2 = sum(velo_3D_eml2o_2)/len(velo_3D_eml2o_2)
+elo_average_3D_velo_error_2 = sum(velo_3D_elo_2)/len(velo_3D_elo_2)
 
 # 4 Antenna
 x_error_eml2o_4 = est_data_4_antenna[:, 1:7]
@@ -77,12 +83,16 @@ stdP_4_3sigma_after_5days = stdP_4_3sigma[1440:4033, :]
 pos_3D_eml2o_4 = np.linalg.norm(stdP_4_3sigma_after_5days[:, 0:3], axis=1)
 pos_3D_elo_4 = np.linalg.norm(stdP_4_3sigma_after_5days[:, 6:9], axis=1)
 
+velo_3D_eml2o_4 = np.linalg.norm(stdP_4_3sigma_after_5days[:, 3:6], axis=1)
+velo_3D_elo_4 = np.linalg.norm(stdP_4_3sigma_after_5days[:, 9:12], axis=1)
+
 #Average position errors between 5 and 14 days of simulation
 eml2o_average_3D_pos_error_4 = sum(pos_3D_eml2o_4)/len(pos_3D_eml2o_4)
 elo_average_3D_pos_error_4 = sum(pos_3D_elo_4)/len(pos_3D_elo_4)
 
-print("Position error EML2O (4 antenna):", eml2o_average_3D_pos_error_4, 'm')
-print("Position error ELO (4 antenna):", elo_average_3D_pos_error_4, 'm')
+eml2o_average_3D_velo_error_4 = sum(velo_3D_eml2o_4)/len(velo_3D_eml2o_4)
+elo_average_3D_velo_error_4 = sum(velo_3D_elo_4)/len(velo_3D_elo_4)
+
 
 # 8 Antenna
 x_error_eml2o_8 = est_data_8_antenna[:, 1:7]
@@ -96,12 +106,15 @@ stdP_8_3sigma_after_5days = stdP_8_3sigma[1440:4033, :]
 pos_3D_eml2o_8 = np.linalg.norm(stdP_8_3sigma_after_5days[:, 0:3], axis=1)
 pos_3D_elo_8 = np.linalg.norm(stdP_8_3sigma_after_5days[:, 6:9], axis=1)
 
+velo_3D_eml2o_8 = np.linalg.norm(stdP_8_3sigma_after_5days[:, 3:6], axis=1)
+velo_3D_elo_8 = np.linalg.norm(stdP_8_3sigma_after_5days[:, 9:12], axis=1)
+
 #Average position errors between 5 and 14 days of simulation
 eml2o_average_3D_pos_error_8 = sum(pos_3D_eml2o_8)/len(pos_3D_eml2o_8)
 elo_average_3D_pos_error_8 = sum(pos_3D_elo_8)/len(pos_3D_elo_8)
 
-print("Position error EML2O (8 antenna):", eml2o_average_3D_pos_error_8, 'm')
-print("Position error ELO (8 antenna):", elo_average_3D_pos_error_8, 'm')
+eml2o_average_3D_velo_error_8 = sum(velo_3D_eml2o_8)/len(velo_3D_eml2o_8)
+elo_average_3D_velo_error_8 = sum(velo_3D_elo_8)/len(velo_3D_elo_8)
 
 # 16 Antenna
 x_error_eml2o_16 = est_data_16_antenna[:, 1:7]
@@ -115,9 +128,37 @@ stdP_16_3sigma_after_5days = stdP_16_3sigma[1440:4033, :]
 pos_3D_eml2o_16 = np.linalg.norm(stdP_16_3sigma_after_5days[:, 0:3], axis=1)
 pos_3D_elo_16 = np.linalg.norm(stdP_16_3sigma_after_5days[:, 6:9], axis=1)
 
+velo_3D_eml2o_16 = np.linalg.norm(stdP_16_3sigma_after_5days[:, 3:6], axis=1)
+velo_3D_elo_16 = np.linalg.norm(stdP_16_3sigma_after_5days[:, 9:12], axis=1)
+
 #Average position errors between 5 and 14 days of simulation
 eml2o_average_3D_pos_error_16 = sum(pos_3D_eml2o_16)/len(pos_3D_eml2o_16)
 elo_average_3D_pos_error_16 = sum(pos_3D_elo_16)/len(pos_3D_elo_16)
 
+eml2o_average_3D_velo_error_16 = sum(velo_3D_eml2o_16)/len(velo_3D_eml2o_16)
+elo_average_3D_velo_error_16 = sum(velo_3D_elo_16)/len(velo_3D_elo_16)
+
+print("Position error EML2O (1 antenna):", eml2o_average_3D_pos_error_1, 'm')
+print("Velocity error EML2O (1 antenna):", eml2o_average_3D_velo_error_1, 'm')
+print("Position error ELO (1 antenna):", elo_average_3D_pos_error_1, 'm')
+print("Velocity error ELO (1 antenna):", elo_average_3D_velo_error_1, 'm')
+
+print("Position error EML2O (2 antenna):", eml2o_average_3D_pos_error_2, 'm')
+print("Velocity error EML2O (2 antenna):", eml2o_average_3D_velo_error_2, 'm')
+print("Position error ELO (2 antenna):", elo_average_3D_pos_error_2, 'm')
+print("Velocity error ELO (2 antenna):", elo_average_3D_velo_error_2, 'm')
+
+print("Position error EML2O (4 antenna):", eml2o_average_3D_pos_error_4, 'm')
+print("Velocity error EML2O (4 antenna):", eml2o_average_3D_velo_error_4, 'm')
+print("Position error ELO (4 antenna):", elo_average_3D_pos_error_4, 'm')
+print("Velocity error ELO (4 antenna):", elo_average_3D_velo_error_4, 'm')
+
+print("Position error EML2O (8 antenna):", eml2o_average_3D_pos_error_8, 'm')
+print("Velocity error EML2O (8 antenna):", eml2o_average_3D_velo_error_8, 'm')
+print("Position error ELO (8 antenna):", elo_average_3D_pos_error_8, 'm')
+print("Velocity error ELO (8 antenna):", elo_average_3D_velo_error_8, 'm')
+
 print("Position error EML2O (16 antenna):", eml2o_average_3D_pos_error_16, 'm')
+print("Velocity error EML2O (16 antenna):", eml2o_average_3D_velo_error_16, 'm')
 print("Position error ELO (16 antenna):", elo_average_3D_pos_error_16, 'm')
+print("Velocity error ELO (16 antenna):", elo_average_3D_velo_error_16, 'm')

@@ -10,6 +10,7 @@ import numpy as np
 from Initials import Simulation_Time_Setup
 from Initials.initial_states_obtainer import moon_ephemeris
 from Saved_Data import Data_Loader
+from Measurement_Model.measurement_functions import h_wrt_moon_states
 #tudatpy
 
 time = Simulation_Time_Setup.simulation_span
@@ -206,6 +207,10 @@ plt.legend(['SRP', 'SH Earth', 'SH Moon', 'PM Sun', 'PM Mercury', 'PM Venus',
             'PM Mars', 'PM Jupiter', 'PM Saturn', 'PM Uranus', 'PM Neptune']
            , loc='upper left', bbox_to_anchor=(1, 1))
 
+h = h_wrt_moon_states(x_eml2o_moon, x_elo_moon)
+plt.figure()
+plt.plot(Simulation_Time_Setup.simulation_span, h)
+plt.hlines(y=1800, xmin=min(Simulation_Time_Setup.simulation_span), xmax=max(Simulation_Time_Setup.simulation_span), linewidth=1, color='r')
 
 
 plt.show()

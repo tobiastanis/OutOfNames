@@ -3,6 +3,18 @@ function file for ranging and range rate functions
 """
 import numpy as np
 
+def h_wrt_moon_states(states_eml2o, states_elo):
+    h_list = []
+    for i in range(len(states_eml2o)):
+        a = states_eml2o[i, 0:3]
+        b = np.subtract(states_eml2o[i, 0:3], states_elo[i, 0:3])
+        a_abs = np.linalg.norm(a)
+        b_abs = np.linalg.norm(b)
+        theta = np.arccos(np.dot(a, b) / (a_abs * b_abs))
+        h = a_abs * np.sin(theta)
+        h_list.append(h)
+    return np.array(h_list)
+
 def h(states, x_moon):
     a = np.subtract(states[0:3], x_moon[0:3])
     b = np.subtract(states[0:3], states[6:9])
@@ -12,6 +24,17 @@ def h(states, x_moon):
     h = a_abs*np.sin(theta)
     return h
 
+def h_total(states, x_moon):
+    h_list = []
+    for i in range(len(states)):
+        a = np.subtract(states[i, 0:3], x_moon[i, 0:3])
+        b = np.subtract(states[i, 0:3], states[i, 6:9])
+        a_abs = np.linalg.norm(a)
+        b_abs = np.linalg.norm(b)
+        theta = np.arccos(np.dot(a,b)/(a_abs*b_abs))
+        h = a_abs*np.sin(theta)
+        h_list.append(h)
+    return np.array(h_list)
 
 def measurement_array(states, timestep):
     from Initials import Simulation_Time_Setup
