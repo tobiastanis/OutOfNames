@@ -30,6 +30,7 @@ for_eml2 = int_environment(
     tend=max(eph_time),
     dt=dt
 )
+
 for_elo = int_environment(
     name=ELO.name,
     mass=ELO.mass,
@@ -40,8 +41,8 @@ for_elo = int_environment(
     tend=max(eph_time),
     dt=dt
 )
-elo_variables = for_elo.create_variables()
-eml2_variables = for_eml2.create_variables()
+for_elo.create_variables()
+for_eml2.create_variables()
 
 #errors
 sigma_noise = Simulation_Time_Setup.sigma_noise
