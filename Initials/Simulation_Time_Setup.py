@@ -45,7 +45,7 @@ measurement_span_t = np.linspace(0, simulation_duration, n_steps_measure)
 
 'No. of antennas 1, 2, 4, 8, 16'
 ranging_errors_array = np.array([385.57269806470686, 96.622056952627, 24.212870715731942, 6.067590846096244, 1.5204995354685686])
-no_of_antennas = 1
+no_of_antennas = 8
 if no_of_antennas == 1:
     sigma_noise = ranging_errors_array[0]
     filename = "estimation_data_1_antenna.json"
