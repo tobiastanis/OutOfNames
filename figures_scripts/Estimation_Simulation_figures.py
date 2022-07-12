@@ -3,8 +3,7 @@ from Estimation_Model.Executor import stdP
 from Estimation_Model.Executor import t
 from Estimation_Model.Executor import x_error
 from Estimation_Model.Executor import visibility
-from Estimation_Model.Executor import X
-from Measurement_Model.Nominal_Observations_Cooker import states
+
 
 std_Pk_up = 3*stdP
 std_Pk_down =-3*stdP
@@ -90,14 +89,12 @@ plt.figure()
 plt.plot(t, x_error[:, 6], color='red', label='x')
 plt.plot(t, x_error[:, 7], color='blue', label='y')
 plt.plot(t, x_error[:, 8], color='green', label='z')
-
 plt.plot(t, std_Pk_up[:, 6], color='red', linestyle='-.', label='3$\sigma_{x}$')
 plt.plot(t, std_Pk_down[:, 6], color='red', linestyle='-.')
 plt.plot(t, std_Pk_up[:, 7], color='blue', linestyle='-.', label='3$\sigma_{y}$')
 plt.plot(t, std_Pk_down[:, 7], color='blue', linestyle='-.')
 plt.plot(t, std_Pk_up[:, 8], color='green', linestyle='-.', label='3$\sigma_{z}$')
 plt.plot(t, std_Pk_down[:, 8], color='green', linestyle='-.')
-
 plt.legend()
 plt.xlim(0, 14)
 plt.ylim(-100000, 100000)
@@ -111,14 +108,12 @@ plt.figure()
 plt.plot(t, x_error[:, 9], color='red', label='$\dot{x}$')
 plt.plot(t, x_error[:, 10], color='blue', label='$\dot{y}$')
 plt.plot(t, x_error[:, 11], color='green', label='$\dot{z}$')
-
 plt.plot(t, std_Pk_up[:, 9], color='red', linestyle='-.', label='3$\sigma_{\dot{x}}$')
 plt.plot(t, std_Pk_down[:, 9], color='red', linestyle='-.')
 plt.plot(t, std_Pk_up[:, 10], color='blue', linestyle='-.', label='3$\sigma_{\dot{y}}$')
 plt.plot(t, std_Pk_down[:, 10], color='blue', linestyle='-.')
 plt.plot(t, std_Pk_up[:, 11], color='green', linestyle='-.', label='3$\sigma_{\dot{z}}$')
 plt.plot(t, std_Pk_down[:, 11], color='green', linestyle='-.')
-
 plt.legend()
 plt.xlim(0, 14)
 plt.ylim(-20, 20)
