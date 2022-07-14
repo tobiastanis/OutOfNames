@@ -31,7 +31,6 @@ x_elo_moon = output_elo[:, 14:17] * 10 ** -3
 
 intersatellite_vector = np.subtract(x_eml2o[:, 0:3], x_elo[:, 0:3])
 intersatellite_distance = np.linalg.norm(intersatellite_vector, axis=1)
-print(intersatellite_distance)
 
 max_intersatellitedistance = max(intersatellite_distance)
 min_intersatellitedistance = min(intersatellite_distance)
@@ -74,6 +73,7 @@ plot = plt.axes(projection='3d')
 plot.plot(x_elo_moon[:, 0], x_elo_moon[:, 1], x_elo_moon[:, 2], color='red')
 plot.plot(0, 0, 0, marker='o', markersize=10, color='grey')
 plot.plot(x_elo_moon[0, 0], x_elo_moon[0, 1], x_elo_moon[0, 2], marker='o', markersize=3, color='red')
+
 plt.title('Moon-ELO System')
 plt.legend(['ELO', 'Moon'])
 plot.set_xlabel('x-direction [km]')
@@ -160,6 +160,11 @@ ax3.set_title('Earth-centered trajectories in yz-plane')
 ax3.set_xlabel('y-direction [km]')
 ax3.set_ylabel('z-direction [km]')
 ax2.legend(['EML2O', 'ELO', 'Moon', 'Earth'], loc='upper left', bbox_to_anchor=(1, 1))
+
+plt.figure()
+plt.plot(time, x_elo[:, 3], color='red')
+plt.plot(time, x_elo[:, 4], color='blue')
+plt.plot(time, x_elo[:, 5], color='green')
 
 plt.figure()
 plt.title("Breakdown of the accelerations acting on EML2O")

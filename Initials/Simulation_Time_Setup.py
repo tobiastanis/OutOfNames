@@ -30,7 +30,6 @@ simulation_end_epoch = simulation_start_epoch + simulation_duration*constants.JU
 n_steps_nomdym = math.floor((simulation_end_epoch-simulation_start_epoch)/fixed_time_step)+1
 simulation_span = np.linspace(0, simulation_duration, n_steps_nomdym)
 simulation_span_ephemeris = np.linspace(simulation_start_epoch, simulation_end_epoch, n_steps_nomdym)
-
 """
 The following values are used for the measurements. Measurements cannot take place every 1 second, so another 
 measurement interval is used, e.g., 5 min or more. Measurement interval will be provided in whole seconds.

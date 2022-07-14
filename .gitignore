@@ -7,3 +7,4 @@ Saved_Data/Nominal_Trajectory_Data/EML2_ELO_60390_10days/states.json
 Initials/__pycache__/
 Estimation_Model/__pycache__/
 *.pyc
+.idea/.name
