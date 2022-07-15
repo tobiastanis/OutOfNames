@@ -139,8 +139,7 @@ elo_average_3D_pos_error_16 = sum(pos_3D_elo_16)/len(pos_3D_elo_16)
 eml2o_average_3D_velo_error_16 = sum(velo_3D_eml2o_16)/len(velo_3D_eml2o_16)
 elo_average_3D_velo_error_16 = sum(velo_3D_elo_16)/len(velo_3D_elo_16)
 
-
-print('Average 3D-position and velocity errors of EML2O and ELO per different antenna configuration')
+print('5 day average 3D-position and velocity errors of EML2O and ELO per different antenna configuration')
 print("Position error EML2O (1 antenna):", eml2o_average_3D_pos_error_1, 'm')
 print("Velocity error EML2O (1 antenna):", eml2o_average_3D_velo_error_1, 'm')
 print("Position error ELO (1 antenna):", elo_average_3D_pos_error_1, 'm')
