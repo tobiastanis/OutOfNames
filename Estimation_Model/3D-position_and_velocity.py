@@ -14,6 +14,7 @@ est_data_16_antenna = Data_Loader.json_estimation_data_reader(DIRECTORY_NAME, "e
 
 et = est_data_1_antenna[:, 0]
 t = measurement_span_t
+idx_6 = 6*24*12     #6 days index number
 'Obtaining the 99.7% confidence interval for each antenna configuration'
 stdP_1_3sigma = 3*est_data_1_antenna[:, 13:25]
 stdP_2_3sigma = 3*est_data_2_antenna[:, 13:25]
@@ -26,30 +27,67 @@ eml2o_1ant_pos = np.linalg.norm(stdP_1_3sigma[:, 0:3], axis=1)
 eml2o_1ant_vel = np.linalg.norm(stdP_1_3sigma[:, 3:6], axis=1)
 elo_1ant_pos = np.linalg.norm(stdP_1_3sigma[:, 6:9], axis=1)
 elo_1ant_vel = np.linalg.norm(stdP_1_3sigma[:, 9:12], axis=1)
+#from 6 days error average
+avg_eml2o_pos_1 = sum(eml2o_1ant_pos[idx_6:4033])/len(eml2o_1ant_pos[idx_6:4033])
+avg_eml2o_vel_1 = sum(eml2o_1ant_vel[idx_6:4033])/len(eml2o_1ant_vel[idx_6:4033])
+avg_elo_pos_1 = sum(elo_1ant_pos[idx_6:4033])/len(elo_1ant_pos[idx_6:4033])
+avg_elo_vel_1 = sum(elo_1ant_vel[idx_6:4033])/len(elo_1ant_vel[idx_6:4033])
 
 #2antenna
 eml2o_2ant_pos = np.linalg.norm(stdP_2_3sigma[:, 0:3], axis=1)
 eml2o_2ant_vel = np.linalg.norm(stdP_2_3sigma[:, 3:6], axis=1)
 elo_2ant_pos = np.linalg.norm(stdP_2_3sigma[:, 6:9], axis=1)
 elo_2ant_vel = np.linalg.norm(stdP_2_3sigma[:, 9:12], axis=1)
+#from 6 days error average
+avg_eml2o_pos_2 = sum(eml2o_2ant_pos[idx_6:4033])/len(eml2o_2ant_pos[idx_6:4033])
+avg_eml2o_vel_2 = sum(eml2o_2ant_vel[idx_6:4033])/len(eml2o_2ant_vel[idx_6:4033])
+avg_elo_pos_2 = sum(elo_2ant_pos[idx_6:4033])/len(elo_2ant_pos[idx_6:4033])
+avg_elo_vel_2 = sum(elo_2ant_vel[idx_6:4033])/len(elo_2ant_vel[idx_6:4033])
 
 #4antenna
 eml2o_4ant_pos = np.linalg.norm(stdP_4_3sigma[:, 0:3], axis=1)
 eml2o_4ant_vel = np.linalg.norm(stdP_4_3sigma[:, 3:6], axis=1)
 elo_4ant_pos = np.linalg.norm(stdP_4_3sigma[:, 6:9], axis=1)
 elo_4ant_vel = np.linalg.norm(stdP_4_3sigma[:, 9:12], axis=1)
+#from 6 days error average
+avg_eml2o_pos_4 = sum(eml2o_4ant_pos[idx_6:4033])/len(eml2o_4ant_pos[idx_6:4033])
+avg_eml2o_vel_4 = sum(eml2o_4ant_vel[idx_6:4033])/len(eml2o_4ant_vel[idx_6:4033])
+avg_elo_pos_4 = sum(elo_4ant_pos[idx_6:4033])/len(elo_4ant_pos[idx_6:4033])
+avg_elo_vel_4 = sum(elo_4ant_vel[idx_6:4033])/len(elo_4ant_vel[idx_6:4033])
 
 #8antenna
 eml2o_8ant_pos = np.linalg.norm(stdP_8_3sigma[:, 0:3], axis=1)
 eml2o_8ant_vel = np.linalg.norm(stdP_8_3sigma[:, 3:6], axis=1)
 elo_8ant_pos = np.linalg.norm(stdP_8_3sigma[:, 6:9], axis=1)
 elo_8ant_vel = np.linalg.norm(stdP_8_3sigma[:, 9:12], axis=1)
+#from 6 days error average
+avg_eml2o_pos_8 = sum(eml2o_8ant_pos[idx_6:4033])/len(eml2o_8ant_pos[idx_6:4033])
+avg_eml2o_vel_8 = sum(eml2o_8ant_vel[idx_6:4033])/len(eml2o_8ant_vel[idx_6:4033])
+avg_elo_pos_8 = sum(elo_8ant_pos[idx_6:4033])/len(elo_8ant_pos[idx_6:4033])
+avg_elo_vel_8 = sum(elo_8ant_vel[idx_6:4033])/len(elo_8ant_vel[idx_6:4033])
 
 #16antenna
 eml2o_16ant_pos = np.linalg.norm(stdP_16_3sigma[:, 0:3], axis=1)
 eml2o_16ant_vel = np.linalg.norm(stdP_16_3sigma[:, 3:6], axis=1)
 elo_16ant_pos = np.linalg.norm(stdP_16_3sigma[:, 6:9], axis=1)
 elo_16ant_vel = np.linalg.norm(stdP_16_3sigma[:, 9:12], axis=1)
+#from 6 days error average
+avg_eml2o_pos_16 = sum(eml2o_16ant_pos[idx_6:4033])/len(eml2o_16ant_pos[idx_6:4033])
+avg_eml2o_vel_16 = sum(eml2o_16ant_vel[idx_6:4033])/len(eml2o_16ant_vel[idx_6:4033])
+avg_elo_pos_16 = sum(elo_16ant_pos[idx_6:4033])/len(elo_16ant_pos[idx_6:4033])
+avg_elo_vel_16 = sum(elo_16ant_vel[idx_6:4033])/len(elo_16ant_vel[idx_6:4033])
+
+print('From 6 day average 3D-position and velocity errors of EML2O and ELO per different antenna configuration')
+print("EML2O 1 antenna: Position error:", avg_eml2o_pos_1, 'm', "Velocity error", avg_eml2o_vel_1, 'm/s')
+print("ELO 1 antenna: Position error:", avg_elo_pos_1, 'm', "Velocity error", avg_elo_vel_1, 'm/s')
+print("EML2O 2 antenna: Position error:", avg_eml2o_pos_2, 'm', "Velocity error", avg_eml2o_vel_2, 'm/s')
+print("ELO 2 antenna: Position error:", avg_elo_pos_2, 'm', "Velocity error", avg_elo_vel_2, 'm/s')
+print("EML2O 4 antenna: Position error:", avg_eml2o_pos_4, 'm', "Velocity error", avg_eml2o_vel_4, 'm/s')
+print("ELO 4 antenna: Position error:", avg_elo_pos_4, 'm', "Velocity error", avg_elo_vel_4, 'm/s')
+print("EML2O 8 antenna: Position error:", avg_eml2o_pos_8, 'm', "Velocity error", avg_eml2o_vel_8, 'm/s')
+print("ELO 8 antenna: Position error:", avg_elo_pos_8, 'm', "Velocity error", avg_elo_vel_8, 'm/s')
+print("EML2O 16 antenna: Position error:", avg_eml2o_pos_16, 'm', "Velocity error", avg_eml2o_vel_16, 'm/s')
+print("ELO 16 antenna: Position error:", avg_elo_pos_16, 'm', "Velocity error", avg_elo_vel_16, 'm/s')
 
 lumio_position_accuracy = 1000
 lumio_velocity_accuracy = 1e-2
@@ -69,8 +107,6 @@ t_4ant_vel = find_time(eml2o_4ant_vel, lumio_velocity_accuracy)
 t_8ant_vel = find_time(eml2o_8ant_vel, lumio_velocity_accuracy)
 t_16ant_vel = find_time(eml2o_16ant_vel, lumio_velocity_accuracy)
 
-print(t_2ant_pos, t_4ant_pos, t_8ant_pos, t_16ant_pos)
-print(t_2ant_vel, t_4ant_vel, t_8ant_vel, t_16ant_vel)
 
 
 """
@@ -219,8 +255,8 @@ plt.vlines(x=t_4ant_pos, ymin=0, ymax=lumio_position_accuracy, color='green', li
 plt.vlines(x=t_8ant_pos, ymin=0, ymax=lumio_position_accuracy, color='red', linestyles='--')
 plt.vlines(x=t_16ant_pos, ymin=0, ymax=lumio_position_accuracy, color='purple', linestyles='--')
 plt.xlim(0, 14)
-plt.yscale("log")
-plt.ylim(1,100000)
+#plt.yscale("log")
+plt.ylim(1,10000)
 plt.title('3D-position accuracy of EML2O using different configurations', size=26)
 plt.ylabel('3D-position error [m]', size=16)
 plt.xlabel('Time [days]', size=16)
@@ -262,7 +298,7 @@ plt.ylabel('3D-position error [m]', size=16)
 plt.xlabel('Time [days]', size=16)
 plt.xlim(0, 14)
 plt.yscale("log")
-plt.ylim(10,100000)
+plt.ylim(10,1000000)
 plt.grid(which='major', axis='both', linestyle='-')
 plt.grid(which='minor', axis='both', linestyle='--')
 plt.legend(['1 Antenna', '2 Antennas', '4 Antennas', '8 Antennas', '16 Antennas'])
