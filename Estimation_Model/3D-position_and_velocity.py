@@ -13,17 +13,276 @@ est_data_8_antenna = Data_Loader.json_estimation_data_reader(DIRECTORY_NAME, "es
 est_data_16_antenna = Data_Loader.json_estimation_data_reader(DIRECTORY_NAME, "estimation_data_16_antenna.json")
 
 et = est_data_1_antenna[:, 0]
-
+t = measurement_span_t
 'Obtaining the 99.7% confidence interval for each antenna configuration'
-stdP_1 = est_data_1_antenna[:, 13:25]
-stdP_1_3sigma = 3*stdP_1
-stdP_2 = est_data_2_antenna[:, 13:25]
-stdP_2_3sigma = 3*stdP_2
-stdP_4 = est_data_4_antenna[:, 13:25]
-stdP_4_3sigma = 3*stdP_4
-stdP_8 = est_data_8_antenna[:, 13:25]
-stdP_8_3sigma = 3*stdP_8
-stdP_16 = est_data_16_antenna[:, 13:25]
-stdP_16_3sigma = 3*stdP_16
+stdP_1_3sigma = 3*est_data_1_antenna[:, 13:25]
+stdP_2_3sigma = 3*est_data_2_antenna[:, 13:25]
+stdP_4_3sigma = 3*est_data_4_antenna[:, 13:25]
+stdP_8_3sigma = 3*est_data_8_antenna[:, 13:25]
+stdP_16_3sigma = 3*est_data_16_antenna[:, 13:25]
+
+#1antenna
+eml2o_1ant_pos = np.linalg.norm(stdP_1_3sigma[:, 0:3], axis=1)
+eml2o_1ant_vel = np.linalg.norm(stdP_1_3sigma[:, 3:6], axis=1)
+elo_1ant_pos = np.linalg.norm(stdP_1_3sigma[:, 6:9], axis=1)
+elo_1ant_vel = np.linalg.norm(stdP_1_3sigma[:, 9:12], axis=1)
+
+#2antenna
+eml2o_2ant_pos = np.linalg.norm(stdP_2_3sigma[:, 0:3], axis=1)
+eml2o_2ant_vel = np.linalg.norm(stdP_2_3sigma[:, 3:6], axis=1)
+elo_2ant_pos = np.linalg.norm(stdP_2_3sigma[:, 6:9], axis=1)
+elo_2ant_vel = np.linalg.norm(stdP_2_3sigma[:, 9:12], axis=1)
+
+#4antenna
+eml2o_4ant_pos = np.linalg.norm(stdP_4_3sigma[:, 0:3], axis=1)
+eml2o_4ant_vel = np.linalg.norm(stdP_4_3sigma[:, 3:6], axis=1)
+elo_4ant_pos = np.linalg.norm(stdP_4_3sigma[:, 6:9], axis=1)
+elo_4ant_vel = np.linalg.norm(stdP_4_3sigma[:, 9:12], axis=1)
+
+#8antenna
+eml2o_8ant_pos = np.linalg.norm(stdP_8_3sigma[:, 0:3], axis=1)
+eml2o_8ant_vel = np.linalg.norm(stdP_8_3sigma[:, 3:6], axis=1)
+elo_8ant_pos = np.linalg.norm(stdP_8_3sigma[:, 6:9], axis=1)
+elo_8ant_vel = np.linalg.norm(stdP_8_3sigma[:, 9:12], axis=1)
+
+#16antenna
+eml2o_16ant_pos = np.linalg.norm(stdP_16_3sigma[:, 0:3], axis=1)
+eml2o_16ant_vel = np.linalg.norm(stdP_16_3sigma[:, 3:6], axis=1)
+elo_16ant_pos = np.linalg.norm(stdP_16_3sigma[:, 6:9], axis=1)
+elo_16ant_vel = np.linalg.norm(stdP_16_3sigma[:, 9:12], axis=1)
+
+lumio_position_accuracy = 1000
+lumio_velocity_accuracy = 1e-2
+
+def find_time(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return t[idx]
+
+t_2ant_pos = find_time(eml2o_2ant_pos, lumio_position_accuracy)
+t_4ant_pos = find_time(eml2o_4ant_pos, lumio_position_accuracy)
+t_8ant_pos = find_time(eml2o_8ant_pos, lumio_position_accuracy)
+t_16ant_pos = find_time(eml2o_16ant_pos, lumio_position_accuracy)
+
+t_2ant_vel = find_time(eml2o_2ant_vel, lumio_velocity_accuracy)
+t_4ant_vel = find_time(eml2o_4ant_vel, lumio_velocity_accuracy)
+t_8ant_vel = find_time(eml2o_8ant_vel, lumio_velocity_accuracy)
+t_16ant_vel = find_time(eml2o_16ant_vel, lumio_velocity_accuracy)
+
+print(t_2ant_pos, t_4ant_pos, t_8ant_pos, t_16ant_pos)
+print(t_2ant_vel, t_4ant_vel, t_8ant_vel, t_16ant_vel)
 
 
+"""
+#1antenna
+fig1, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, constrained_layout=True, sharey=False)
+ax1.plot(t, eml2o_1ant_pos)
+ax1.set_xlabel('Time [days]')
+ax1.set_ylabel('3D-position error [m]')
+ax1.set_title('3D-position error for EML2O using 1 antenna', size=22)
+ax1.set_xlim(0, 14)
+ax1.grid(True, which="both")
+ax2.plot(t, eml2o_1ant_vel)
+ax2.set_xlabel('Time [days]')
+ax2.set_ylabel('3D-velocity error [m/s]')
+ax2.set_title('3D-velocity error for EML2O using 1 antenna', size=22)
+ax2.set_xlim(0, 14)
+ax2.grid(True, which="both")
+ax3.plot(t, elo_1ant_pos)
+ax3.set_xlabel('Time [days]')
+ax3.set_ylabel('3D-position error [m]')
+ax3.set_title('3D-position error for ELO using 1 antenna', size=22)
+ax3.set_xlim(0, 14)
+ax3.grid(True, which="both")
+ax4.plot(t, elo_1ant_vel)
+ax4.set_xlabel('Time [days]')
+ax4.set_ylabel('3D-velocity error [m/s]')
+ax4.set_title('3D-velocity error for ELO using 1 antenna', size=22)
+ax4.set_xlim(0, 14)
+ax4.grid(True, which="both")
+
+
+fig2, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, constrained_layout=True, sharey=False)
+ax1.plot(t, eml2o_2ant_pos)
+ax1.set_xlabel('Time [days]')
+ax1.set_ylabel('3D-position error [m]')
+ax1.set_title('3D-position error for EML2O using 2 antennas', size=22)
+ax1.set_xlim(0, 14)
+ax1.grid(True, which="both")
+ax2.plot(t, eml2o_2ant_vel)
+ax2.set_xlabel('Time [days]')
+ax2.set_ylabel('3D-velocity error [m/s]')
+ax2.set_title('3D-velocity error for EML2O using 2 antennas', size=22)
+ax2.set_xlim(0, 14)
+ax2.grid(True, which="both")
+ax3.plot(t, elo_2ant_pos)
+ax3.set_xlabel('Time [days]')
+ax3.set_ylabel('3D-position error [m]')
+ax3.set_title('3D-position error for ELO using 2 antennas', size=22)
+ax3.set_xlim(0, 14)
+ax3.grid(True, which="both")
+ax4.plot(t, elo_2ant_vel)
+ax4.set_xlabel('Time [days]')
+ax4.set_ylabel('3D-velocity error [m/s]')
+ax4.set_title('3D-velocity error for ELO using 2 antennas', size=22)
+ax4.set_xlim(0, 14)
+ax4.grid(True, which="both")
+
+fig3, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, constrained_layout=True, sharey=False)
+ax1.plot(t, eml2o_4ant_pos)
+ax1.set_xlabel('Time [days]')
+ax1.set_ylabel('3D-position error [m]')
+ax1.set_title('3D-position error for EML2O using 4 antennas', size=22)
+ax1.set_xlim(0, 14)
+ax1.grid(True, which="both")
+ax2.plot(t, eml2o_4ant_vel)
+ax2.set_xlabel('Time [days]')
+ax2.set_ylabel('3D-velocity error [m/s]')
+ax2.set_title('3D-velocity error for EML2O using 4 antennas', size=22)
+ax2.set_xlim(0, 14)
+ax2.grid(True, which="both")
+ax3.plot(t, elo_4ant_pos)
+ax3.set_xlabel('Time [days]')
+ax3.set_ylabel('3D-position error [m]')
+ax3.set_title('3D-position error for ELO using 4 antennas', size=22)
+ax3.set_xlim(0, 14)
+ax3.grid(True, which="both")
+ax4.plot(t, elo_4ant_vel)
+ax4.set_xlabel('Time [days]')
+ax4.set_ylabel('3D-velocity error [m/s]')
+ax4.set_title('3D-velocity error for ELO using 4 antennas', size=22)
+ax4.set_xlim(0, 14)
+ax4.grid(True, which="both")
+
+fig4, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, constrained_layout=True, sharey=False)
+ax1.plot(t, eml2o_8ant_pos)
+ax1.set_xlabel('Time [days]')
+ax1.set_ylabel('3D-position error [m]')
+ax1.set_title('3D-position error for EML2O using 8 antennas', size=22)
+ax1.set_xlim(0, 14)
+ax1.grid(True, which="both")
+ax2.plot(t, eml2o_8ant_vel)
+ax2.set_xlabel('Time [days]')
+ax2.set_ylabel('3D-velocity error [m/s]')
+ax2.set_title('3D-velocity error for EML2O using 8 antennas', size=22)
+ax2.set_xlim(0, 14)
+ax2.grid(True, which="both")
+ax3.plot(t, elo_8ant_pos)
+ax3.set_xlabel('Time [days]')
+ax3.set_ylabel('3D-position error [m]')
+ax3.set_title('3D-position error for ELO using 8 antennas', size=22)
+ax3.set_xlim(0, 14)
+ax3.grid(True, which="both")
+ax4.plot(t, elo_8ant_vel)
+ax4.set_xlabel('Time [days]')
+ax4.set_ylabel('3D-velocity error [m/s]')
+ax4.set_title('3D-velocity error for ELO using 8 antennas', size=22)
+ax4.set_xlim(0, 14)
+ax4.grid(True, which="both")
+
+fig5, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, constrained_layout=True, sharey=False)
+ax1.plot(t, eml2o_16ant_pos)
+ax1.set_xlabel('Time [days]')
+ax1.set_ylabel('3D-position error [m]')
+ax1.set_title('3D-position error for EML2O using 16 antennas', size=22)
+ax1.set_xlim(0, 14)
+ax1.grid(True, which="both")
+ax2.plot(t, eml2o_16ant_vel)
+ax2.set_xlabel('Time [days]')
+ax2.set_ylabel('3D-velocity error [m/s]')
+ax2.set_title('3D-velocity error for EML2O using 16 antennas', size=22)
+ax2.set_xlim(0, 14)
+ax2.grid(True, which="both")
+ax3.plot(t, elo_16ant_pos)
+ax3.set_xlabel('Time [days]')
+ax3.set_ylabel('3D-position error [m]')
+ax3.set_title('3D-position error for ELO using 16 antennas', size=22)
+ax3.set_xlim(0, 14)
+ax3.grid(True, which="both")
+ax4.plot(t, elo_16ant_vel)
+ax4.set_xlabel('Time [days]')
+ax4.set_ylabel('3D-velocity error [m/s]')
+ax4.set_title('3D-velocity error for ELO using 16 antennas', size=22)
+ax4.set_xlim(0, 14)
+ax4.grid(True, which="both")
+"""
+
+plt.figure(constrained_layout=True)
+plt.plot(t, eml2o_1ant_pos, color='blue')
+plt.plot(t, eml2o_2ant_pos, color='orange')
+plt.plot(t, eml2o_4ant_pos, color='green')
+plt.plot(t, eml2o_8ant_pos, color='red')
+plt.plot(t, eml2o_16ant_pos, color='purple')
+plt.axhline(y=1000, color='r', linestyle='-', linewidth=2)
+plt.vlines(x=t_2ant_pos, ymin=0, ymax=lumio_position_accuracy, color='orange', linestyles='--')
+plt.vlines(x=t_4ant_pos, ymin=0, ymax=lumio_position_accuracy, color='green', linestyles='--')
+plt.vlines(x=t_8ant_pos, ymin=0, ymax=lumio_position_accuracy, color='red', linestyles='--')
+plt.vlines(x=t_16ant_pos, ymin=0, ymax=lumio_position_accuracy, color='purple', linestyles='--')
+plt.xlim(0, 14)
+plt.yscale("log")
+plt.ylim(1,100000)
+plt.title('3D-position accuracy of EML2O using different configurations', size=26)
+plt.ylabel('3D-position error [m]', size=16)
+plt.xlabel('Time [days]', size=16)
+plt.grid(which='major', axis='both', linestyle='-')
+plt.grid(which='minor', axis='both', linestyle='--')
+plt.legend(['1 Antenna', '2 Antennas', '4 Antennas', '8 Antennas', '16 Antennas', 'Required position accuracy'])
+
+plt.figure(constrained_layout=True)
+plt.plot(t, eml2o_1ant_vel, color='blue')
+plt.plot(t, eml2o_2ant_vel, color='orange')
+plt.plot(t, eml2o_4ant_vel, color='green')
+plt.plot(t, eml2o_8ant_vel, color='red')
+plt.plot(t, eml2o_16ant_vel, color='purple')
+plt.axhline(y=1e-2, color='r', linestyle='-', linewidth=2)
+plt.vlines(x=t_2ant_vel, ymin=0, ymax=lumio_velocity_accuracy, color='orange', linestyles='--')
+plt.vlines(x=t_4ant_vel, ymin=0, ymax=lumio_velocity_accuracy, color='green', linestyles='--')
+plt.vlines(x=t_8ant_vel, ymin=0, ymax=lumio_velocity_accuracy, color='red', linestyles='--')
+plt.vlines(x=t_16ant_vel, ymin=0, ymax=lumio_velocity_accuracy, color='purple', linestyles='--')
+plt.title('3D-velocity accuracy of EML2O using different configurations', size=26)
+plt.ylabel('3D-velocity error [m/s]', size=16)
+plt.xlabel('Time [days]', size=16)
+plt.xlim(0, 14)
+plt.yscale("log")
+plt.ylim(1e-5,1)
+plt.grid(which='major', axis='both', linestyle='-')
+plt.grid(which='minor', axis='both', linestyle='--')
+plt.legend(['1 Antenna', '2 Antennas', '4 Antennas', '8 Antennas', '16 Antennas', 'Required velocity accuracy'])
+
+
+
+plt.figure(constrained_layout=True)
+plt.plot(t, elo_1ant_pos)
+plt.plot(t, elo_2ant_pos)
+plt.plot(t, elo_4ant_pos)
+plt.plot(t, elo_8ant_pos)
+plt.plot(t, elo_16ant_pos)
+plt.title('3D-position accuracy of ELO using different configurations', size=26)
+plt.ylabel('3D-position error [m]', size=16)
+plt.xlabel('Time [days]', size=16)
+plt.xlim(0, 14)
+plt.yscale("log")
+plt.ylim(10,100000)
+plt.grid(which='major', axis='both', linestyle='-')
+plt.grid(which='minor', axis='both', linestyle='--')
+plt.legend(['1 Antenna', '2 Antennas', '4 Antennas', '8 Antennas', '16 Antennas'])
+
+
+plt.figure(constrained_layout=True)
+plt.plot(t, elo_1ant_vel)
+plt.plot(t, elo_2ant_vel)
+plt.plot(t, elo_4ant_vel)
+plt.plot(t, elo_8ant_vel)
+plt.plot(t, elo_16ant_vel)
+plt.title('3D-velocity accuracy of ELO using different configurations', size=26)
+plt.ylabel('3D-velocity error [m/s]', size=16)
+plt.xlabel('Time [days]', size=16)
+plt.xlim(0, 14)
+plt.yscale("log")
+plt.ylim(1e-3,100)
+plt.grid(which='major', axis='both', linestyle='-')
+plt.grid(which='minor', axis='both', linestyle='--')
+plt.legend(['1 Antenna', '2 Antennas', '4 Antennas', '8 Antennas', '16 Antennas'])
+
+
+plt.show()
