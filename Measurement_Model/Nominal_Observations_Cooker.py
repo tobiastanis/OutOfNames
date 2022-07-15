@@ -15,8 +15,7 @@ x_moon = moon_ephemeris(Simulation_Time_Setup.measurement_span_ephemeris)
 # States per measurement interval
 states = Data_Loader.json_measurementarray_reader(Simulation_Time_Setup.DIRECTORY_NAME)
 
-print(states[400:500, 3:6])
-print(states[2850:3000, 3:6])
+
 
 bias = Simulation_Time_Setup.bias
 sigma_noise = Simulation_Time_Setup.sigma_noise
